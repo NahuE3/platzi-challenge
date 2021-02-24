@@ -1,0 +1,77 @@
+/*========= REGLAS CSS ===========
+.bloque--elemento__modificador {
+    1. Posicionamiento 
+    2. Modelo Caja
+    3. Tipografia
+    4. Visuales 
+    5. Otros 
+}*/
+
+
+/*========= VARIABLES ===========*/
+:root {  
+  /* Colores */
+    --white-color: #fff;
+    --black-color: #202020;
+    
+    --first-color: #442ccc;
+
+    --bold-gray: #4b4b4b;
+    --mid-gray: #d6d6d6;
+    --light-gray: #f2f2f2;
+
+    --input-color: #80868b;
+    --border-color: #dadce0;
+  
+    /* Sombras */
+    --normal-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.1);
+    
+    /*Fuente y tipografia */
+    --title-font: "Montserrat", sans-serif;
+    --body-font: "Roboto", sans-serif;
+    --large-font-size: 1.6rem;
+    --normal-font-size: 1.4rem;
+    --small-font-size: 1.2rem;
+  }
+
+  
+  /*========= RESET CSS ===========*/
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 62.5%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body,
+  input,
+  button,
+  select,
+  textarea {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    font-weight: 400;
+    color: var(--black-color)
+  }
+
+  ul, ol{
+    margin: 0 0 0 1rem;
+    padding: 0 0 0 1rem;
+  }
+
+  a { text-decoration: none; }
+  a:link { color: #6A26CD; }
+  a:hover { color: #431482; }
+  a:active { color: #6A26CD; }
+  a:visited { color: #6A26CD; }
+
+  table { border-collapse: collapse; }
+  th { text-align: left; }
+  td { vertical-align: middle; }
