@@ -8,8 +8,10 @@ const reducer = (state, action) => {
       ...state,
       cart: action.payload,
     };
-    case 'SET_FAVORITE': return state;
-    case 'DELETE_FAVORITE': return state;
+    case 'SET_FAVORITES': return {
+      ...state,
+      wishList: action.payload,
+    };
     case 'LOGIN_REQUEST':
       return {
         ...state,

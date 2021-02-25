@@ -10,13 +10,8 @@ export const setCart = (payload) => ({
   payload,
 });
 
-export const setFavorite = (payload) => ({
-  type: 'SET_FAVORITE',
-  payload,
-});
-
-export const deteleFavorite = (payload) => ({
-  type: 'DELETE_FAVORITE',
+export const setFavorites = (payload) => ({
+  type: 'SET_FAVORITES',
   payload,
 });
 
@@ -42,33 +37,61 @@ export const setError = (payload) => ({
 
 export const addToCart = ({ cart, product }) => (dispatch) => {
   try {
-    const element = cart?.items?.find((item) => item.product.id === product.id);
+    const newCart = { ...cart };
+    const element = newCart?.items?.find((item) => item.product.id === product.id);
     if (element) {
       element.count += 1;
     } else {
       const cartItem = { count: 1, product };
-      cart.items.push(cartItem);
+      newCart.items.push(cartItem);
     }
-    cart.size += 1;
-    dispatch(setCart({ ...cart }));
+    newCart.size += 1;
+    dispatch(setCart({ ...newCart }));
   } catch (error) {
     dispatch(setError(error));
   }
 }
 
-export const deleteToCart = ({ cart, product }) => (dispatch) => {
+export const removeToCart = ({ cart, product }) => (dispatch) => {
   try {
-    const element = cart?.items?.find((item) => item.product.id === product.id);
-    const index = cart?.items?.findIndex((item) => item.product.id === product.id);
+    const newCart = { ...cart };
+    const element = newCart?.items?.find((item) => item.product.id === product.id);
+    const index = newCart?.items?.findIndex((item) => item.product.id === product.id);
     if (element.count > 1 && index !== -1) {
       element.count -= 1;
     } else if (element.count <= 1 && index !== -1) {
-      cart.items.splice(index, 1);
+      newCart.items.splice(index, 1);
     } else {
       return;
     }
-    cart.size -= 1;
-    dispatch(setCart({ ...cart }));
+    newCart.size -= 1;
+    dispatch(setCart({ ...newCart }));
+  } catch (error) {
+    dispatch(setError(error));
+  }
+}
+
+export const addToFavorite = ({ wishList, product }) => (dispatch) => {
+  try {
+    const list = [ ...wishList ];
+    const element = list?.find((item) => item.id === product.id);
+    if (!element) {
+      list.push(product);
+    }
+    dispatch(setFavorites([ ...list ]));
+  } catch (error) {
+    dispatch(setError(error));
+  }
+}
+
+export const removeToFavorite = ({ wishList, product }) => (dispatch) => {
+  try {
+    const list = [ ...wishList ];
+    const index = list?.findIndex((item) => item.id === product.id);
+    if (index !== -1) {
+      list.splice(index, 1);
+    }
+    dispatch(setFavorites([ ...list ]));
   } catch (error) {
     dispatch(setError(error));
   }
