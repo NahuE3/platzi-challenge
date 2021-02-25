@@ -15,7 +15,7 @@ const UserForm = (props) => {
     }
 
     if (pathname === '/register') {
-      props.loginUser({ ...user });
+      props.registerUser({ ...user });
       return;
     }
 

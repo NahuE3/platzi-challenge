@@ -23,7 +23,7 @@ const Register = ({ onSubmit, error }) => {
           />
           {errors?.name && <span>{errors?.name?.message}</span>}
         </label>
-        <label htmlFor='UserLastName'>
+        <label htmlFor='UserLastname'>
           <p>
             <span>Apellidos *</span>
           </p>

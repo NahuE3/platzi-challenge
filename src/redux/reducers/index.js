@@ -4,6 +4,10 @@ const reducer = (state, action) => {
       ...state,
       theme: action.payload,
     };
+    case 'SET_CART': return {
+      ...state,
+      cart: action.payload,
+    };
     case 'SET_FAVORITE': return state;
     case 'DELETE_FAVORITE': return state;
     case 'LOGIN_REQUEST':
