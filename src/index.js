@@ -9,7 +9,7 @@ import reducer from './redux/reducers';
 import App from './routes';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const preloadedState = { theme: 'light' };
+const preloadedState = { theme: 'light', user: {} };
 const store = createStore(reducer, preloadedState, composeEnhancers(applyMiddleware(thunk)));
 const history = createBrowserHistory();
 

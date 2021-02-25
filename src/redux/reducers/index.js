@@ -6,9 +6,17 @@ const reducer = (state, action) => {
     };
     case 'SET_FAVORITE': return state;
     case 'DELETE_FAVORITE': return state;
-    case 'LOGIN_REQUEST': return state;
+    case 'LOGIN_REQUEST':
+      return {
+        ...state,
+        user: action.user,
+      };
     case 'REGISTER_REQUEST': return state;
-    case 'LOGOUT_REQUEST': return state;
+    case 'LOGOUT_REQUEST':
+      return {
+        ...state,
+        user: {},
+      };
     default: return state;
   }
 };
