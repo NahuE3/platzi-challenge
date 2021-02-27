@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStateValue } from '../../../context';
 import {
@@ -8,10 +9,13 @@ import {
   addToFavorite,
   removeToFavorite,
 } from '../../../context/actions';
+import Currency from '../../Currency/Currency';
 
 const Home = () => {
   const { theme, products, recipes, cart, wishList, dispatch } = useStateValue();
   const newTheme = theme === 'light' ? 'dark' : 'light';
+  const [currency, setCurrency] = useState({ format: 'en-US', currency: 'USD'});
+
   return (
     <div
       style={{
@@ -30,13 +34,18 @@ const Home = () => {
       </button>
       <Link to="/cart">{`Carrito: ${cart?.size || 0}`}</Link>
       <Link to="/favorites">{`Favoritos: ${wishList?.size || 0}`}</Link>
-      <div style={{ gridColumnEnd: 'span 5' }}>
+      <div style={{ gridColumnEnd: 'span 5', display: 'flex', justifyContent: 'space-between' }}>
         <form>
           <label htmlFor="Searcher">
             <p>Buscador</p>
             <input id="Searcher" name="searcher" type="text" />
           </label>
         </form>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <button type='button' onClick={() => setCurrency({ format: 'es-MX', currency: 'MXN' })}>MXN</button>
+          <button type='button' onClick={() => setCurrency({ format: 'es-CO', currency: 'COP' })}>CO</button>
+          <button type='button' onClick={() => setCurrency({ format: 'en-US', currency: 'USD' })}>USD</button>
+        </div>
       </div>
       <div style={{ gridColumnEnd: 'span 5' }}>
         <h2>Productos</h2>
@@ -47,7 +56,8 @@ const Home = () => {
           style={{ background: '#f5f5f5f5', padding: '20px', width: '150px' }}
         >
           <p>{product.name}</p>
-          <p>{product.price}</p>
+          <Currency price={product.price} currency={currency} />
+          {/* <p>{product.price}</p> */}
           <button type="button" onClick={() => addToCart({ cart, product, dispatch })}>
             Agragar al carrito
           </button>

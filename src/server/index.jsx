@@ -10,6 +10,8 @@ import { Provider } from '../frontend/context';
 import ServerApp from '../frontend/routes/ServerApp';
 import InitialState from './utils/initialState';
 
+require('./utils/auth/strategies/basic');
+
 const app = express();
 
 app.use(express.json());
@@ -47,7 +49,10 @@ const setResponse = (html, preloadedState) => (
   );
 
 const renderApp = async (req, res) => {
-  const { theme } = req.cookies;
+  const { theme, token } = req.cookies;
+  if (token) {
+    InitialState.user = { name: 'user', token };
+  }
   if (theme) {
     InitialState.theme = theme;
   }
