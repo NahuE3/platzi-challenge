@@ -1,15 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-  addToCart,
-  removeToCart,
-  addToFavorite,
-  removeToFavorite,
-  deleteToCart,
-} from '../../../redux/actions';
+import { useStateValue } from '../../../context';
+import { addToCart, removeToCart, addToFavorite, removeToFavorite, deleteToCart } from '../../../context/actions';
 
-const Cart = ({ cart, wishList, addToCart, removeToCart, addToFavorite, removeToFavorite, deleteToCart }) => {
+const Cart = () => {
+  const { cart, wishList } = useStateValue();
   const history = useHistory();
   return (
     <div style={{
@@ -104,17 +99,4 @@ const Cart = ({ cart, wishList, addToCart, removeToCart, addToFavorite, removeTo
   )
 };
 
-const mapStateToProps = (state) => ({
-  cart: state.cart,
-  wishList: state.wishList,
-});
-
-const mapDispatchToProps = {
-  addToCart,
-  removeToCart,
-  addToFavorite,
-  removeToFavorite,
-  deleteToCart,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default Cart;

@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Login, Register } from '../../components/containers';
-import { loginUser, registerUser } from '../../redux/actions';
+import { loginUser, registerUser } from '../../context/actions';
 
-const UserForm = (props) => {
+const UserForm = () => {
   const { pathname } = useLocation();
   const [error, setError] = useState();
   const onSubmit = (data) => {
     const user = { ...data };
     if (pathname === '/login') {
-      props.loginUser({ ...user });
+      loginUser({ ...user });
       return;
     }
 
     if (pathname === '/register') {
-      props.registerUser({ ...user });
+      registerUser({ ...user });
       return;
     }
 
@@ -34,9 +33,4 @@ const UserForm = (props) => {
   );
 };
 
-const mapDispatchToProps = {
-  loginUser,
-  registerUser,
-};
-
-export default connect(null, mapDispatchToProps)(UserForm);
+export default UserForm;

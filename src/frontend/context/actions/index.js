@@ -35,7 +35,31 @@ export const setError = (payload) => ({
   payload,
 });
 
-export const addToCart = ({ cart, product, recipe }) => (dispatch) => {
+export const changeTheme = async ({ id, theme, dispatch }) => {
+  if (id) {
+    await axios({
+      url: '/theme',
+      method: 'post',
+      data: {
+        id,
+        theme,
+      },
+    }).then(({ data }) => {
+      document.cookie = `theme=${data.theme}`;
+      dispatch(setTheme(theme));
+    }).catch((error) => {
+      dispatch(setError(error));
+    });
+  }
+  try {
+    document.cookie = `theme=${theme}`;
+    dispatch(setTheme(theme));
+  } catch (error) {
+    dispatch(setError(error));
+  }
+};
+
+export const addToCart = ({ cart, product, recipe, dispatch }) => {
   if (!cart && !product && !recipe) return;
   try {
     const newCart = { ...cart };
@@ -64,7 +88,7 @@ export const addToCart = ({ cart, product, recipe }) => (dispatch) => {
   }
 }
 
-export const removeToCart = ({ cart, product, recipe }) => (dispatch) => {
+export const removeToCart = ({ cart, product, recipe, dispatch }) => {
   if (!cart && !product && !recipe) return;
   try {
     const newCart = { ...cart };
@@ -97,7 +121,7 @@ export const removeToCart = ({ cart, product, recipe }) => (dispatch) => {
   }
 }
 
-export const deleteToCart = ({ cart, product, recipe }) => (dispatch) => {
+export const deleteToCart = ({ cart, product, recipe, dispatch }) => {
   if (!cart && !product && !recipe) return;
   try {
     const newCart = { ...cart };
@@ -123,7 +147,7 @@ export const deleteToCart = ({ cart, product, recipe }) => (dispatch) => {
   }
 }
 
-export const addToFavorite = ({ wishList, product, recipe }) => (dispatch) => {
+export const addToFavorite = ({ wishList, product, recipe, dispatch }) => {
   if (!wishList && !product && !recipe) return;
   try {
     const newWishList = { ...wishList };
@@ -146,7 +170,7 @@ export const addToFavorite = ({ wishList, product, recipe }) => (dispatch) => {
   }
 }
 
-export const removeToFavorite = ({ wishList, product, recipe }) => (dispatch) => {
+export const removeToFavorite = ({ wishList, product, recipe, dispatch }) => {
   if (!wishList && !product && !recipe) return;
   try {
     const newWishList = { ...wishList };
@@ -169,7 +193,7 @@ export const removeToFavorite = ({ wishList, product, recipe }) => (dispatch) =>
   }
 }
 
-export const loginUser = ({ email, password }) => (dispatch) => {
+export const loginUser = ({ email, password, dispatch }) => {
   axios({
     url: '/auth/sign-in/',
     method: 'post',
@@ -190,12 +214,12 @@ export const loginUser = ({ email, password }) => (dispatch) => {
     .catch((err) => dispatch(setError(err)));
 };
 
-export const registerUser = (payload) => (dispatch) => {
+export const registerUser = ({ user, dispatch }) => {
   axios
-    .post('/auth/sign-up', payload)
+    .post('/auth/sign-up', user)
     .then(({ data }) => dispatch(registerRequest(data)))
     .then(() => {
-      loginUser({ user: payload.user, password: payload.password });
+      loginUser({ email: user.email, password: user.password, dispatch });
     })
     .catch((error) => dispatch(setError(error)));
 };
