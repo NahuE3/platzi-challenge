@@ -14,7 +14,7 @@
     --white-color: #fff;
     --black-color: #202020;
     
-    --first-color: #442ccc;
+    --first-color: #202020;
 
     --bold-gray: #4b4b4b;
     --mid-gray: #d6d6d6;
@@ -24,7 +24,12 @@
     --border-color: #dadce0;
   
     /* Sombras */
-    --normal-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.1);
+    --button-shadow: 0 2px 10px 0 hsla(0, 0%, 0%, 0.3);
+    --card-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.1);
+
+    /* Radio del borde */
+    --large-radius: 12px;
+    --normal-radius: 8px;
     
     /*Fuente y tipografia */
     --title-font: "Montserrat", sans-serif;
