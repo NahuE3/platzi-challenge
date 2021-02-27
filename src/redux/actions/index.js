@@ -35,15 +35,27 @@ export const setError = (payload) => ({
   payload,
 });
 
-export const addToCart = ({ cart, product }) => (dispatch) => {
+export const addToCart = ({ cart, product, recipe }) => (dispatch) => {
+  if (!cart && !product && !recipe) return;
   try {
     const newCart = { ...cart };
-    const element = newCart?.items?.find((item) => item.product.id === product.id);
-    if (element) {
-      element.count += 1;
-    } else {
-      const cartItem = { count: 1, product };
-      newCart.items.push(cartItem);
+    if (product) {
+      const element = newCart?.products?.find((item) => item.product.id === product.id);
+      if (element) {
+        element.count += 1;
+      } else {
+        const cartItem = { count: 1, product };
+        newCart.products.push(cartItem);
+      }
+    }
+    if (recipe) {
+      const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
+      if (element) {
+        element.count += 1;
+      } else {
+        const cartItem = { count: 1, recipe };
+        newCart.recipes.push(cartItem);
+      }
     }
     newCart.size += 1;
     dispatch(setCart({ ...newCart }));
@@ -52,17 +64,31 @@ export const addToCart = ({ cart, product }) => (dispatch) => {
   }
 }
 
-export const removeToCart = ({ cart, product }) => (dispatch) => {
+export const removeToCart = ({ cart, product, recipe }) => (dispatch) => {
+  if (!cart && !product && !recipe) return;
   try {
     const newCart = { ...cart };
-    const element = newCart?.items?.find((item) => item.product.id === product.id);
-    const index = newCart?.items?.findIndex((item) => item.product.id === product.id);
-    if (element.count > 1 && index !== -1) {
-      element.count -= 1;
-    } else if (element.count <= 1 && index !== -1) {
-      newCart.items.splice(index, 1);
-    } else {
-      return;
+    if (product) {
+      const element = newCart?.products?.find((item) => item.product.id === product.id);
+      const index = newCart?.products?.findIndex((item) => item.product.id === product.id);
+      if (element.count > 1 && index !== -1) {
+        element.count -= 1;
+      } else if (element.count <= 1 && index !== -1) {
+        newCart.products.splice(index, 1);
+      } else {
+        return;
+      }
+    }
+    if (recipe) {
+      const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
+      const index = newCart?.recipes?.findIndex((item) => item.recipe.id === recipe.id);
+      if (element.count > 1 && index !== -1) {
+        element.count -= 1;
+      } else if (element.count <= 1 && index !== -1) {
+        newCart.recipe.splice(index, 1);
+      } else {
+        return;
+      }
     }
     newCart.size -= 1;
     dispatch(setCart({ ...newCart }));
@@ -71,27 +97,73 @@ export const removeToCart = ({ cart, product }) => (dispatch) => {
   }
 }
 
-export const addToFavorite = ({ wishList, product }) => (dispatch) => {
+export const deleteToCart = ({ cart, product, recipe }) => (dispatch) => {
+  if (!cart && !product && !recipe) return;
   try {
-    const list = [ ...wishList ];
-    const element = list?.find((item) => item.id === product.id);
-    if (!element) {
-      list.push(product);
+    const newCart = { ...cart };
+    if (product) {
+      const element = newCart?.products?.find((item) => item.product.id === product.id);
+      const index = newCart?.products?.findIndex((item) => item.product.id === product.id);
+      if (index !== -1) {
+        newCart.products.splice(index, 1);
+        newCart.size -= element.count;
+      }
     }
-    dispatch(setFavorites([ ...list ]));
+    if (recipe) {
+      const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
+      const index = newCart?.recipes?.findIndex((item) => item.recipe.id === recipe.id);
+      if (index !== -1) {
+        newCart.recipes.splice(index, 1);
+        newCart.size -= element.count;
+      }
+    }
+    dispatch(setCart({ ...newCart }));
   } catch (error) {
     dispatch(setError(error));
   }
 }
 
-export const removeToFavorite = ({ wishList, product }) => (dispatch) => {
+export const addToFavorite = ({ wishList, product, recipe }) => (dispatch) => {
+  if (!wishList && !product && !recipe) return;
   try {
-    const list = [ ...wishList ];
-    const index = list?.findIndex((item) => item.id === product.id);
-    if (index !== -1) {
-      list.splice(index, 1);
+    const newWishList = { ...wishList };
+    if (product) {
+      const element = newWishList?.products.find((item) => item.id === product.id);
+      if (!element) {
+        newWishList.products.push(product);
+      }
     }
-    dispatch(setFavorites([ ...list ]));
+    if (recipe) {
+      const element = newWishList?.recipes.find((item) => item.id === recipe.id);
+      if (!element) {
+        newWishList.recipes.push(recipe);
+      }
+    }
+    newWishList.size += 1;
+    dispatch(setFavorites({ ...newWishList }));
+  } catch (error) {
+    dispatch(setError(error));
+  }
+}
+
+export const removeToFavorite = ({ wishList, product, recipe }) => (dispatch) => {
+  if (!wishList && !product && !recipe) return;
+  try {
+    const newWishList = { ...wishList };
+    if (product) {
+      const index = newWishList?.products.findIndex((item) => item.id === product.id);
+      if (index !== -1) {
+        newWishList.products.splice(index, 1);
+      }
+    }
+    if (recipe) {
+      const index = newWishList?.recipes.findIndex((item) => item.id === recipe.id);
+      if (index !== -1) {
+        newWishList.recipes.splice(index, 1);
+      }
+    }
+    newWishList.size -= 1;
+    dispatch(setFavorites({ ...newWishList }));
   } catch (error) {
     dispatch(setError(error));
   }

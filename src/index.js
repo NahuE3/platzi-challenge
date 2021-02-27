@@ -7,9 +7,10 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './redux/reducers';
 import App from './routes';
+import initialState from './initialState';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const preloadedState = { theme: 'light', user: {}, cart: { size: 0, items: []}, wishList: [] };
+const preloadedState = initialState;
 const store = createStore(reducer, preloadedState, composeEnhancers(applyMiddleware(thunk)));
 const history = createBrowserHistory();
 
