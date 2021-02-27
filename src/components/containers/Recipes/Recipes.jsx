@@ -5,15 +5,15 @@ import React from 'react';
 import { Navbar, Content } from '../../layout';
 //Import de componentes.
 
-const Home = () => {
+const Recipes = () => {
   return (
     <>
       <Navbar />
       <Content>
-        <h1>Landing page</h1>
+        <h1>Recetario</h1>
       </Content>
     </>
   );
 };
 
-export default Home;
+export default Recipes;
