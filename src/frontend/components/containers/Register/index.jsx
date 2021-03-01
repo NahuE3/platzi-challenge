@@ -5,53 +5,26 @@ import { Link } from 'react-router-dom';
 const Register = ({ onSubmit, error }) => {
   const { register, handleSubmit, errors } = useForm();
   return (
-    <form className='Form' onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className='Form'
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ display: 'grid', justifyContent: 'center', padding: '50px', gap: '25px' }}
+    >
       <p>Campos requeridos *</p>
-      <div>
-        <label htmlFor='UserName'>
-          <p>
-            <span>Nombres *</span>
-          </p>
-          <input
-            type='text'
-            name='name'
-            id='UserName'
-            placeholder='Digita tu nombre'
-            ref={register({
-              required: 'Campo requerido',
-            })}
-          />
-          {errors?.name && <span>{errors?.name?.message}</span>}
-        </label>
-        <label htmlFor='UserLastname'>
-          <p>
-            <span>Apellidos *</span>
-          </p>
-          <input
-            type='text'
-            name='lastname'
-            id='UserLastname'
-            placeholder='Digita tus apellidos'
-            ref={register({
-              required: 'Campo requerido',
-            })}
-          />
-          {errors?.name && <span>{errors?.name?.message}</span>}
-        </label>
         <label htmlFor='UserNickname'>
           <p>
             <span>Nombre de usuario *</span>
           </p>
           <input
             type='text'
-            name='nickname'
+            name='username'
             id='UserNickname'
             placeholder='Digita un nombre de usuario'
             ref={register({
               required: 'Campo requerido',
             })}
           />
-          {errors?.nickname && <span>{errors?.nickname?.message}</span>}
+          {errors?.username && <span>{errors?.username?.message}</span>}
         </label>
         <label htmlFor='EmailAddres'>
           <p>
@@ -91,9 +64,24 @@ const Register = ({ onSubmit, error }) => {
           />
           {errors?.password && <span>{errors?.password?.message}</span>}
         </label>
-      </div>
+        <label htmlFor='UserPhone'>
+          <p>
+            <span>Phone number *</span>
+          </p>
+          <input
+            type='number'
+            name='phone_number'
+            id='UserPhone'
+            placeholder='Digita tu numero de telefono'
+            ref={register({
+              required: 'Campo requerido',
+            })}
+          />
+          {errors?.phone_number && <span>{errors?.phone_number?.message}</span>}
+        </label>
+      {/* </div> */}
 
-      <div>
+      {/* <div>
         <label htmlFor='UserAddress'>
           <p>
             <span>Dirección</span>
@@ -133,11 +121,11 @@ const Register = ({ onSubmit, error }) => {
           />
           {errors?.dni && <span>{errors?.dni?.message}</span>}
         </label>
-      </div>
+      </div> */}
 
       <button
         type='submit'
-        disabled={(errors.name || errors.lastname || errors.nickname || errors.password || errors.email) && true}
+        disabled={(errors.username || errors.password || errors.email) && true}
       >
         Registrate
       </button>

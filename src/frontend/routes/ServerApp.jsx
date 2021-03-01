@@ -1,6 +1,9 @@
 import React from 'react';
 import { renderRoutes } from 'react-router-config';
 import { Cart, Favorites, Home, NotFound } from '../components/containers';
+import Logout from '../components/containers/Logout';
+import Timer from '../components/Timer';
+import VideoPlayer from '../components/VideoPlayer';
 import { UserForm } from '../controller';
 
 const serverRoutes = () => [
@@ -33,6 +36,21 @@ const serverRoutes = () => [
     path: '/favorites',
     exact: true,
     component: Favorites,
+  },
+  {
+    path: '/timer',
+    exact: true,
+    component: Timer,
+  },
+  {
+    path: '/video',
+    exact: true,
+    component: VideoPlayer,
+  },
+  {
+    path: '/logout',
+    exact: true,
+    component: Logout,
   },
   {
     name: 'NotFound',

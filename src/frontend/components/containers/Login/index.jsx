@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Login = ({ onSubmit, error }) => {
   const { handleSubmit, register, errors } = useForm();
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'grid', justifyContent: 'center', padding: '50px', gap: '25px' }}>
       <label htmlFor='EmailAddres'>
         <p>
           <span>Email</span>

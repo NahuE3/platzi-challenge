@@ -7,8 +7,7 @@ export const Context = createContext({
   user: {},
   cart: {},
   wishList: {},
-  products: [],
-  recipes: [],
+  recipes: {},
   dispatch: () => {},
 });
 

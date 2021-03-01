@@ -1,0 +1,48 @@
+{
+  "header": {
+    "hello-world": "Hola mundo",
+    "my-menu": "Mi menu",
+    "my-order": "Mis pedidos",
+    "my-cart": "Carrito",
+    "my-favorites": "Mis favoritos",
+    "contact": "Contacto",
+    "menu": "Menu",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión"
+  },
+  "menu": {
+    "sea": "Mar",
+    "steaks": "Carnes",
+    "favorites": "Favoritos",
+    "vegetarian": "Vegetariano",
+    "more-filters": "Más filtros",
+    "searcher": "¿Qué estás buscando hoy?",
+    "searcher-input": "Buscar",
+    "searcher-loader": "Buscando",
+    "our-recipes": "Nuestra recetas"
+  },
+  "recipe-card": {
+    "per-plate": "por plato",
+    "add-menu": "Agregar al menu de la semana",
+    "preparation-time": "min en prepararse",
+    "add-cart": "Agregar al carrito"
+  },
+  "recipe-cart": {
+    "portions": "Porciones",
+    "delete": "Eliminar de carrito",
+    "show": "Ver detalle",
+    "add": "Agregar porción",
+    "remove": "Remover porción"
+  },
+  "cart": {
+    "back": "Atras",
+    "items": "Artículos",
+    "items-price": "Precio de artículos",
+    "delivery": "Cargo de envio",
+    "coupon": "Aplicar cupon",
+    "continue": "Seguir comprando",
+    "purchase": "Comprar",
+    "empty": "El carrito esta vacio",
+    "empty-search": "Buscar una receta"
+  }
+}

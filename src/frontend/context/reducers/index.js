@@ -4,6 +4,14 @@ const reducer = (state, action) => {
       ...state,
       theme: action.payload,
     };
+    case 'SET_CURRENCY': return {
+      ...state,
+      currency: action.payload,
+    };
+    case 'SET_LANGUAGE': return {
+      ...state,
+      language: action.payload,
+    };
     case 'SET_CART': return {
       ...state,
       cart: action.payload,
@@ -15,13 +23,27 @@ const reducer = (state, action) => {
     case 'LOGIN_REQUEST':
       return {
         ...state,
-        user: action.user,
+        user: action.payload,
+        wishList: {
+          size: action?.payload?.fav_list?.length || 0,
+          recipes: action.payload.fav_list,
+        },
       };
-    case 'REGISTER_REQUEST': return state;
+    case 'REGISTER_REQUEST':
+      return {
+        ...state,
+        user: action.payload,
+        wishList: {
+          size: action?.payload?.fav_list?.length || 0,
+          recipes: action.payload.fav_list,
+        },
+      };
     case 'LOGOUT_REQUEST':
       return {
         ...state,
         user: {},
+        cart: { size: 0, recipes: []},
+        wishList: { size: 0, recipes: []},
       };
     default: return state;
   }

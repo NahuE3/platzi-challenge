@@ -5,6 +5,16 @@ export const setTheme = (payload) => ({
   payload,
 });
 
+export const setCurrency = (payload) => ({
+  type: 'SET_CURRENCY',
+  payload,
+});
+
+export const setLanguage = (payload) => ({
+  type: 'SET_LANGUAGE',
+  payload,
+});
+
 export const setCart = (payload) => ({
   type: 'SET_CART',
   payload,
@@ -35,22 +45,7 @@ export const setError = (payload) => ({
   payload,
 });
 
-export const changeTheme = async ({ id, theme, dispatch }) => {
-  if (id) {
-    await axios({
-      url: '/theme',
-      method: 'post',
-      data: {
-        id,
-        theme,
-      },
-    }).then(({ data }) => {
-      document.cookie = `theme=${data.theme}`;
-      dispatch(setTheme(theme));
-    }).catch((error) => {
-      dispatch(setError(error));
-    });
-  }
+export const changeTheme = async ({ theme, dispatch }) => {
   try {
     document.cookie = `theme=${theme}`;
     dispatch(setTheme(theme));
@@ -59,8 +54,29 @@ export const changeTheme = async ({ id, theme, dispatch }) => {
   }
 };
 
+export const changeCurrency = async ({ currency, dispatch }) => {
+  if (!currency) return;
+  try {
+    document.cookie = `currency=${currency}`;
+    dispatch(setCurrency(currency));
+  } catch (error) {
+    dispatch(setError(error));
+  }
+};
+
+export const changeLanguage = async ({ language, dispatch }) => {
+  if (!language) return;
+  try {
+    document.cookie = `language=${language}`;
+    dispatch(setLanguage(language));
+  } catch (error) {
+    dispatch(setError(error));
+  }
+};
+
 export const addToCart = ({ cart, product, recipe, dispatch }) => {
   if (!cart && !product && !recipe) return;
+  if (cart?.size >= 99) return;
   try {
     const newCart = { ...cart };
     if (product) {
@@ -149,6 +165,7 @@ export const deleteToCart = ({ cart, product, recipe, dispatch }) => {
 
 export const addToFavorite = ({ wishList, product, recipe, dispatch }) => {
   if (!wishList && !product && !recipe) return;
+  if (wishList?.size >= 99) return;
   try {
     const newWishList = { ...wishList };
     if (product) {
@@ -193,33 +210,52 @@ export const removeToFavorite = ({ wishList, product, recipe, dispatch }) => {
   }
 }
 
-export const loginUser = ({ email, password, dispatch }) => {
-  axios({
-    url: '/auth/sign-in/',
+export const loginUser = async ({ user, dispatch }) => {
+  await axios({
+    url: '/auth/login/',
     method: 'post',
-    auth: {
-      username: email,
-      password,
-    },
-  })
-    .then(({ data }) => {
-      document.cookie = `email=${data.user.email}`;
-      document.cookie = `name=${data.user.name}`;
-      document.cookie = `id=${data.user.id}`;
-      dispatch(loginRequest(data.user));
-    })
-    .then(() => {
-      window.location.href = '/home';
-    })
-    .catch((err) => dispatch(setError(err)));
+    data: { ...user },
+  }).then(({ data }) => {
+    document.cookie = `id=${data.data.id}`;
+    document.cookie = `token=${data.data.token}`;
+    document.cookie = `email=${data.data.email}`;
+    document.cookie = `type=${data.data.account_type}`;
+    document.cookie = `username=${data.data.username}`;
+    dispatch(loginRequest(data));
+  }).then(() => {
+    window.location.href = '/home';
+  }).catch((error) => {
+    dispatch(setError(error));
+    throw new Error('Error');
+  });
 };
 
-export const registerUser = ({ user, dispatch }) => {
-  axios
-    .post('/auth/sign-up', user)
-    .then(({ data }) => dispatch(registerRequest(data)))
-    .then(() => {
-      loginUser({ email: user.email, password: user.password, dispatch });
-    })
-    .catch((error) => dispatch(setError(error)));
+export const registerUser = async ({ user, dispatch }) => {
+  const _user = { email: user.email, password: user.password };
+  await axios({
+    url: '/auth/register/',
+    method: 'post',
+    data: { ...user },
+  }).then(({ data }) => {
+    dispatch(registerRequest(data));
+  }).then(() => {
+    loginUser({ user: _user ,dispatch});
+  }).catch((error) => {
+    dispatch(setError(error));
+    throw new Error('Error');
+  });
+};
+
+export const logoutUser = ({ dispatch }) => {
+  try {
+    document.cookie = 'id=';
+    document.cookie = 'token=';
+    document.cookie = 'email=';
+    document.cookie = 'type=';
+    document.cookie = 'username=';
+    dispatch(logoutRequest());
+    window.location.href = '/';
+  } catch (error) {
+    dispatch({ type: 'SET_ERROR', error });
+  }
 };

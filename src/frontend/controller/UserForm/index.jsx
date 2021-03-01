@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useForm from './../../hooks/useForm';
 import { useLocation } from 'react-router-dom';
 import { Login, Register } from '../../components/containers';
 import { loginUser, registerUser } from '../../context/actions';
@@ -6,28 +7,15 @@ import { loginUser, registerUser } from '../../context/actions';
 const UserForm = () => {
   const { pathname } = useLocation();
   const [error, setError] = useState();
-  const onSubmit = (data) => {
-    const user = { ...data };
-    if (pathname === '/login') {
-      loginUser({ ...user });
-      return;
-    }
-
-    if (pathname === '/register') {
-      registerUser({ ...user });
-      return;
-    }
-
-    setError(true);
-  };
+  const { loginUser, registerUser } = useForm();
 
   return (
     <section>
       {pathname === '/login' && (
-        <Login onSubmit={onSubmit} error={error} />
+        <Login onSubmit={loginUser} error={error} />
       )}
       {pathname === '/register' && (
-        <Register onSubmit={onSubmit} error={error} />
+        <Register onSubmit={registerUser} error={error} />
       )}
     </section>
   );
