@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { BiSearchAlt } from 'react-icons/bi';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useStateValue } from '../../../context';
 import RecipeCard from '../../RecipeCard';
 import { FilterButton, FilterContainer, TitleContainer, RecipesContainer, Form, Loader } from './styles';
+import useSearcher from '../../../hooks/useSearcher';
+import useLanguage from '../../../hooks/useLanguage';
 
 const FilterItem = ({ contain, category, setCategory }) => {
   const { theme } = useStateValue();
@@ -21,54 +22,36 @@ const FilterItem = ({ contain, category, setCategory }) => {
 };
 
 const Menu = () => {
-  const { theme, recipes } = useStateValue();
+  const { theme } = useStateValue();
   const [category, setCategory] = useState('');
-  const [text] = useTranslation('global');
+  const { getText } = useLanguage();
   const { register, handleSubmit, watch, errors } = useForm();
-  const [searchList, setSearchList] = useState(recipes.results);
   const searchWatch = watch('search', '');
+  const { searchList } = useSearcher({ text: searchWatch });
 
   const onSubmit = (data) => {
     console.log(data);
   };
 
-  useEffect(() => {
-    const list = recipes.results;
-    if (!searchWatch && !category) {
-      setSearchList(list);
-    }
-    if (category) {
-      setSearchList(list.filter((l) => l.category.toLowerCase().includes(category.toLowerCase())));
-    }
-    if (category.toLowerCase().includes('fav')) {
-      setSearchList(recipes.sort((a, b) => b.likes - a.likes));
-    }
-    if (searchWatch) {
-      setSearchList(list.filter(({ name, country }) =>
-        name.toLowerCase().includes(searchWatch.toLowerCase()) ||
-        country.toLowerCase().includes(searchWatch.toLowerCase())));
-    }
-  }, [searchWatch, category])
-
   return (
     <section>
       <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexWrap: 'wrap' }}>
         <FilterContainer>
-          <FilterItem contain={text('menu.favorites')} category={category} setCategory={setCategory} />
-          <FilterItem contain={text('menu.sea')} category={category} setCategory={setCategory} />
-          <FilterItem contain={text('menu.vegetarian')} category={category} setCategory={setCategory} />
-          <FilterItem contain={text('menu.steaks')} category={category} setCategory={setCategory} />
-          <FilterItem contain={text('menu.more-filters')} category={category} setCategory={setCategory} />
+          <FilterItem contain={getText('menu.favorites')} category={category} setCategory={setCategory} />
+          <FilterItem contain={getText('menu.sea')} category={category} setCategory={setCategory} />
+          <FilterItem contain={getText('menu.vegetarian')} category={category} setCategory={setCategory} />
+          <FilterItem contain={getText('menu.steaks')} category={category} setCategory={setCategory} />
+          <FilterItem contain={getText('menu.more-filters')} category={category} setCategory={setCategory} />
         </FilterContainer>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor='Searcher'>
-            <p>{text('menu.searcher')}</p>
+            <p>{getText('menu.searcher')}</p>
             <input
               id='Searcher'
               type='text'
               list='Recipes'
               name= 'search'
-              placeholder={text('menu.searcher-input')}
+              placeholder={getText('menu.searcher-input')}
               ref={register({ required: true })}
             />
             <datalist id='Recipes'>
@@ -86,7 +69,7 @@ const Menu = () => {
         </Form>
       </div>
       <TitleContainer>
-        <h1 className={theme}>{text('menu.our-recipes')}</h1>
+        <h1 className={theme}>{getText('menu.our-recipes')}</h1>
       </TitleContainer>
       <RecipesContainer>
         {searchList.length === 0 && (
@@ -94,7 +77,7 @@ const Menu = () => {
             <Loader>
               <AiOutlineLoading3Quarters size={100} />
             </Loader>
-            <h1>{text('menu.searcher-loader')}</h1>
+            <h1>{getText('menu.searcher-loader')}</h1>
           </div>
         )}
         {searchList?.map((recipe) => (

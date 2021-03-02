@@ -7,7 +7,7 @@ const useLanguage = () => {
 
   const formaterValue = ({ mount }) => {
     return `${new Intl.NumberFormat(value.format, {
-      style: "currency",
+      style: 'currency',
       currency: value.currency,
     }).format(mount * value.value)} ${value.currency}`
   }

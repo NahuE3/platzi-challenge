@@ -28,7 +28,7 @@ i18next.init({
       global: globalEn
     }
   }
-})
+});
 
 ReactDOM.render(
   <I18nextProvider i18n={i18next}>

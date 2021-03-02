@@ -10,6 +10,8 @@ import { Provider } from '../frontend/context';
 import ServerApp from '../frontend/routes/ServerApp';
 // import InitialState from './utils/initialState';
 import AuthRouter from './routes/auth';
+import RecipesRouter from './routes/recipes';
+import FavoritesRouter from './routes/favorites';
 
 const app = express();
 
@@ -71,7 +73,7 @@ const renderApp = async (req, res) => {
   const recipes = await getData({ route: 'recipes' });
   const initialState = {
     user: {},
-    wishList: { size: 0, recipes: []},
+    wishList: [],
     theme: theme || 'light',
     currency: currency || 'USD',
     language: language || 'es',
@@ -85,9 +87,9 @@ const renderApp = async (req, res) => {
   }
   if (token && id && email && type && username) {
     const user = { id, email, type, username, token };
-    // const wishList = await getData({ id, token, route: 'favorites' });
+    const wishList = await getData({ id, token, route: 'favorites' });
     initialState.user = user;
-    // initialState.wishList.recipes = Array.isArray(wishList.detail) ? wishList.detail : [];
+    initialState.wishList = wishList.results || [];
   }
 
   const html = renderToString(
@@ -103,6 +105,8 @@ const renderApp = async (req, res) => {
 };
 
 AuthRouter(app);
+RecipesRouter(app);
+FavoritesRouter(app);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.static(`${__dirname}/assets`));
 app.get('*', renderApp);

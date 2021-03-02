@@ -24,26 +24,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
-        wishList: {
-          size: action?.payload?.fav_list?.length || 0,
-          recipes: action.payload.fav_list,
-        },
+        wishList: action.payload.fav_list,
       };
-    case 'REGISTER_REQUEST':
-      return {
-        ...state,
-        user: action.payload,
-        wishList: {
-          size: action?.payload?.fav_list?.length || 0,
-          recipes: action.payload.fav_list,
-        },
-      };
+    case 'REGISTER_REQUEST': return state;
     case 'LOGOUT_REQUEST':
       return {
         ...state,
         user: {},
         cart: { size: 0, recipes: []},
-        wishList: { size: 0, recipes: []},
+        wishList: [],
       };
     default: return state;
   }

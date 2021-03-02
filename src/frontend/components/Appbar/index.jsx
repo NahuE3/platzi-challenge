@@ -29,7 +29,7 @@ const AppBar = () => {
         <Link to='/favorites'>
           <AiOutlineHeart size={30} />
           <p>{getText('header.my-favorites')}</p>
-          <span>{wishList.size || 0}</span>
+          <span>{wishList.length || 0}</span>
         </Link>
         <Link to='/cart'>
           <AiOutlineShoppingCart size={30} />

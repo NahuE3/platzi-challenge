@@ -74,20 +74,11 @@ export const changeLanguage = async ({ language, dispatch }) => {
   }
 };
 
-export const addToCart = ({ cart, product, recipe, dispatch }) => {
-  if (!cart && !product && !recipe) return;
+export const addToCart = ({ cart, recipe, dispatch }) => {
+  if (!cart && !recipe) return;
   if (cart?.size >= 99) return;
   try {
     const newCart = { ...cart };
-    if (product) {
-      const element = newCart?.products?.find((item) => item.product.id === product.id);
-      if (element) {
-        element.count += 1;
-      } else {
-        const cartItem = { count: 1, product };
-        newCart.products.push(cartItem);
-      }
-    }
     if (recipe) {
       const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
       if (element) {
@@ -104,21 +95,10 @@ export const addToCart = ({ cart, product, recipe, dispatch }) => {
   }
 }
 
-export const removeToCart = ({ cart, product, recipe, dispatch }) => {
-  if (!cart && !product && !recipe) return;
+export const removeToCart = ({ cart, recipe, dispatch }) => {
+  if (!cart && !recipe) return;
   try {
     const newCart = { ...cart };
-    if (product) {
-      const element = newCart?.products?.find((item) => item.product.id === product.id);
-      const index = newCart?.products?.findIndex((item) => item.product.id === product.id);
-      if (element.count > 1 && index !== -1) {
-        element.count -= 1;
-      } else if (element.count <= 1 && index !== -1) {
-        newCart.products.splice(index, 1);
-      } else {
-        return;
-      }
-    }
     if (recipe) {
       const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
       const index = newCart?.recipes?.findIndex((item) => item.recipe.id === recipe.id);
@@ -137,18 +117,10 @@ export const removeToCart = ({ cart, product, recipe, dispatch }) => {
   }
 }
 
-export const deleteToCart = ({ cart, product, recipe, dispatch }) => {
-  if (!cart && !product && !recipe) return;
+export const deleteToCart = ({ cart, recipe, dispatch }) => {
+  if (!cart && !recipe) return;
   try {
     const newCart = { ...cart };
-    if (product) {
-      const element = newCart?.products?.find((item) => item.product.id === product.id);
-      const index = newCart?.products?.findIndex((item) => item.product.id === product.id);
-      if (index !== -1) {
-        newCart.products.splice(index, 1);
-        newCart.size -= element.count;
-      }
-    }
     if (recipe) {
       const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
       const index = newCart?.recipes?.findIndex((item) => item.recipe.id === recipe.id);
@@ -163,48 +135,55 @@ export const deleteToCart = ({ cart, product, recipe, dispatch }) => {
   }
 }
 
-export const addToFavorite = ({ wishList, product, recipe, dispatch }) => {
-  if (!wishList && !product && !recipe) return;
-  if (wishList?.size >= 99) return;
+export const addToFavorite = async ({ user, wishList, recipe, dispatch }) => {
+  if (!wishList || !recipe || !user) return;
+  if (Object.keys(user).length === 0) return;
+  if (wishList?.length >= 99) return;
   try {
-    const newWishList = { ...wishList };
-    if (product) {
-      const element = newWishList?.products.find((item) => item.id === product.id);
-      if (!element) {
-        newWishList.products.push(product);
-      }
-    }
+    const newWishList = [ ...wishList ];
     if (recipe) {
-      const element = newWishList?.recipes.find((item) => item.id === recipe.id);
+      const element = newWishList?.find((item) => item.recipe[15] === recipe.id);
       if (!element) {
-        newWishList.recipes.push(recipe);
+        await axios({
+          url: '/api/favorites/',
+          method: 'post',
+          data: { id: user.id, recipe: recipe.id, token: user.token },
+        }).then(({ data }) => {
+          newWishList.push({ id: data.data.id, user: data.data.user, recipe: `Recipe object (${recipe.id})` });
+          dispatch(setFavorites([ ...newWishList ]));
+        }).catch((error) => {
+          dispatch(setError(error));
+          throw new Error('Error');
+        });
       }
     }
-    newWishList.size += 1;
-    dispatch(setFavorites({ ...newWishList }));
   } catch (error) {
     dispatch(setError(error));
   }
 }
 
-export const removeToFavorite = ({ wishList, product, recipe, dispatch }) => {
-  if (!wishList && !product && !recipe) return;
+export const removeToFavorite = async ({ user, wishList, recipe, dispatch }) => {
+  if (!wishList || !recipe || !user) return;
+  if (Object.keys(user).length === 0) return;
   try {
-    const newWishList = { ...wishList };
-    if (product) {
-      const index = newWishList?.products.findIndex((item) => item.id === product.id);
-      if (index !== -1) {
-        newWishList.products.splice(index, 1);
-      }
-    }
+    const newWishList = [ ...wishList ];
     if (recipe) {
-      const index = newWishList?.recipes.findIndex((item) => item.id === recipe.id);
-      if (index !== -1) {
-        newWishList.recipes.splice(index, 1);
+      const index = newWishList?.findIndex((item) => item.recipe[15] === recipe.id.toString());
+      const recipeRemove = newWishList?.find((item) => item.recipe[15] === recipe.id.toString());
+      if (index !== -1 || !recipeRemove) {
+        await axios({
+          url: '/api/favorites/remove',
+          method: 'post',
+          data: { user_id: user.id, recipe_id: recipeRemove.id, token: user.token },
+        }).then(({ data }) => {
+          newWishList?.splice(index, 1);
+          dispatch(setFavorites([ ...newWishList ]));
+        }).catch((error) => {
+          dispatch(setError(error));
+          throw new Error('Error');
+        });
       }
     }
-    newWishList.size -= 1;
-    dispatch(setFavorites({ ...newWishList }));
   } catch (error) {
     dispatch(setError(error));
   }
@@ -221,7 +200,7 @@ export const loginUser = async ({ user, dispatch }) => {
     document.cookie = `email=${data.data.email}`;
     document.cookie = `type=${data.data.account_type}`;
     document.cookie = `username=${data.data.username}`;
-    dispatch(loginRequest(data));
+    dispatch(loginRequest(data.data));
   }).then(() => {
     window.location.href = '/home';
   }).catch((error) => {

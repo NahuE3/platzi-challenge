@@ -13,13 +13,14 @@ const Home = () => {
           <p>{user.email}</p>
           <p>{user.username}</p>
           <p>{user.account_type}</p>
-          {wishList.size === 0 && (
+          {wishList.length === 0 && (
             <h1>Sin favoritos</h1>
           )}
-          {wishList.size !== 0 && (
+          {wishList.length !== 0 && (
             <>
-              {wishList.recipes.map((recipe) => (
-                <p key={recipe.id}>{recipe.name}</p>
+            <p><strong>Favoritos</strong></p>
+              {wishList.map((recipe) => (
+                <p key={recipe.id}>{recipe.recipe}</p>
               ))}
             </>
           )}
