@@ -1,7 +1,7 @@
 import { useStateValue } from '../context';
 import { changeCurrency as changer } from '../context/actions';
 
-const useLanguage = () => {
+const useCurrency = () => {
   const { coin, currency, dispatch } = useStateValue();
   const value = coin.find((c) => c.currency === currency);
 
@@ -19,4 +19,4 @@ const useLanguage = () => {
   return { currency, formaterValue, changeCurrency };
 }
 
-export default useLanguage;
+export default useCurrency;

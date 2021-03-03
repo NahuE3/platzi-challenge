@@ -16,8 +16,8 @@ const useSearcher = ({ text }) => {
       setSearchList(results);
     }).catch((error) => {
       setSearchList(null);
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     const list = recipes.results;

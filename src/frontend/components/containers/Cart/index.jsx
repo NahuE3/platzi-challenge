@@ -11,8 +11,12 @@ import Currency from '../../Currency';
 const Cart = () => {
   const { cart } = useStateValue();
   const history = useHistory();
-  const [currency, setCurrency] = useState({ format: 'en-US', currency: 'USD'});
+  // const [currency, setCurrency] = useState({ format: 'en-US', currency: 'USD'});
   const [text] = useTranslation('global');
+  // console.log('====================================');
+  // console.log(cart);
+  // console.log('====================================');
+
   return (
     <Container>
       <BtnBack type='button' style={{ gridColumnEnd: 'span 2' }} onClick={() => history.goBack()}>
@@ -46,11 +50,11 @@ const Cart = () => {
             <p>{text('cart.items')}</p>
             <p>{cart.size}</p>
             <p>{text('cart.items-price')}</p>
-            <Currency price={0} currency={currency} />
+            <Currency price={cart.total} />
             <p>{text('cart.delivery')}</p>
-            <Currency price={0} currency={currency} />
+            <Currency price={cart.delivery} />
             <p>Total</p>
-            <Currency price={0} currency={currency} />
+            <Currency price={cart.total + cart.delivery} />
             <button type='button'>{text('cart.coupon')}</button>
             <button type='button'>{text('cart.continue')}</button>
             <button type='button'>{text('cart.purchase')}</button>

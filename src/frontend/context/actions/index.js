@@ -77,15 +77,30 @@ export const changeLanguage = async ({ language, dispatch }) => {
 export const addToCart = ({ cart, recipe, dispatch }) => {
   if (!cart && !recipe) return;
   if (cart?.size >= 99) return;
+  const prices = recipe?.detail?.map((item) => {
+    const price = parseFloat(item.price);
+    const discount = parseFloat(item.discount);
+    if (discount === 0) {
+      return price;
+    } else if (discount < 1) {
+      return price * discount;
+    } else if (discount > 1 && price > discount) {
+      return price - discount;
+    }
+    return 0;
+  }) || [];
+  const total = prices?.reduce((a, b) => a + b, 0) || 0;
   try {
     const newCart = { ...cart };
     if (recipe) {
       const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
       if (element) {
         element.count += 1;
+        newCart.total += total;
       } else {
         const cartItem = { count: 1, recipe };
         newCart.recipes.push(cartItem);
+        newCart.total += total;
       }
     }
     newCart.size += 1;
@@ -97,6 +112,19 @@ export const addToCart = ({ cart, recipe, dispatch }) => {
 
 export const removeToCart = ({ cart, recipe, dispatch }) => {
   if (!cart && !recipe) return;
+  const prices = recipe?.detail?.map((item) => {
+    const price = parseFloat(item.price);
+    const discount = parseFloat(item.discount);
+    if (discount === 0) {
+      return price;
+    } else if (discount < 1) {
+      return price * discount;
+    } else if (discount > 1 && price > discount) {
+      return price - discount;
+    }
+    return 0;
+  }) || [];
+  const total = prices?.reduce((a, b) => a + b, 0) || 0;
   try {
     const newCart = { ...cart };
     if (recipe) {
@@ -104,8 +132,10 @@ export const removeToCart = ({ cart, recipe, dispatch }) => {
       const index = newCart?.recipes?.findIndex((item) => item.recipe.id === recipe.id);
       if (element.count > 1 && index !== -1) {
         element.count -= 1;
+        newCart.total -= total;
       } else if (element.count <= 1 && index !== -1) {
         newCart.recipe.splice(index, 1);
+        newCart.total -= total;
       } else {
         return;
       }
@@ -119,6 +149,19 @@ export const removeToCart = ({ cart, recipe, dispatch }) => {
 
 export const deleteToCart = ({ cart, recipe, dispatch }) => {
   if (!cart && !recipe) return;
+  const prices = recipe?.detail?.map((item) => {
+    const price = parseFloat(item.price);
+    const discount = parseFloat(item.discount);
+    if (discount === 0) {
+      return price;
+    } else if (discount < 1) {
+      return price * discount;
+    } else if (discount > 1 && price > discount) {
+      return price - discount;
+    }
+    return 0;
+  }) || [];
+  const total = prices?.reduce((a, b) => a + b, 0) || 0;
   try {
     const newCart = { ...cart };
     if (recipe) {
@@ -127,6 +170,7 @@ export const deleteToCart = ({ cart, recipe, dispatch }) => {
       if (index !== -1) {
         newCart.recipes.splice(index, 1);
         newCart.size -= element.count;
+        newCart.total -= (total * element.count);
       }
     }
     dispatch(setCart({ ...newCart }));
@@ -142,14 +186,14 @@ export const addToFavorite = async ({ user, wishList, recipe, dispatch }) => {
   try {
     const newWishList = [ ...wishList ];
     if (recipe) {
-      const element = newWishList?.find((item) => item.recipe[15] === recipe.id);
+      const element = newWishList?.find((item) => item.recipe === recipe.name);
       if (!element) {
         await axios({
           url: '/api/favorites/',
           method: 'post',
           data: { id: user.id, recipe: recipe.id, token: user.token },
         }).then(({ data }) => {
-          newWishList.push({ id: data.data.id, user: data.data.user, recipe: `Recipe object (${recipe.id})` });
+          newWishList.push({ id: data.data.id, user: data.data.user, recipe: recipe.name });
           dispatch(setFavorites([ ...newWishList ]));
         }).catch((error) => {
           dispatch(setError(error));
@@ -168,8 +212,8 @@ export const removeToFavorite = async ({ user, wishList, recipe, dispatch }) => 
   try {
     const newWishList = [ ...wishList ];
     if (recipe) {
-      const index = newWishList?.findIndex((item) => item.recipe[15] === recipe.id.toString());
-      const recipeRemove = newWishList?.find((item) => item.recipe[15] === recipe.id.toString());
+      const index = newWishList?.findIndex((item) => item.recipe === recipe.name);
+      const recipeRemove = newWishList?.find((item) => item.recipe === recipe.name);
       if (index !== -1 || !recipeRemove) {
         await axios({
           url: '/api/favorites/remove',
@@ -190,11 +234,14 @@ export const removeToFavorite = async ({ user, wishList, recipe, dispatch }) => 
 }
 
 export const loginUser = async ({ user, dispatch }) => {
+  let id, token;
   await axios({
     url: '/auth/login/',
     method: 'post',
     data: { ...user },
   }).then(({ data }) => {
+    id = data.data.id;
+    token = data.data.token;
     document.cookie = `id=${data.data.id}`;
     document.cookie = `token=${data.data.token}`;
     document.cookie = `email=${data.data.email}`;

@@ -24,7 +24,7 @@
   "recipe-card": {
     "per-plate": "per plate",
     "add-menu": "Add to weekly menu",
-    "preparation-time": "min in preparation",
+    "preparation-time": "in preparation",
     "add-cart": "Add to cart"
   },
   "recipe-cart": {

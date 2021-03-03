@@ -6,6 +6,22 @@ const Favorites = (app) => {
   const router = express.Router();
   app.use('/api', router);
 
+  router.post('/favorites/get', async (req, res, next) => {
+    const { id, token } = req.body;
+    try {
+      const { data } = await axios({
+        headers: { Authorization: `Bearer ${token}` },
+        url: `${API_URL}/users/${id}/favorites/`,
+        method: 'get',
+      });
+      res.status(201).json({
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
+
   router.post('/favorites', async (req, res, next) => {
     const { id, recipe, token } = req.body;
     try {

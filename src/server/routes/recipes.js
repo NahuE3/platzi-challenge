@@ -7,8 +7,12 @@ const Recipes = (app) => {
   app.use('/api', router);
 
   router.post('/recipes', async (req, res, next) => {
-    const { search } = req.body;
-    const url = search ? `${API_URL}/recipes/?search=${search}` : `${API_URL}/recipes/`;
+    const { search, category } = req.body;
+    const url = search ?
+      `${API_URL}/recipes/?search=${search}` :
+      category ?
+        `${API_URL}/recipes/?recipe_category=${category}` :
+        `${API_URL}/recipes/`;
     try {
       const { data } = await axios({
         url: url,

@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaChevronDown, FaTimes, FaPlus, FaMinus } from  'react-icons/fa';
+import { FaChevronDown, FaTimes, FaPlus, FaMinus, FaChevronUp } from  'react-icons/fa';
 import Currency from '../Currency';
 import { useStateValue } from '../../context';
 import useCurrency from '../../hooks/useCurrency';
 import { Container, Body, Image, Info, BtnOutline, BtnLink } from './styles';
 import { addToCart, removeToCart, deleteToCart } from '../../context/actions';
+import useLanguage from '../../hooks/useLanguage';
+import useRecipePrice from '../../hooks/useRecipePrice';
 
 
 const RecipeCart = ({ count, recipe }) => {
   const { theme, cart, dispatch } = useStateValue();
   const { formaterValue } = useCurrency();
-  // const [currency, setCurrency] = useState({ format: 'en-US', currency: 'USD'});
-  const [text] = useTranslation('global');
+  const { getText } = useLanguage();
+  const { total } = useRecipePrice({ recipe, count });
+  const [active, setActive] = useState(false);
+
   return (
     <Container className={theme}>
       <Image>
@@ -20,10 +24,10 @@ const RecipeCart = ({ count, recipe }) => {
       </Image>
       <Body>
         <p><strong>{recipe.name}</strong></p>
-        <p><strong>{text('recipe-cart.portions')}</strong></p>
+        <p><strong>{getText('recipe-cart.portions')}</strong></p>
         <BtnOutline
           type='button'
-          title={text('recipe-cart.remove')}
+          title={getText('recipe-cart.remove')}
           className={theme}
           disabled={count <= 0}
           onClick={() => removeToCart({ cart, recipe, dispatch })}
@@ -35,7 +39,7 @@ const RecipeCart = ({ count, recipe }) => {
           type='button'
           className={theme}
           disabled={count >= 99}
-          title={text('recipe-cart.add')}
+          title={getText('recipe-cart.add')}
           onClick={() => addToCart({ cart, recipe, dispatch })}
         >
           <FaPlus />
@@ -44,22 +48,52 @@ const RecipeCart = ({ count, recipe }) => {
       <Info>
         <BtnLink
           type='button'
-          title={text('recipe-cart.show')}
+          title={getText('recipe-cart.show')}
+          onClick={() => setActive(!active)}
           className={theme}
         >
-          <FaChevronDown />
+          {!active && (
+            <FaChevronDown />
+          )}
+          {active && (
+            <FaChevronUp />
+          )}
         </BtnLink>
         <BtnLink
           type='button'
           className={theme}
-          title={text('recipe-cart.delete')}
+          title={getText('recipe-cart.delete')}
           onClick={() => deleteToCart({ cart, recipe, dispatch })}
         >
           <FaTimes />
         </BtnLink>
         {/* <Currency price={0} currency={currency} /> */}
-        <p>{formaterValue({ mount: 0 })}</p>
+        <p>{formaterValue({ mount: total })}</p>
       </Info>
+      {(active && recipe.detail.length > 0) && (
+        <div
+          style={{
+            display: 'grid',
+            gridColumnEnd: 'span 3',
+            justifySelf: 'stretch',
+            gap: '10px',
+            padding: '10px',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            justifyItems: 'center',
+          }}
+        >
+          <p><strong>Ingrediente</strong></p>
+          <p><strong>Precio</strong></p>
+          <p><strong>Agregar</strong></p>
+          {recipe.detail.map((detail) => (
+            <>
+              <p style={{ justifySelf: 'flex-start' }}><strong>{detail.name}</strong></p>
+              <p>{formaterValue({ mount: detail.price })}</p>
+              <input type='checkbox' checked />
+            </>
+          ))}
+        </div>
+      )}
     </Container>
   );
 };

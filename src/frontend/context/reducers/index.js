@@ -24,7 +24,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
-        wishList: action.payload.fav_list,
       };
     case 'REGISTER_REQUEST': return state;
     case 'LOGOUT_REQUEST':
