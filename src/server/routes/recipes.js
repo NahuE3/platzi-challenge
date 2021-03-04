@@ -7,15 +7,20 @@ const Recipes = (app) => {
   app.use('/api', router);
 
   router.post('/recipes', async (req, res, next) => {
-    const { search, category } = req.body;
-    const url = search ?
+    const { search, category, page } = req.body;
+    let url = search ?
       `${API_URL}/recipes/?search=${search}` :
       category ?
         `${API_URL}/recipes/?recipe_category=${category}` :
         `${API_URL}/recipes/`;
+
+    if (parseInt(page, 10) > 0) {
+      url = url.concat((category || search) ? `&offset=${page * 20}` : `?offset=${page * 20}`);
+    }
+
     try {
       const { data } = await axios({
-        url: url,
+        url,
         method: 'get',
       });
       res.status(201).json({

@@ -5,6 +5,8 @@ import { useStateValue } from "../context";
 const useSearcher = ({ text }) => {
   const { recipes } = useStateValue();
   const [searchList, setSearchList] = useState(recipes.results);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getRecipes = async () => {
     await axios({
@@ -13,16 +15,22 @@ const useSearcher = ({ text }) => {
       data: { search: text },
     }).then(({ data }) => {
       const { results } = data.data;
+      if (!results || results.length === 0) {
+        setError(true);
+      }
+      setLoading(false);
       setSearchList(results);
     }).catch((error) => {
-      setSearchList(null);
+      setError(true);
+      setLoading(false);
+      setSearchList([]);
     });
   };
 
   useEffect(() => {
     const list = recipes.results;
     if (!text || text === '') {
-      setSearchList(list);
+      setSearchList(list || []);
       return;
     }
     if (text) {
@@ -30,14 +38,15 @@ const useSearcher = ({ text }) => {
       name?.toLowerCase().includes(text?.toLowerCase()) ||
       country?.toLowerCase().includes(text?.toLowerCase()));
       if (!listFind || listFind?.length === 0) {
+        setLoading(true);
         getRecipes();
       } else {
-        setSearchList(listFind);
+        setSearchList(listFind || []);
       }
     }
   }, [text]);
 
-  return { searchList };
+  return { searchList, loading, error };
 }
 
 export default useSearcher;

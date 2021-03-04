@@ -2,6 +2,7 @@ const useRecipePrice = ({ recipe, count }) => {
 
   const sumTotal = () => {
     const prices = recipe?.detail?.map((item) => {
+      if (!item.is_active) return 0;
       const price = parseFloat(item.price);
       const discount = parseFloat(item.discount);
       if (discount === 0) {
@@ -15,6 +16,7 @@ const useRecipePrice = ({ recipe, count }) => {
     }) || [];
 
     const total = prices?.reduce((a, b) => a + b, 0);
+
     if (!count) return total;
     return total * count || 0;
   };

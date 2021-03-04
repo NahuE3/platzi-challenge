@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiSearchAlt } from 'react-icons/bi';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -28,15 +28,16 @@ const Menu = () => {
   const { getText } = useLanguage();
   const { register, handleSubmit, watch, errors } = useForm();
   const searchWatch = watch('search', '');
-  const { categoryList } = useCategory({ category });
   const { searchList } = useSearcher({ text: searchWatch });
+  const ref = useRef(null);
+  const { categoryList, loading, final, error } = useCategory({ category, container: ref });
 
   const onSubmit = (data) => {
-    console.log(data);
+    document.location.href = `/recipe/${data.search}`;
   };
 
   return (
-    <section>
+    <section ref={ref}>
       <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexWrap: 'wrap' }}>
         <FilterContainer>
           {categories.results.map((item) => (
@@ -44,10 +45,6 @@ const Menu = () => {
               <FilterItem id={item.id} contain={item.name} category={category} setCategory={setCategory} />
             </React.Fragment>
           ))}
-          {/* <FilterItem contain={getText('menu.sea')} category={category} setCategory={setCategory} />
-          <FilterItem contain={getText('menu.vegetarian')} category={category} setCategory={setCategory} />
-          <FilterItem contain={getText('menu.steaks')} category={category} setCategory={setCategory} />
-          <FilterItem contain={getText('menu.more-filters')} category={category} setCategory={setCategory} /> */}
         </FilterContainer>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor='Searcher'>
@@ -60,15 +57,13 @@ const Menu = () => {
               placeholder={getText('menu.searcher-input')}
               ref={register({ required: true })}
             />
+
             <datalist id='Recipes'>
-              <option value='Receta 1' />
-              <option value='Receta 2' />
-              <option value='Receta 3' />
-              <option value='Receta 4' />
-              <option value='Receta 5' />
-              <option value='Receta 6' />
+              {searchList?.slice(0, 5)?.map((item) => (
+                <option key={item.id} value={item.name} />
+              ))}
             </datalist>
-            <button type='button'>
+            <button type='submit'>
               <BiSearchAlt />
             </button>
           </label>
@@ -78,20 +73,34 @@ const Menu = () => {
         <h1 className={theme}>{getText('menu.our-recipes')}</h1>
       </TitleContainer>
       <RecipesContainer>
-        {categoryList.length === 0 && (
+        {(error) && (
           <div style={{ display: 'grid', gap: '20px' }}>
+            <h1>No hay elementos en la categoria</h1>
+          </div>
+        )}
+        {(categoryList.length !== 0) && (
+          <>
+            {categoryList?.map((recipe) => (
+              <React.Fragment key={recipe.id}>
+                <RecipeCard recipe={recipe} />
+              </React.Fragment>
+            ))}
+          </>
+        )}
+        {(categoryList.length !== 0 && loading) && (
+          <div style={{ display: 'grid', gap: '20px', justifySelf: 'center', justifyItems: 'center', alignItems: 'center' }}>
             <Loader>
               <AiOutlineLoading3Quarters size={100} />
             </Loader>
             <h1>{getText('menu.searcher-loader')}</h1>
           </div>
         )}
-        {categoryList?.map((recipe) => (
-          <React.Fragment key={recipe.id}>
-            <RecipeCard recipe={recipe} />
-          </React.Fragment>
-        ))}
       </RecipesContainer>
+      {final && (
+        <div style={{ display: 'grid', justifyItems: 'center', padding: '50px' }}>
+          <h1>No hay mas que mostrar</h1>
+        </div>
+      )}
     </section>
   );
 }

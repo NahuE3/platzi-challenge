@@ -5,9 +5,11 @@ import Currency from '../Currency';
 import { useStateValue } from '../../context';
 import useCurrency from '../../hooks/useCurrency';
 import { Container, Body, Image, Info, BtnOutline, BtnLink } from './styles';
-import { addToCart, removeToCart, deleteToCart } from '../../context/actions';
+// import { addToCart, removeToCart, deleteToCart } from '../../context/actions';
 import useLanguage from '../../hooks/useLanguage';
 import useRecipePrice from '../../hooks/useRecipePrice';
+import useCart from '../../hooks/useCart';
+import { addIngredient, removeIngredient } from '../../context/actions';
 
 
 const RecipeCart = ({ count, recipe }) => {
@@ -16,6 +18,7 @@ const RecipeCart = ({ count, recipe }) => {
   const { getText } = useLanguage();
   const { total } = useRecipePrice({ recipe, count });
   const [active, setActive] = useState(false);
+  const { addToCart, removeToCart, deleteToCart } = useCart();
 
   return (
     <Container className={theme}>
@@ -30,7 +33,7 @@ const RecipeCart = ({ count, recipe }) => {
           title={getText('recipe-cart.remove')}
           className={theme}
           disabled={count <= 0}
-          onClick={() => removeToCart({ cart, recipe, dispatch })}
+          onClick={() => removeToCart({ recipe })}
         >
           <FaMinus />
         </BtnOutline>
@@ -38,9 +41,9 @@ const RecipeCart = ({ count, recipe }) => {
         <BtnOutline
           type='button'
           className={theme}
-          disabled={count >= 99}
+          disabled={count >= 99 || total <= 0}
           title={getText('recipe-cart.add')}
-          onClick={() => addToCart({ cart, recipe, dispatch })}
+          onClick={() => addToCart({ recipe })}
         >
           <FaPlus />
         </BtnOutline>
@@ -63,7 +66,7 @@ const RecipeCart = ({ count, recipe }) => {
           type='button'
           className={theme}
           title={getText('recipe-cart.delete')}
-          onClick={() => deleteToCart({ cart, recipe, dispatch })}
+          onClick={() => deleteToCart({ recipe })}
         >
           <FaTimes />
         </BtnLink>
@@ -89,7 +92,18 @@ const RecipeCart = ({ count, recipe }) => {
             <>
               <p style={{ justifySelf: 'flex-start' }}><strong>{detail.name}</strong></p>
               <p>{formaterValue({ mount: detail.price })}</p>
-              <input type='checkbox' checked />
+              {detail.is_active && (
+                <input
+                  type='checkbox'
+                  checked={detail.is_active} onClick={() => removeIngredient({ cart, recipe, detail, count, dispatch })}
+                />
+              )}
+              {!detail.is_active && (
+                <input
+                  type='checkbox'
+                  checked={detail.is_active} onClick={() => addIngredient({ cart, recipe, detail, count, dispatch })}
+                />
+              )}
             </>
           ))}
         </div>

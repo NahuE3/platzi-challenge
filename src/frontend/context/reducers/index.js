@@ -25,6 +25,8 @@ const reducer = (state, action) => {
         ...state,
         user: action.payload,
       };
+    case 'SET_DETAIL': return state;
+    case 'SET_SALE': return state;
     case 'REGISTER_REQUEST': return state;
     case 'LOGOUT_REQUEST':
       return {

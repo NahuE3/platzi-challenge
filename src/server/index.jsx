@@ -12,6 +12,7 @@ import ServerApp from '../frontend/routes/ServerApp';
 import AuthRouter from './routes/auth';
 import RecipesRouter from './routes/recipes';
 import FavoritesRouter from './routes/favorites';
+import SalessRouter from './routes/sale';
 
 const app = express();
 
@@ -70,9 +71,6 @@ const getData = async ({ id, token, route }) => {
 
 const renderApp = async (req, res) => {
   const { token, theme, currency, language, id, email, type, username } = req.cookies;
-  const [recipes, categories] = await Promise.all([getData({ route: 'recipes' }), getData({ route: 'recipe_categories' })]);
-  // const recipes = await getData({ route: 'recipes' });
-  // const categories = await getData({ route: 'recipe_categories' });
   const initialState = {
     user: {},
     wishList: [],
@@ -80,19 +78,29 @@ const renderApp = async (req, res) => {
     currency: currency || 'USD',
     language: language || 'es',
     cart: { size: 0, total: 0, delivery: 5, recipes: []},
-    recipes: recipes || { count: 0, next: null, previous: null, results: [] },
-    categories: categories || { count: 0, next: null, previous: null, results: [] },
+    recipes: { count: 0, next: null, previous: null, results: [] },
+    categories: { count: 0, next: null, previous: null, results: [] },
     coin: [
       { format: 'en-US', currency: 'USD', value: 1 },
       { format: 'es-MX', currency: 'MXN', value: 20.86 },
       { format: 'es-CO', currency: 'COP', value: 3647 },
     ],
   }
-  if (token && id && email && type && username) {
-    const user = { id, email, type, username, token };
-    const wishList = await getData({ id, token, route: 'favorites' });
-    initialState.user = user;
-    initialState.wishList = wishList.results || [];
+  try {
+    const [recipes, categories] = await Promise.all([getData({ route: 'recipes' }), getData({ route: 'recipe_categories' })]);
+    initialState.recipes = recipes;
+    initialState.categories = categories;
+    if (token && id && email && type && username) {
+      const user = { id, email, type, username, token };
+      const wishList = await getData({ id, token, route: 'favorites' });
+      initialState.user = user;
+      initialState.wishList = wishList.results || [];
+    }
+  } catch (error) {
+    initialState.user = {};
+    initialState.wishList = [];
+    initialState.recipes = { count: 0, next: null, previous: null, results: [] };
+    initialState.categories = { count: 0, next: null, previous: null, results: [] };
   }
 
   const html = renderToString(
@@ -110,6 +118,7 @@ const renderApp = async (req, res) => {
 AuthRouter(app);
 RecipesRouter(app);
 FavoritesRouter(app);
+SalessRouter(app);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.static(`${__dirname}/assets`));
 app.get('*', renderApp);

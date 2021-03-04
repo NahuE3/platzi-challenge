@@ -1,9 +1,10 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useStateValue } from "../context";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useStateValue } from '../context';
+import { addToFavorite as add, removeToFavorite as remove } from '../context/actions';
 
 const useFavorites = () => {
-  const { wishList } = useStateValue();
+  const { user, wishList, dispatch } = useStateValue();
   const items = wishList.map((item) => item.recipe);
   const [favorites, setFavorites] = useState();
 
@@ -15,7 +16,9 @@ const useFavorites = () => {
     }).then(({ data }) => {
       const { results } = data.data;
       return results;
-    }).catch((error) => {});
+    }).catch((error) => {
+      return [];
+    });
     return result;
   };
 
@@ -34,7 +37,15 @@ const useFavorites = () => {
     }
   }, [wishList]);
 
-  return { favorites };
+  const addToFavorite = ({ recipe }) => {
+    add({ user, wishList, recipe, dispatch });
+  };
+
+  const removeToFavorite = ({ recipe }) => {
+    remove({ user, wishList, recipe, dispatch });
+  };
+
+  return { favorites, addToFavorite, removeToFavorite };
 }
 
 export default useFavorites;

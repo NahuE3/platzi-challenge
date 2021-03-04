@@ -20,6 +20,16 @@ export const setCart = (payload) => ({
   payload,
 });
 
+export const setDetail = (payload) => ({
+  type: 'SET_DETAIL',
+  payload,
+});
+
+export const setSale = (payload) => ({
+  type: 'SET_SALE',
+  payload,
+});
+
 export const setFavorites = (payload) => ({
   type: 'SET_FAVORITES',
   payload,
@@ -78,6 +88,7 @@ export const addToCart = ({ cart, recipe, dispatch }) => {
   if (!cart && !recipe) return;
   if (cart?.size >= 99) return;
   const prices = recipe?.detail?.map((item) => {
+    if (!item.is_active) return 0;
     const price = parseFloat(item.price);
     const discount = parseFloat(item.discount);
     if (discount === 0) {
@@ -95,7 +106,11 @@ export const addToCart = ({ cart, recipe, dispatch }) => {
     if (recipe) {
       const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
       if (element) {
-        element.count += 1;
+        if (total === 0) {
+          element.count = 0;
+        } else {
+          element.count += 1;
+        }
         newCart.total += total;
       } else {
         const cartItem = { count: 1, recipe };
@@ -113,6 +128,7 @@ export const addToCart = ({ cart, recipe, dispatch }) => {
 export const removeToCart = ({ cart, recipe, dispatch }) => {
   if (!cart && !recipe) return;
   const prices = recipe?.detail?.map((item) => {
+    if (!item.is_active) return 0;
     const price = parseFloat(item.price);
     const discount = parseFloat(item.discount);
     if (discount === 0) {
@@ -150,6 +166,7 @@ export const removeToCart = ({ cart, recipe, dispatch }) => {
 export const deleteToCart = ({ cart, recipe, dispatch }) => {
   if (!cart && !recipe) return;
   const prices = recipe?.detail?.map((item) => {
+    if (!item.is_active) return 0;
     const price = parseFloat(item.price);
     const discount = parseFloat(item.discount);
     if (discount === 0) {
@@ -233,43 +250,107 @@ export const removeToFavorite = async ({ user, wishList, recipe, dispatch }) => 
   }
 }
 
-export const loginUser = async ({ user, dispatch }) => {
-  let id, token;
-  await axios({
-    url: '/auth/login/',
-    method: 'post',
-    data: { ...user },
-  }).then(({ data }) => {
-    id = data.data.id;
-    token = data.data.token;
-    document.cookie = `id=${data.data.id}`;
-    document.cookie = `token=${data.data.token}`;
-    document.cookie = `email=${data.data.email}`;
-    document.cookie = `type=${data.data.account_type}`;
-    document.cookie = `username=${data.data.username}`;
-    dispatch(loginRequest(data.data));
-  }).then(() => {
-    window.location.href = '/home';
-  }).catch((error) => {
+export const addIngredient = ({ cart, recipe, detail, count, dispatch }) => {
+  const newCart = { ... cart };
+  const details = recipe.detail.find((d) => d.id === detail.id);
+  details.is_active = true;
+
+  dispatch(setCart({ ...newCart }));
+};
+
+export const removeIngredient = ({ cart, recipe, detail, count, dispatch }) => {
+  const newCart = { ... cart };
+  const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
+  const details = recipe?.detail?.find((d) => d.id === detail.id);
+  details.is_active = false;
+  newCart.total -= (parseFloat(detail.price) * count);
+
+  const prices = recipe?.detail?.map((item) => {
+    if (!item.is_active) return 0;
+    const price = parseFloat(item.price);
+    const discount = parseFloat(item.discount);
+    if (discount === 0) {
+      return price;
+    } else if (discount < 1) {
+      return price * discount;
+    } else if (discount > 1 && price > discount) {
+      return price - discount;
+    }
+    return 0;
+  }) || [];
+  const total = prices?.reduce((a, b) => a + b, 0) || 0;
+  if (total === 0) {
+    newCart.size -= count;
+    element.count = 1;
+  }
+  dispatch(setCart({ ...newCart }));
+};
+
+export const makeSale = async ({ cart, user, shipping, payment, dispatch }) => {
+  try {
+    await axios({
+      url: '/api/sale',
+      method: 'post',
+      data: { cart, user, payment, shipping, token: user?.token },
+    }).then(({ data }) => {
+      dispatch(setSale(data));
+      dispatch(setCart({ size: 0, total: 0, delivery: 5, recipes: []}));
+    }).catch((error) => {
+      dispatch(setError(error));
+      throw new Error('Error');
+    });
+  } catch (error) {
     dispatch(setError(error));
     throw new Error('Error');
-  });
+  }
+};
+
+export const loginUser = async ({ user, dispatch }) => {
+  try {
+    await axios({
+      url: '/auth/login/',
+      method: 'post',
+      data: { ...user },
+    }).then(({ data }) => {
+      id = data.data.id;
+      token = data.data.token;
+      document.cookie = `id=${data.data.id}`;
+      document.cookie = `token=${data.data.token}`;
+      document.cookie = `email=${data.data.email}`;
+      document.cookie = `type=${data.data.account_type}`;
+      document.cookie = `username=${data.data.username}`;
+      dispatch(loginRequest(data.data));
+    }).then(() => {
+      window.location.href = '/home';
+    }).catch((error) => {
+      dispatch(setError(error));
+      throw new Error('Error');
+    });
+  } catch (error) {
+    dispatch(setError(error));
+    throw new Error('Error');
+  }
 };
 
 export const registerUser = async ({ user, dispatch }) => {
   const _user = { email: user.email, password: user.password };
-  await axios({
-    url: '/auth/register/',
-    method: 'post',
-    data: { ...user },
-  }).then(({ data }) => {
-    dispatch(registerRequest(data));
-  }).then(() => {
-    loginUser({ user: _user ,dispatch});
-  }).catch((error) => {
+  try {
+    await axios({
+      url: '/auth/register/',
+      method: 'post',
+      data: { ...user },
+    }).then(({ data }) => {
+      dispatch(registerRequest(data));
+    }).then(() => {
+      loginUser({ user: _user ,dispatch});
+    }).catch((error) => {
+      dispatch(setError(error));
+      throw new Error('Error');
+    });
+  } catch (error) {
     dispatch(setError(error));
     throw new Error('Error');
-  });
+  }
 };
 
 export const logoutUser = ({ dispatch }) => {

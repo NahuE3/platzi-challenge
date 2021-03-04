@@ -7,10 +7,12 @@ import { useStateValue } from '../../context';
 import { changeTheme } from '../../context/actions';
 import useLanguage from '../../hooks/useLanguage';
 import useCurrency from '../../hooks/useCurrency';
+import useCart from '../../hooks/useCart';
 
 const AppBar = () => {
-  const { cart, wishList, dispatch, user } = useStateValue();
+  const { wishList, dispatch, user } = useStateValue();
   const { getText, changeLanguage } = useLanguage();
+  const { cart } = useCart();
   const { changeCurrency } = useCurrency();
   return (
     <Header>
