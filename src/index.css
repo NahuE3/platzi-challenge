@@ -14,9 +14,10 @@
     --white-color: #fff;
     --black-color: #202020;
     
-    --first-color: #202020;
+    --first-color: #d33a5b;
+    --first-soft-color: #bd4f67;
 
-    --bold-gray: #4b4b4b;
+    --bold-gray: #5f5f5f;
     --mid-gray: #d6d6d6;
     --light-gray: #f2f2f2;
 
@@ -28,15 +29,17 @@
     --card-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.1);
 
     /* Radio del borde */
-    --large-radius: 12px;
-    --normal-radius: 8px;
+    --large-radius: 14px;
+    --normal-radius: 10px;
     
     /*Fuente y tipografia */
     --title-font: "Montserrat", sans-serif;
     --body-font: "Roboto", sans-serif;
+    --xlarge-font-size: 1.8rem;
     --large-font-size: 1.6rem;
     --normal-font-size: 1.4rem;
     --small-font-size: 1.2rem;
+    --xsmall-font-size: 1rem;
   }
 
   
@@ -66,16 +69,20 @@
     color: var(--black-color)
   }
 
+  h1 { margin-top: 16px }
+
   ul, ol{
     margin: 0 0 0 1rem;
     padding: 0 0 0 1rem;
   }
 
+  li {list-style:none}
+
   a { text-decoration: none; }
-  a:link { color: #6A26CD; }
-  a:hover { color: #431482; }
-  a:active { color: #6A26CD; }
-  a:visited { color: #6A26CD; }
+  a:link { color: var(--black-color);}
+  a:hover { color: var(--black-color);}
+  a:active { color: var(--black-color);}
+  a:visited { color: var(--black-color);}
 
   table { border-collapse: collapse; }
   th { text-align: left; }

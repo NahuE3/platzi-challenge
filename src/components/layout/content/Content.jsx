@@ -5,21 +5,23 @@ import styled from 'styled-components';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
-const Content = ({ children }) => {
-  return <StyledContainer>{children}</StyledContainer>;
+const Content = ({ center, children }) => {
+  return <StyledContainer center={center}>{children}</StyledContainer>;
 };
 
 // =================== ESTILOS CSS ===================
 const StyledContainer = styled.div`
-  width: 100vw;
-  padding: 76px 20px 0;
+  max-width: 100vw;
+  padding: 56px 16px 76px;
 
-  ${media.tab} {
+  ${media.mobile} {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 100%;
-    padding: 76px 30px 0;
+    align-items: ${props => props.center ? 'center' : ''};
+    padding: 56px 16px 76px;
+  }
+  ${media.tab} {
+    padding: 56px 10% 50px;
   }
 `;
 

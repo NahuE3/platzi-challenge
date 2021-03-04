@@ -2,6 +2,8 @@
 //Import de librerias.
 import React from 'react';
 import styled, { css } from 'styled-components';
+//Import de iconos.
+import { FaCheckCircle, FaRegTimesCircle } from 'react-icons/fa';
 
 const InputDefault = ({
   //Props que recibe el componente InputDefault.
@@ -60,11 +62,17 @@ const InputDefault = ({
           success={state.success}
           setWidth={width}
         />
-        {/* FIXME: Necesitamos definir que libreria de iconos usar.
-        <Icon 
-					icon={state.success === 'true' ? iconTrue : iconfalse}
-					success={state.success}
-			/> */}
+        {state.success === true ? (
+          <IconSuccess
+            size="2rem"
+            success={state.success ? 1 : state.success === false ? 0 : null}
+          />
+        ) : (
+          <IconError
+            size="2rem"
+            success={state.success ? 1 : state.success === false ? 0 : null}
+          />
+        )}
       </InputContainer>
       <ErrorMessage success={state.success} setWidth={width}>
         {errorMessage}
@@ -76,9 +84,8 @@ const InputDefault = ({
 // =================== ESTILOS CSS ===================
 const colors = {
   // FIXME: Variables de color (van a cambiar mas adelante)
-  border: '#0075FF',
+  border: 'var(--first-color)',
   error: '#b93b3b',
-  success: '#1ed12d',
 };
 const Label = styled.label`
   display: ${(props) => (props.label ? 'block' : 'none')};
@@ -98,7 +105,7 @@ const InputContainer = styled.div`
   z-index: 10;
 `;
 const Input = styled.input`
-  height: 40px;
+  height: 48px;
   line-height: 40px;
   width: ${(props) => (props.setWidth ? props.setWidth : '100%')};
   padding: 0 40px 0 10px;
@@ -109,7 +116,6 @@ const Input = styled.input`
   &:focus {
     border: 3px solid ${colors.border};
     outline: none;
-    box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
   }
 
   //Si validacion es true el borde vuelve a su estado normal.
@@ -129,10 +135,11 @@ const Input = styled.input`
 const ErrorMessage = styled.p`
   display: none;
   width: ${(props) => (props.setWidth ? props.setWidth : '100%')};
-  padding: 10px;
+  padding: 6px 10px;
   font-size: var(--small-font-size);
-  font-weight: 600;
+  font-weight: 400;
   color: ${colors.error};
+
   //Si validacion es true NO se muestra el mensaje.
   ${(props) =>
     props.success === true &&
@@ -145,6 +152,35 @@ const ErrorMessage = styled.p`
     props.success === false &&
     css`
       display: block;
+    `}
+`;
+
+const IconError = styled(FaRegTimesCircle)`
+  position: absolute;
+  right: 12px;
+  top: 24px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(-50%);
+  ${(props) =>
+    props.success === 0 &&
+    css`
+      opacity: 1;
+      color: ${colors.error};
+    `}
+`;
+const IconSuccess = styled(FaCheckCircle)`
+  position: absolute;
+  right: 12px;
+  top: 24px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(-50%);
+  ${(props) =>
+    props.success === 1 &&
+    css`
+      opacity: 1;
+      color: var(--mid-gray);
     `}
 `;
 
