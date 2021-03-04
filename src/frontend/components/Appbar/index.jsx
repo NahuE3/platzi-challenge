@@ -12,7 +12,7 @@ import useCart from '../../hooks/useCart';
 const AppBar = () => {
   const { wishList, dispatch, user } = useStateValue();
   const { getText, changeLanguage } = useLanguage();
-  const { cart } = useCart();
+  const { cart } = useCart(true);
   const { changeCurrency } = useCurrency();
   return (
     <Header>

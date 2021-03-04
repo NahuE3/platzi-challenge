@@ -11,12 +11,14 @@ import useRecipePrice from '../../hooks/useRecipePrice';
 import useCurrency from '../../hooks/useCurrency';
 import usePreparationTime from '../../hooks/usePreparationTime';
 import useCart from '../../hooks/useCart';
+import { useLocation } from 'react-router';
 // import { useNearScreen } from '../../hooks/useNearScreen';
 
 const RecipeCard = ({ recipe }) => {
   const { getText } = useLanguage();
+  const location = useLocation();
   const category = recipe.recipe_category;
-  const { theme, user, wishList, cart, dispatch } = useStateValue();
+  const { theme, user, wishList, dispatch } = useStateValue();
   const { total } = useRecipePrice({ recipe });
   const { formaterValue } = useCurrency();
   const { formatTime } = usePreparationTime();
@@ -56,7 +58,7 @@ const RecipeCard = ({ recipe }) => {
           <MdTimer />
           <span>{`${formatTime({ time: recipe.total_time })} ${getText('recipe-card.preparation-time')}`}</span>
         </p>
-        <FacebookShareButton url={document.location.href} >
+        <FacebookShareButton url={`https://fodyplus.co/${location.pathname}`} >
           <FacebookIcon size={32} round={true} />
         </FacebookShareButton>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

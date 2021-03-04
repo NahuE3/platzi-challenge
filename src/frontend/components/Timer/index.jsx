@@ -2,7 +2,7 @@ import React from 'react';
 import useTimer from '../../hooks/useTimer';
 
 const Timer = () => {
-  const { hours, minutes, seconds, setActive } = useTimer(0, 0, 30);
+  const { hours, minutes, seconds, setActive } = useTimer({ time: '2.40' });
 
   return (
     <div>

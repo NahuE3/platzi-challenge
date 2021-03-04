@@ -9,7 +9,7 @@ const Recipes = (app) => {
   router.post('/sale', async (req, res, next) => {
     const { cart, user, payment, shipping, token } = req.body;
     if (!cart || !shipping || !payment) res.status(400).json({ data: 'ERROR!!'});
-    const userEmail = 'exampel@exmaple.com';
+    const userEmail = shipping?.email || user?.email || '';
     delete shipping?.email;
 
     const details = cart?.recipes?.map((item) => item.recipe.detail);
@@ -18,14 +18,17 @@ const Recipes = (app) => {
     try {
       const shippingInfo = await axios({
         url: `${API_URL}/shipping_infos/`,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         method: 'post',
         data: { ...shipping },
       });
 
       const sale = await axios({
         url: `${API_URL}/sales/`,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         method: 'post',
         data: {
+          finalize: true,
           total: `${cart.total}`,
           payment_method: payment,
           delivery_charge: `${cart.delivery}`,
@@ -33,14 +36,16 @@ const Recipes = (app) => {
         }
       });
 
-      const saleUser = await axios({
-        url: `${API_URL}/sales/email/`,
-        method: 'post',
-        data: {
-          email: user?.email || userEmail,
-          sale: sale.data.id,
-        }
-      });
+      if (userEmail) {
+        const saleUser = await axios({
+          url: `${API_URL}/sales/email/`,
+          method: 'post',
+          data: {
+            email: userEmail,
+            sale: sale.data.id,
+          }
+        });
+      }
 
       const saleDetail = await Promise.all(
         products.map((p) => {
@@ -63,7 +68,6 @@ const Recipes = (app) => {
       const saleDetailData = saleDetail.map(({ data }) => data);
       res.status(201).json({
         data: {
-          user: saleUser.data,
           sale: sale.data,
           sale_detail: saleDetailData,
 

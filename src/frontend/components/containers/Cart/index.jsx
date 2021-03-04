@@ -193,6 +193,7 @@ const Cart = () => {
       city: 'SL',
       state: 'SL',
       zip_code: '5700',
+      email: 'example@example.com'
     });
     setStep(step + 1);
   }

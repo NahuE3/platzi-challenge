@@ -2,7 +2,7 @@ import React from 'react';
 import { renderRoutes } from 'react-router-config';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
-import { Cart, Favorites, Home, NotFound } from '../components/containers';
+import { Cart, Favorites, Home, Menu, NotFound } from '../components/containers';
 import Logout from '../components/containers/Logout';
 import Timer from '../components/Timer';
 import VideoPlayer from '../components/VideoPlayer';
@@ -33,6 +33,11 @@ const serverRoutes = () => [
     path: '/home',
     exact: true,
     component: Home,
+  },
+  {
+    path: '/menu',
+    exact: true,
+    component: Menu,
   },
   {
     path: '/login',

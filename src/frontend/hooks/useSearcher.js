@@ -4,7 +4,7 @@ import { useStateValue } from "../context";
 
 const useSearcher = ({ text }) => {
   const { recipes } = useStateValue();
-  const [searchList, setSearchList] = useState(recipes.results);
+  const [searchList, setSearchList] = useState(recipes.results || []);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 

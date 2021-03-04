@@ -85,8 +85,8 @@ export const changeLanguage = async ({ language, dispatch }) => {
 };
 
 export const addToCart = ({ cart, recipe, dispatch }) => {
-  if (!cart && !recipe) return;
-  if (cart?.size >= 99) return;
+  if (!cart && !recipe) return null;
+  if (cart?.size >= 99) return null;
   const prices = recipe?.detail?.map((item) => {
     if (!item.is_active) return 0;
     const price = parseFloat(item.price);
@@ -120,13 +120,15 @@ export const addToCart = ({ cart, recipe, dispatch }) => {
     }
     newCart.size += 1;
     dispatch(setCart({ ...newCart }));
+    return newCart;
   } catch (error) {
     dispatch(setError(error));
+    return null;
   }
 }
 
 export const removeToCart = ({ cart, recipe, dispatch }) => {
-  if (!cart && !recipe) return;
+  if (!cart && !recipe) return null;
   const prices = recipe?.detail?.map((item) => {
     if (!item.is_active) return 0;
     const price = parseFloat(item.price);
@@ -153,18 +155,20 @@ export const removeToCart = ({ cart, recipe, dispatch }) => {
         newCart.recipe.splice(index, 1);
         newCart.total -= total;
       } else {
-        return;
+        return null;
       }
     }
     newCart.size -= 1;
     dispatch(setCart({ ...newCart }));
+    return newCart;
   } catch (error) {
     dispatch(setError(error));
+    return null;
   }
 }
 
 export const deleteToCart = ({ cart, recipe, dispatch }) => {
-  if (!cart && !recipe) return;
+  if (!cart && !recipe) return null;
   const prices = recipe?.detail?.map((item) => {
     if (!item.is_active) return 0;
     const price = parseFloat(item.price);
@@ -191,8 +195,10 @@ export const deleteToCart = ({ cart, recipe, dispatch }) => {
       }
     }
     dispatch(setCart({ ...newCart }));
+    return newCart;
   } catch (error) {
     dispatch(setError(error));
+    return null;
   }
 }
 
@@ -293,6 +299,7 @@ export const makeSale = async ({ cart, user, shipping, payment, dispatch }) => {
       method: 'post',
       data: { cart, user, payment, shipping, token: user?.token },
     }).then(({ data }) => {
+      console.log(data);
       dispatch(setSale(data));
       dispatch(setCart({ size: 0, total: 0, delivery: 5, recipes: []}));
     }).catch((error) => {

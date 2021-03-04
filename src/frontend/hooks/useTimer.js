@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 
-const useTimer = (initialHours = 0, initialMinutes = 0, initialSeconds = 5) => {
+const getTime = ({ time, type }) => {
+  const aux = time.split(".");
+  if (type === 'hours') {
+    return parseInt(aux[0], 10);
+  }
+  if (type === 'minutes') {
+    return parseInt(aux[1], 10);
+  }
+  return 0;
+}
+
+const useTimer = ({ time }) => {
   const [active, setActive] = useState(false);
-  const [hours, setHours] = useState(initialHours);
-  const [minutes, setMinutes] = useState(initialMinutes);
-  const [seconds, setSeconds] = useState(initialSeconds);
+  const [hours, setHours] = useState(getTime({ time, type: 'hours' }) || 0);
+  const [minutes, setMinutes] = useState(getTime({ time, type: 'minutes' }) || 0);
+  const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     if (!active) return;

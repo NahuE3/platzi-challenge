@@ -10,19 +10,21 @@ const useCategory = ({ category, container }) => {
   const [final, setFinal] = useState(false);
   const [error, setError] = useState(false);
 
-  if (container) {
-    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-      window.onscroll = () => {
-        const max = document.body.scrollHeight;
-        const scroll = window.pageYOffset + window.innerHeight;
-        if(max === scroll && !final) {
-          setLoading(true);
-          getRecipes({ category, page: page + 1 });
-          setPage(page + 1);
-        }
-      };
-    };
-  };
+  // if ((typeof (window) === 'undefined')) return { categoryList, loading, final, error };
+
+  // if (container) {
+  //   if ((typeof (window) !== 'undefined')) {
+  //     window.onscroll = () => {
+  //       const max = document.body.scrollHeight;
+  //       const scroll = window.pageYOffset + window.innerHeight;
+  //       if(max === scroll && !final) {
+  //         setLoading(true);
+  //         getRecipes({ category, page: page + 1 });
+  //         setPage(page + 1);
+  //       }
+  //     };
+  //   };
+  // };
 
   const getRecipes = async ({ category, page }) => {
     await axios({

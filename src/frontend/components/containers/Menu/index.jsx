@@ -25,15 +25,17 @@ const FilterItem = ({ id, contain, category, setCategory }) => {
 const Menu = () => {
   const { theme, categories } = useStateValue();
   const [category, setCategory] = useState(0);
-  const { getText } = useLanguage();
   const { register, handleSubmit, watch, errors } = useForm();
   const searchWatch = watch('search', '');
   const { searchList } = useSearcher({ text: searchWatch });
+  const { getText } = useLanguage();
   const ref = useRef(null);
   const { categoryList, loading, final, error } = useCategory({ category, container: ref });
 
   const onSubmit = (data) => {
-    document.location.href = `/recipe/${data.search}`;
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      document.location.href = `/recipe/${data.search}`;
+    }
   };
 
   return (
