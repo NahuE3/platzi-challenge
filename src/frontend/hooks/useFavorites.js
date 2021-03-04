@@ -5,8 +5,8 @@ import { addToFavorite as add, removeToFavorite as remove } from '../context/act
 
 const useFavorites = () => {
   const { user, wishList, dispatch } = useStateValue();
-  const items = wishList.map((item) => item.recipe);
-  const [favorites, setFavorites] = useState();
+  const items = wishList?.map((item) => item.recipe) || [];
+  const [favorites, setFavorites] = useState([]);
 
   const getRecipes = async (text) => {
     const [result] = await axios({
@@ -37,6 +37,14 @@ const useFavorites = () => {
     }
   }, [wishList]);
 
+  const isFavorite = ({ recipe }) => {
+    const favorite = wishList?.find((item) => item.recipe === recipe.name);
+
+    if (favorite) return true;
+
+    return false;
+  };
+
   const addToFavorite = ({ recipe }) => {
     add({ user, wishList, recipe, dispatch });
   };
@@ -45,7 +53,7 @@ const useFavorites = () => {
     remove({ user, wishList, recipe, dispatch });
   };
 
-  return { favorites, addToFavorite, removeToFavorite };
+  return { favorites, addToFavorite, removeToFavorite, isFavorite };
 }
 
 export default useFavorites;

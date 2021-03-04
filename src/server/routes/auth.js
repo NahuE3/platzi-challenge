@@ -35,9 +35,7 @@ const Auth = (app) => {
       const { data } = await axios({
         url: `${API_URL}/users/signup/`,
         method: 'post',
-        data: {
-          ...user,
-        },
+        data: { ...user },
       });
       res.status(201).json({
         data,

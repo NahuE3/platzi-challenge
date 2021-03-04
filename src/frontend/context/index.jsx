@@ -4,6 +4,7 @@ import reducer from './reducers';
 
 export const Context = createContext({
   theme: '',
+  search: '',
   user: {},
   cart: {},
   wishList: {},

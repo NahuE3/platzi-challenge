@@ -7,114 +7,83 @@
     5. Otros 
 }*/
 
+
 /*========= VARIABLES ===========*/
-:root {
+:root {  
   /* Colores */
-  --white-color: #fff;
-  --black-color: #202020;
+    --white-color: #fff;
+    --black-color: #202020;
+    
+    --first-color: #d33a5b;
+    --first-soft-color: #bd4f67;
 
-  --first-color: #442ccc;
+    --bold-gray: #5f5f5f;
+    --mid-gray: #d6d6d6;
+    --light-gray: #f2f2f2;
 
-  --bold-gray: #4b4b4b;
-  --mid-gray: #d6d6d6;
-  --light-gray: #f2f2f2;
+    --input-color: #80868b;
+    --border-color: #dadce0;
+  
+    /* Sombras */
+    --button-shadow: 0 2px 10px 0 hsla(0, 0%, 0%, 0.3);
+    --card-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.1);
 
-  --input-color: #80868b;
-  --border-color: #dadce0;
-
-  /* Sombras */
-  --normal-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.1);
-
-  /*Fuente y tipografia */
-  --title-font: 'Montserrat', sans-serif;
-  --body-font: 'Roboto', sans-serif;
-  --large-font-size: 1.6rem;
-  --normal-font-size: 1.4rem;
-  --small-font-size: 1.2rem;
-}
-
-/*========= RESET CSS ===========*/
-*,
-::before,
-::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 62.5%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body,
-input,
-button,
-select,
-textarea {
-  font-family: var(--body-font);
-  font-size: var(--normal-font-size);
-  font-weight: 400;
-  color: var(--black-color);
-  transition: all 0.5s ease;
-}
-
-body.light {
-  background-color: var(--white-color);
-  color: var(--black-color);
-}
-
-body.dark {
-  background-color: var(--black-color);
-  color: var(--white-color);
-}
-
-ul,
-ol {
-  margin: 0 0 0 1rem;
-  padding: 0 0 0 1rem;
-}
-
-a {
-  text-decoration: none;
-}
-a:link {
-  color: #6a26cd;
-}
-a:hover {
-  color: #431482;
-}
-a:active {
-  color: #6a26cd;
-}
-a:visited {
-  color: #6a26cd;
-}
-
-table {
-  border-collapse: collapse;
-}
-th {
-  text-align: left;
-}
-td {
-  vertical-align: middle;
-}
-
-@-moz-keyframes spin {
-  100% {
-    -moz-transform: rotate(360deg);
+    /* Radio del borde */
+    --large-radius: 14px;
+    --normal-radius: 10px;
+    
+    /*Fuente y tipografia */
+    --title-font: "Montserrat", sans-serif;
+    --body-font: "Roboto", sans-serif;
+    --xlarge-font-size: 1.8rem;
+    --large-font-size: 1.6rem;
+    --normal-font-size: 1.4rem;
+    --small-font-size: 1.2rem;
+    --xsmall-font-size: 1rem;
   }
-}
-@-webkit-keyframes spin {
-  100% {
-    -webkit-transform: rotate(360deg);
+
+  
+  /*========= RESET CSS ===========*/
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
-}
-@keyframes spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+
+  html {
+    font-size: 62.5%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-}
+
+  body,
+  input,
+  button,
+  select,
+  textarea {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    font-weight: 400;
+    color: var(--black-color)
+  }
+
+  h1 { margin-top: 16px }
+
+  ul, ol{
+    margin: 0 0 0 1rem;
+    padding: 0 0 0 1rem;
+  }
+
+  li {list-style:none}
+
+  a { text-decoration: none; }
+  a:link { color: var(--black-color);}
+  a:hover { color: var(--black-color);}
+  a:active { color: var(--black-color);}
+  a:visited { color: var(--black-color);}
+
+  table { border-collapse: collapse; }
+  th { text-align: left; }
+  td { vertical-align: middle; }

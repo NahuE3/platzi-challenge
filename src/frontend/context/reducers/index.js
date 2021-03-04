@@ -16,6 +16,10 @@ const reducer = (state, action) => {
       ...state,
       cart: action.payload,
     };
+    case 'SET_SEARCH': return {
+      ...state,
+      search: action.payload,
+    };
     case 'SET_FAVORITES': return {
       ...state,
       wishList: action.payload,

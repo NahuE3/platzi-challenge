@@ -20,6 +20,11 @@ export const setCart = (payload) => ({
   payload,
 });
 
+export const setSearch = (payload) => ({
+  type: 'SET_SEARCH',
+  payload,
+});
+
 export const setDetail = (payload) => ({
   type: 'SET_DETAIL',
   payload,
@@ -108,12 +113,15 @@ export const addToCart = ({ cart, recipe, dispatch }) => {
       if (element) {
         if (total === 0) {
           element.count = 0;
+          element.recipe.portions = 0;
         } else {
           element.count += 1;
+          element.recipe.portions += 1;
         }
         newCart.total += total;
       } else {
-        const cartItem = { count: 1, recipe };
+        const newRecipe = { ...recipe, portions: 1 };
+        const cartItem = { count: 1, recipe: newRecipe };
         newCart.recipes.push(cartItem);
         newCart.total += total;
       }
@@ -151,9 +159,11 @@ export const removeToCart = ({ cart, recipe, dispatch }) => {
       if (element.count > 1 && index !== -1) {
         element.count -= 1;
         newCart.total -= total;
+        element.recipe.portions -= 1;
       } else if (element.count <= 1 && index !== -1) {
-        newCart.recipe.splice(index, 1);
         newCart.total -= total;
+        element.portions = 0;
+        newCart.recipe.splice(index, 1);
       } else {
         return null;
       }
@@ -189,6 +199,7 @@ export const deleteToCart = ({ cart, recipe, dispatch }) => {
       const element = newCart?.recipes?.find((item) => item.recipe.id === recipe.id);
       const index = newCart?.recipes?.findIndex((item) => item.recipe.id === recipe.id);
       if (index !== -1) {
+        element.recipe.portions = 0;
         newCart.recipes.splice(index, 1);
         newCart.size -= element.count;
         newCart.total -= (total * element.count);
@@ -262,6 +273,7 @@ export const addIngredient = ({ cart, recipe, detail, count, dispatch }) => {
   details.is_active = true;
 
   dispatch(setCart({ ...newCart }));
+  return newCart;
 };
 
 export const removeIngredient = ({ cart, recipe, detail, count, dispatch }) => {
@@ -290,6 +302,7 @@ export const removeIngredient = ({ cart, recipe, detail, count, dispatch }) => {
     element.count = 1;
   }
   dispatch(setCart({ ...newCart }));
+  return newCart;
 };
 
 export const makeSale = async ({ cart, user, shipping, payment, dispatch }) => {
@@ -310,6 +323,11 @@ export const makeSale = async ({ cart, user, shipping, payment, dispatch }) => {
     dispatch(setError(error));
     throw new Error('Error');
   }
+};
+
+export const searchRecipe = ({ search, dispatch }) => {
+  if (!search || search === '') return;
+  dispatch(setSearch(search || ''));
 };
 
 export const loginUser = async ({ user, dispatch }) => {

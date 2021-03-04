@@ -25,7 +25,7 @@ app.disable('x-powered-by');
 
 const setResponse = (html, preloadedState) => (
   `<!DOCTYPE html>
-  <html lang="es">
+  <html lang=${JSON.stringify(preloadedState.language).replace(/</g, '\\u003c')}>
     <head>
       <base href="/" />
       <meta charset="utf-8" />
@@ -35,7 +35,7 @@ const setResponse = (html, preloadedState) => (
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="app.css" />
-      <title>Platzi Olimpiadas</title>
+      <title>Foody+</title>
     </head>
     <body class=${JSON.stringify(preloadedState.theme).replace(/</g, '\\u003c')}>
       <div id="app">${html}</div>
@@ -73,6 +73,7 @@ const renderApp = async (req, res) => {
   const { token, theme, currency, language, id, email, type, username } = req.cookies;
   const initialState = {
     user: {},
+    search: '',
     wishList: [],
     theme: theme || 'light',
     currency: currency || 'USD',

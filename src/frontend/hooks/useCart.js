@@ -1,6 +1,13 @@
 import { useEffect } from "react";
 import { useStateValue } from "../context";
-import { addToCart as add, removeToCart as remove, deleteToCart as del, setCart } from '../context/actions';
+import {
+  addToCart as add,
+  removeToCart as remove,
+  deleteToCart as del,
+  setCart,
+  removeIngredient as removeItem,
+  addIngredient as addItem
+} from '../context/actions';
 import { useLocalStorage } from "./useLocaleStorage";
 
 const useCart = (set_cart = false) => {
@@ -10,8 +17,6 @@ const useCart = (set_cart = false) => {
   useEffect(() => {
     if (typeof (window) === 'undefined') return;
     if ((typeof (window) !== 'undefined') && set_cart) {
-      console.log('entra');
-      console.log(value);
       dispatch(setCart(value));
     }
   }, [])
@@ -37,7 +42,21 @@ const useCart = (set_cart = false) => {
     }
   }
 
-  return { cart, addToCart, deleteToCart, removeToCart };
+  const addIngredient = ({ recipe, detail, count }) => {
+    const response = addItem({ cart, recipe, detail, count, dispatch });
+    if (response) {
+      setStorage({ ...response });
+    }
+  };
+
+  const removeIngredient = ({ recipe, detail, count }) => {
+    const response = removeItem({ cart, recipe, detail, count, dispatch });
+    if (response) {
+      setStorage({ ...response });
+    }
+  };
+
+  return { cart, addToCart, deleteToCart, removeToCart, removeIngredient, addIngredient };
 }
 
 export default useCart;
