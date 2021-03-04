@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de iconos.
-import { HiOutlineShoppingCart, HiOutlineGlobeAlt } from 'react-icons/hi';
+import { HiOutlineShoppingCart, HiOutlineGlobe } from 'react-icons/hi';
 //Import de componentes.
 import ModalLang from '../../containers/Modal/ModalLang';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
@@ -57,7 +57,7 @@ const Navbar = ({ isSearch }) => {
 
       <StyledCart>
         <ButtonDefault onClick={openModalLang}>
-          <HiOutlineGlobeAlt size="2rem" />
+          <HiOutlineGlobe size="2rem" />
         </ButtonDefault>
         <NavLink to="/cart">
           <ButtonDefault>
