@@ -1,15 +1,26 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React from 'react';
+import React, { useState }from 'react';
 import styled from 'styled-components';
 //Import de iconos.
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
-import { HiOutlineClock, HiOutlinePhotograph } from 'react-icons/hi';
+import {
+  HiOutlineClock,
+  HiOutlinePhotograph,
+  HiOutlineShoppingCart,
+} from 'react-icons/hi';
+//Import de componentes.
+import ModalCart from '../../containers/Modal/ModalCart';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
 const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
   const { image, title, description, price, time } = data;
+
+  const [modalCart, setModalCart] = useState(false);
+
+  const openModalCart = () => setModalCart(true);
+  const closeModalCart = () => setModalCart(false);
 
   return (
     <StyledCard>
@@ -28,8 +39,14 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
           <StyledTitle>{title}</StyledTitle>
           <StyledPrice>$ {price} COL por plato</StyledPrice>
           <StyledDescription>{description}</StyledDescription>
+
           {/* FIXME: Colocar preview de los usuarios que comentaron */}
-          <div>Comentarios</div>
+          <StyledFooter>
+            <div>Comentarios</div>
+            <StyledAddToCart onClick={openModalCart}>
+              <HiOutlineShoppingCart size="1.8rem" />
+            </StyledAddToCart>
+          </StyledFooter>
         </StyledInfo>
 
         <StyledButtonSection>
@@ -49,6 +66,7 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
           </StyledTime>
         </StyledButtonSection>
       </StyledInfoSection>
+      <ModalCart isOpen={modalCart} closeModal={closeModalCart}/>
     </StyledCard>
   );
 };
@@ -137,7 +155,6 @@ const StyledTime = styled.div`
 const StyledTimeText = styled.p`
   margin-left: 6px;
 `;
-
 const StyledTitle = styled.h3`
   margin-bottom: 4px;
   font-size: var(--large-font-size);
@@ -153,6 +170,24 @@ const StyledDescription = styled.p`
   ${media.tab} {
     display: block;
   }
+`;
+const StyledAddToCart = styled.button`
+  height: 40px;
+  width: 40px;
+  padding: 10px;
+  color: var(--white-color);
+  border-radius: var(--normal-radius);
+  border: none;
+  background-color: var(--first-color);
+  outline: none;
+`;
+const StyledFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+  margin-top: 10px;
 `;
 
 export default RecipesCard;
