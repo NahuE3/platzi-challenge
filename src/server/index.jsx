@@ -5,6 +5,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
+import { ServerStyleSheet } from 'styled-components';
 import { ENV, PORT, API_URL } from './config';
 import { Provider } from '../frontend/context';
 import ServerApp from '../frontend/routes/ServerApp';
@@ -23,7 +24,7 @@ app.use(helmet());
 app.use(helmet.permittedCrossDomainPolicies());
 app.disable('x-powered-by');
 
-const setResponse = (html, preloadedState) => (
+const setResponse = (html, preloadedState, styles) => (
   `<!DOCTYPE html>
   <html lang=${JSON.stringify(preloadedState.language).replace(/</g, '\\u003c')}>
     <head>
@@ -35,6 +36,7 @@ const setResponse = (html, preloadedState) => (
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="app.css" />
+      ${styles}
       <title>Foody+</title>
     </head>
     <body class=${JSON.stringify(preloadedState.theme).replace(/</g, '\\u003c')}>
@@ -71,6 +73,8 @@ const getData = async ({ id, token, route }) => {
 
 const renderApp = async (req, res) => {
   const { token, theme, currency, language, id, email, type, username } = req.cookies;
+  const sheet = new ServerStyleSheet();
+  const styles = sheet.getStyleTags();
   const initialState = InitialState;
   initialState.theme = theme || 'light';
   initialState.currency = currency || 'USD';
@@ -105,15 +109,17 @@ const renderApp = async (req, res) => {
   }
 
   const html = renderToString(
-    <Provider initialState={initialState}>
-      <StaticRouter location={req.url} context={{}}>
-        <ServerApp />
-      </StaticRouter>
-    </Provider>,
+    sheet.collectStyles(
+      <Provider initialState={initialState}>
+        <StaticRouter location={req.url} context={{}}>
+          <ServerApp />
+        </StaticRouter>
+      </Provider>
+    ),
   );
   res
     .set('Content-Security-Policy', "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'")
-    .send(setResponse(html, initialState));
+    .send(setResponse(html, initialState, styles));
 };
 
 AuthRouter(app);
