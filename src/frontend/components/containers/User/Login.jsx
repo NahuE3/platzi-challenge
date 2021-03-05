@@ -71,7 +71,9 @@ const Login = () => {
           height="48px"
           margin="12px 0 16px"
           disabled={!email.success || !password.success}
-          onClick={() => loginUser({ email: email.value, password: password.value })}
+          onClick={() =>
+            loginUser({ email: email.value, password: password.value })
+          }
         >
           Iniciar sesión
         </ButtonDefault>
@@ -154,7 +156,7 @@ const StyledSignUp = styled.div`
   height: 26px;
 
   a {
-    color: var(--first-color)
+    color: var(--first-color);
   }
 `;
 const StyledSeparator = styled.div`

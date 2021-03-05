@@ -34,7 +34,7 @@ const Address = () => {
         <PayPalButton total={totalAmount} />
         <Link to="/checkout/address">
           <ButtonDefault
-            primary
+            secondary
             width="100%"
             height="48px"
             margin="20px 0 16px"

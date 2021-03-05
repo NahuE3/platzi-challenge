@@ -19,9 +19,9 @@ const useSale = () => {
       setError(true);
       setLoading(false);
     }
-  }
+  };
 
   return { makeSale, loading, error };
-}
+};
 
 export default useSale;
