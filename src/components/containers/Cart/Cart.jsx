@@ -8,6 +8,7 @@ import Layout from '../../layout/Layout';
 //Import de iconos.
 import { HiOutlineReceiptTax } from 'react-icons/hi';
 //Import de componentes.
+import ModalLogin from '../../containers/Modal/ModalLogin';
 import ModalCupons from '../../containers/Modal/ModalCupons';
 import CartItem from './CartItem';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
@@ -38,11 +39,17 @@ const sale = {
   total: 85,
 };
 
+const userLogged = false;
+
 const Cart = () => {
   const [modalCupons, setModalCupons] = useState(false);
+  const [modalLogin, setModalLogin] = useState(false);
 
   const openModalCupons = () => setModalCupons(true);
   const closeModalCupons = () => setModalCupons(false);
+
+  const openModalLogin = () => setModalLogin(true);
+  const closeModalLogin = () => setModalLogin(false);
 
   return (
     <Layout
@@ -61,7 +68,15 @@ const Cart = () => {
         </div>
         <StyledVerticalSep></StyledVerticalSep>
         <div>
-          <ButtonDefault primary width="100%" height="50px" margin="4px 0 0" onClick={openModalCupons}>
+          <ButtonDefault
+            primary
+            width="100%"
+            height="50px"
+            margin="4px 0 0"
+            onClick={() => {
+              userLogged ? openModalCupons() : openModalLogin();
+            }}
+          >
             <StyledButton>
               <StyledButtonText>Aplicar Cupon</StyledButtonText>
               <HiOutlineReceiptTax size="20px" />
@@ -86,7 +101,7 @@ const Cart = () => {
             <span>Total:</span>
             <span>$ {sale.total.toFixed(2)}</span>
           </StyledDetailsCont>
-          
+
           <Link to="/checkout">
             <ButtonDefault primary width="100%" height="50px" margin="16px 0 0">
               Finalizar Compra
@@ -104,7 +119,8 @@ const Cart = () => {
           </Link>
         </div>
       </StyledWrapper>
-      <ModalCupons isOpen={modalCupons} closeModal={closeModalCupons}/>
+      <ModalCupons isOpen={modalCupons} closeModal={closeModalCupons} />
+      <ModalLogin isOpen={modalLogin} closeModal={closeModalLogin} />
     </Layout>
   );
 };

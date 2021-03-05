@@ -5,6 +5,7 @@ import styled from 'styled-components';
 //Import de layout.
 import Layout from '../../layout/Layout';
 //Import de componentes.
+import Spinner from '../../shared/Spinner';
 import RecipesCard from '../../shared/cards/RecipesCard';
 import Slider from './Slider';
 import { SliderData } from './SliderData';
