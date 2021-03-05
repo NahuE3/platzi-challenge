@@ -11,5 +11,21 @@
 <body>
   <div id="modal"></div> 
   <div id="root"></div>
+  <noscript>
+    <h2>Esta app necesita Javascript para funcionar</h2>
+  </noscript>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js')
+         .then(registration => {
+           console.log('SW registrado')
+         })
+         .catch(registrationError => {
+           console.log('SW error', registrationError)
+         })
+      })
+    }
+  </script>
 </body>
 </html>
