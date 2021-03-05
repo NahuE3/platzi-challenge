@@ -33,6 +33,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: max-content;
+  margin-top: 16px;
 `;
 const StyledCheckboxCont = styled.div`
   position: relative;
