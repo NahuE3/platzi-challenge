@@ -17,6 +17,7 @@ import useRecipes from '../../../hooks/useRecipes';
 // FIXME: Borrar estos datos cuando se conecte a la API
 // const data = ['Pizzas', 'Pastas', 'Carnes', 'Vegetariana', 'De Mar', 'Comida Rapida', 7, 8];
 const recipeData = {
+  id: 1,
   title: 'Titulo de receta',
   description:
     'Descripcion corta de la receta no mayor a cierto numero de caracteres',

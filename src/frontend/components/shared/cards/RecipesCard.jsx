@@ -1,6 +1,6 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState }from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 //Import de iconos.
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
@@ -48,8 +48,8 @@ const RecipesCard = ({ data, openRecipe }) => {
           <StyledPrice>{formaterValue({ mount: total })}</StyledPrice>
           <StyledDescription>{description}</StyledDescription>
 
-          {/* FIXME: Colocar preview de los usuarios que comentaron */}
           <StyledFooter>
+            {/* FIXME: Colocar preview de los usuarios que comentaron */}
             <div>Comentarios</div>
             <StyledAddToCart onClick={openModalCart}>
               <HiOutlineShoppingCart size="1.8rem" />
@@ -75,7 +75,12 @@ const RecipesCard = ({ data, openRecipe }) => {
           </StyledTime>
         </StyledButtonSection>
       </StyledInfoSection>
-      <ModalCart isOpen={modalCart} closeModal={closeModalCart} recipe={data} />
+
+      <ModalCart
+        isOpen={modalCart}
+        closeModal={closeModalCart}
+        recipe={data}
+      />
     </StyledCard>
   );
 };

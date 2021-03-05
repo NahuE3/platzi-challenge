@@ -16,6 +16,7 @@ const ModalCupons = ({ isOpen, closeModal }) => {
   return ReactDOM.createPortal(
     <StyledModal>
       <StyledModalContainer>
+
         <StyledHead>
           <h3>Mis Cupones</h3>
           <StyledCloseButton onClick={closeModal}>
@@ -23,7 +24,8 @@ const ModalCupons = ({ isOpen, closeModal }) => {
           </StyledCloseButton>
         </StyledHead>
         <StyledContent>
-          <StyledSeparator></StyledSeparator>
+
+          <StyledSeparator top></StyledSeparator>
           <StyledOptions>
             {[10, 200, 3000].map((item) => (
               <ButtonOption key={item}>
@@ -32,6 +34,7 @@ const ModalCupons = ({ isOpen, closeModal }) => {
               </ButtonOption>
             ))}
           </StyledOptions>
+
         </StyledContent>
       </StyledModalContainer>
     </StyledModal>,
@@ -108,7 +111,7 @@ const StyledSeparator = styled.div`
   width: 100%;
   height: 2px;
   background-color: var(--light-gray);
-  margin: 8px 0 10px;
+  margin: ${(props) => (props.top ? '0 0 14px' : '14px 0')};
 `;
 const StyledOptions = styled.div`
   display: flex;

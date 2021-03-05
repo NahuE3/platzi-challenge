@@ -50,7 +50,7 @@ const Cart = () => {
 
   return (
     <Layout
-      title="Mi Carrito"
+      title="Carrito"
       subtitle="Aqui puedes puedes ver todo lo que llevas en tu pedido"
       center={true}
     >
