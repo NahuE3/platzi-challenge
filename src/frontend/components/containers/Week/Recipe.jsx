@@ -3,46 +3,30 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 //Import de iconos.
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import {
   HiOutlineClock,
   HiOutlinePhotograph,
+  HiOutlineTrash,
   HiOutlineShoppingCart,
-  HiOutlineChatAlt,
 } from 'react-icons/hi';
 //Import de componentes.
-import ModalLogin from '../../containers/Modal/ModalLogin';
-import ModalCart from '../../containers/Modal/ModalCart';
+import ModalCart from '../Modal/ModalCart';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
-import useRecipePrice from '../../../hooks/useRecipePrice';
-import useCurrency from '../../../hooks/useCurrency';
-import usePreparationTime from '../../../hooks/usePreparationTime';
-import useFavorites from '../../../hooks/useFavorites';
-import { useStateValue } from '../../../context';
 
-const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
-  const { picture, name, description, total_time, comment } = data;
-  const { formaterValue } = useCurrency();
-  const { formatTime } = usePreparationTime();
-  const { total } = useRecipePrice({ recipe: data });
-  const { user } = useStateValue();
-  const { isFavorite, addToFavorite, removeToFavorite } = useFavorites();
+const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
+  const { id, image, title, description, price, time } = data;
 
   const [modalCart, setModalCart] = useState(false);
-  const [modalLogin, setModalLogin] = useState(false);
 
   const openModalCart = () => setModalCart(true);
   const closeModalCart = () => setModalCart(false);
 
-  const openModalLogin = () => setModalLogin(true);
-  const closeModalLogin = () => setModalLogin(false);
-
   return (
     <StyledCard>
       <StyledImgSection onClick={openRecipe}>
-        {picture ? (
-          <StyledImg src={picture} alt={`Imagen del plato ${name}`} />
+        {image ? (
+          <StyledImg src={image} alt={`Imagen del plato ${title}`} />
         ) : (
           <StyledImgHolder>
             <HiOutlinePhotograph size="4rem" color="white" />
@@ -52,46 +36,38 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
 
       <StyledInfoSection>
         <StyledInfo onClick={openRecipe}>
-          <StyledTitle>{name}</StyledTitle>
-          <StyledPrice>{formaterValue({ mount: total })}</StyledPrice>
-          <StyledDescription>{description}</StyledDescription>
-
+          <StyledTitle>{title}</StyledTitle>
+          <StyledPrice>$ {price} COL por plato</StyledPrice>
           <StyledFooter>
-            <div>
-              <HiOutlineChatAlt size="2rem" />
-              <span>{`+ ${comment?.length || 0}`}</span>
-            </div>
-            <StyledAddToCart onClick={openModalCart}>
-              <HiOutlineShoppingCart size="1.8rem" />
+            <StyledAddToCart 
+            //funcion de mover
+            //onClick={}
+            >
+              Mover
+            </StyledAddToCart>
+            <StyledAddToCart 
+            //funcion de eliminar
+            //onClick={}
+            >
+              <HiOutlineTrash size="1.8rem" />
             </StyledAddToCart>
           </StyledFooter>
         </StyledInfo>
 
         <StyledButtonSection>
-          <StyledFavorite>
-            {isFavorite({ recipe: data }) ? (
-              <MdFavorite size="1.6rem" color="white" onClick={() => {
-                Object.keys(user).length !== 0 ? removeToFavorite({ recipe: data }) : openModalLogin();
-              }} />
-            ) : (
-              <MdFavoriteBorder size="1.6rem" color="white" onClick={() => {
-                Object.keys(user).length !== 0 ? addToFavorite({ recipe: data }) : openModalLogin();
-              }} />
-            )}
-          </StyledFavorite>
-
           <StyledTime>
             <HiOutlineClock size="1.6rem" />
             <StyledTimeText>
-              {/* {time} {innerWidth < 700 ? 'minutos' : 'm. de preparacion'} */}
-              {formatTime({ time: total_time })}
+              {time} {innerWidth < 700 ? 'minutos' : 'm. de preparacion'}
             </StyledTimeText>
           </StyledTime>
         </StyledButtonSection>
       </StyledInfoSection>
 
-      <ModalCart isOpen={modalCart} closeModal={closeModalCart} recipe={data} />
-      <ModalLogin isOpen={modalLogin} closeModal={closeModalLogin} />
+      <ModalCart
+        isOpen={modalCart}
+        closeModal={closeModalCart}
+      />
     </StyledCard>
   );
 };
@@ -143,26 +119,14 @@ const StyledButtonSection = styled.div`
   top: 0;
   left: 0;
   display: grid;
-  grid-template-columns: 1px 26px 1fr 1px;
+  grid-template-columns: 4px 1fr 4px;
   grid-gap: 10px;
   width: 100%;
   height: 26px;
   transform: translateY(-50%);
 `;
-const StyledFavorite = styled.div`
-  grid-column: 2;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 1px;
-  border-radius: 50%;
-  background-color: var(--first-color);
-  box-shadow: var(--card-shadow);
-`;
 const StyledTime = styled.div`
-  grid-column: 3;
+  grid-column: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -187,18 +151,9 @@ const StyledTitle = styled.h3`
 const StyledPrice = styled.p`
   font-size: var(--small-font-size);
 `;
-const StyledDescription = styled.p`
-  display: none;
-  font-size: var(--small-font-size);
-  color: var(--bold-gray);
-
-  ${media.tab} {
-    display: block;
-  }
-`;
 const StyledAddToCart = styled.button`
   height: 40px;
-  width: 40px;
+  width: 100%;
   padding: 10px;
   color: var(--white-color);
   border-radius: var(--normal-radius);
@@ -207,22 +162,13 @@ const StyledAddToCart = styled.button`
   outline: none;
 `;
 const StyledFooter = styled.div`
-  display: flex;
+  display: grid;
+  grid-gap: 12px;
+  grid-template-columns: 1fr 40px;
   align-items: center;
-  justify-content: space-between;
   height: 40px;
   width: 100%;
   margin-top: 10px;
-
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--bold-gray);
-  }
-  span {
-    margin-left: 6px;
-  }
 `;
 
-export default RecipesCard;
+export default Recipe;

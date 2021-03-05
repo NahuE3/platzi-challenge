@@ -1,6 +1,6 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de iconos.
@@ -9,45 +9,52 @@ import {
   HiOutlineBookOpen,
   HiOutlineHeart,
   HiOutlineCalendar,
-  HiOutlineDotsHorizontal,
+  HiOutlineUserCircle,
 } from 'react-icons/hi';
 //Import de componentes.
+import ModalMore from '../../containers/Modal/ModalMore';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 const Tabbar = () => {
+  const [modalMore, setModalMore] = useState(false);
+  const { getText } = useLanguage();
+
+  const openModalMore = () => setModalMore(true);
+  const closeModalMore = () => setModalMore(false);
+
   return (
     <StyledWrapper>
       <NavLink to="/home">
         <StyledButton>
           <HiOutlineViewGrid size="2.4rem" />
-          <span>Inicio</span>
+          <span>{getText('header.home')}</span>
         </StyledButton>
       </NavLink>
       <NavLink to="/recipes">
         <StyledButton>
           <HiOutlineBookOpen size="2.4rem" />
-          <span>Recetas</span>
+          <span>{getText('header.recipes')}</span>
         </StyledButton>
       </NavLink>
       <NavLink to="/week">
         <StyledButton>
           <HiOutlineCalendar size="2.4rem" />
-          <span>Menu</span>
+          <span>{getText('header.programming')}</span>
         </StyledButton>
       </NavLink>
       <NavLink to="/wishlist">
         <StyledButton>
           <HiOutlineHeart size="2.4rem" />
-          <span>Favoritos</span>
+          <span>{getText('header.favorites')}</span>
         </StyledButton>
       </NavLink>
-      <NavLink to="/config">
-        <StyledButton>
-          <HiOutlineDotsHorizontal size="2.4rem" />
-          <span>Mas</span>
-        </StyledButton>
-      </NavLink>
+      <StyledButton onClick={openModalMore}>
+        <HiOutlineUserCircle size="2.4rem" />
+        <span>Mas</span>
+      </StyledButton>
+      <ModalMore isOpen={modalMore} closeModal={closeModalMore} />
     </StyledWrapper>
   );
 };

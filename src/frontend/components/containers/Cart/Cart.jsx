@@ -8,6 +8,7 @@ import Layout from '../../layout/Layout';
 //Import de iconos.
 import { HiOutlineReceiptTax } from 'react-icons/hi';
 //Import de componentes.
+import ModalLogin from '../../containers/Modal/ModalLogin';
 import ModalCupons from '../../containers/Modal/ModalCupons';
 import CartItem from './CartItem';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
@@ -40,6 +41,8 @@ import useCurrency from '../../../hooks/useCurrency';
 //   total: 85,
 // };
 
+const userLogged = false;
+
 const Cart = () => {
   const history = useHistory();
   const [modalCupons, setModalCupons] = useState(false);
@@ -47,6 +50,8 @@ const Cart = () => {
   const { cart } = useCart();
   const { formaterValue } = useCurrency();
   const { recipes } = cart;
+  const [modalLogin, setModalLogin] = useState(false);
+
   const openModalCupons = () => setModalCupons(true);
   const closeModalCupons = () => setModalCupons(false);
 
@@ -59,10 +64,12 @@ const Cart = () => {
       history.push('/checkout');
     }
   };
+  const openModalLogin = () => setModalLogin(true);
+  const closeModalLogin = () => setModalLogin(false);
 
   return (
     <Layout
-      title="Mi Carrito"
+      title="Carrito"
       subtitle="Aqui puedes puedes ver todo lo que llevas en tu pedido"
       center={true}
     >
@@ -82,7 +89,9 @@ const Cart = () => {
             width="100%"
             height="50px"
             margin="4px 0 0"
-            onClick={openModalCupons}
+            onClick={() => {
+              userLogged ? openModalCupons() : openModalLogin();
+            }}
           >
             <StyledButton>
               <StyledButtonText>Aplicar Cupon</StyledButtonText>
@@ -137,6 +146,7 @@ const Cart = () => {
         </div>
       </StyledWrapper>
       <ModalCupons isOpen={modalCupons} closeModal={closeModalCupons} />
+      <ModalLogin isOpen={modalLogin} closeModal={closeModalLogin} />
     </Layout>
   );
 };

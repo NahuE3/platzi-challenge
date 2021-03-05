@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 //Import de iconos.
-import { HiChevronDown } from 'react-icons/hi';
-import { HiOutlinePlus } from 'react-icons/hi';
-import { HiOutlineMinusSm } from 'react-icons/hi';
-import { HiOutlineTrash } from 'react-icons/hi';
+import {
+  HiChevronDown,
+  HiOutlinePlus,
+  HiOutlineMinusSm,
+  HiOutlineTrash,
+} from 'react-icons/hi';
 //Import de componentes.
 import Checkbox from '../../shared/inputs/Checkbox';
 //Import de media queries.
@@ -66,26 +68,29 @@ const CartItem = ({ recipe, count }) => {
           />
         </StyledOpenButton>
 
-        <StyledCounter>
-          <StyledCounterButton
-          // Llamado a la funcion eliminar
-          // onClick={() => removeFromCart(product)}
-          >
-            {recipe?.portions === 1 ? (
-              <HiOutlineTrash size="18px" onClick={() => deleteToCart({ recipe })} />
-            ) : (
-              <HiOutlineMinusSm size="20px" onClick={() => removeToCart({ recipe })} />
-            )}
-          </StyledCounterButton>
+        <StyledCounterWrapper>
+          <span>Porciones</span>
+          <StyledCounter>
+            <StyledCounterButton
+            // Llamado a la funcion eliminar
+            // onClick={() => removeFromCart(product)}
+            >
+              {recipe.porcions === 1 ? (
+                <HiOutlineTrash size="18px" />
+              ) : (
+                <HiOutlineMinusSm size="20px" />
+              )}
+            </StyledCounterButton>
 
-          <StyledCounterLabel>{recipe?.portions}</StyledCounterLabel>
-          <StyledCounterButton
-          // Llamado a la funcion sumar al amount
-          // onClick={() => addToCart(product)}
-          >
-            <HiOutlinePlus size="20px" onClick={() => addToCart({ recipe })} />
-          </StyledCounterButton>
-        </StyledCounter>
+            <StyledCounterLabel>{recipe.porcions}</StyledCounterLabel>
+            <StyledCounterButton
+            // Llamado a la funcion sumar al amount
+            // onClick={() => addToCart(product)}
+            >
+              <HiOutlinePlus size="20px" />
+            </StyledCounterButton>
+          </StyledCounter>
+        </StyledCounterWrapper>
 
         <StyledPrice>{formaterValue({ mount: total })}</StyledPrice>
       </StyledRecipeSection>
@@ -145,7 +150,8 @@ const StyledWrapper = styled.div`
 const StyledRecipeSection = styled.div`
   display: grid;
   grid-template: 1fr 1fr / minmax(60px, 80px) 1fr 0.3fr 0.3fr;
-  grid-gap: 12px;
+  row-gap: 0;
+  column-gap: 12px;
   align-items: center;
   justify-items: center;
   width: 100%;
@@ -153,7 +159,8 @@ const StyledRecipeSection = styled.div`
 
   ${media.mobile} {
     grid-template: 1fr 1fr / minmax(100px, 1fr) 1fr 0.3fr 0.3fr;
-    grid-gap: 16px;
+    row-gap: 8px;
+    column-gap: 16px;
     height: 100px;
   }
   ${media.desktop} {
@@ -232,6 +239,22 @@ const StyledPrice = styled.label`
   text-align: right;
 `;
 // Counter
+const StyledCounterWrapper = styled.div`
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    margin-bottom: 4px;
+    font-size: var(--xsmall-font-size);
+
+    ${media.mobile} {
+      font-size: var(--small-font-size);
+    }
+  }
+`;
 const StyledCounter = styled.div`
   grid-column: 2;
   display: flex;
@@ -240,10 +263,14 @@ const StyledCounter = styled.div`
   max-width: 110px;
   min-width: 100px;
   width: 100%;
-  height: 38px;
+  height: 34px;
   border: 2px solid var(--light-gray);
   border-radius: 6px;
   overflow: hidden;
+
+  ${media.mobile} {
+    height: 38px;
+  }
 `;
 const StyledCounterButton = styled.button`
   min-width: 36px;

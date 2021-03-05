@@ -18,7 +18,7 @@ const Order = () => {
 
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
-    code: /^\d{10,20}$/, // 10 a 20 numeros.
+    code: /^\d{10,10}$/, // 10 numeros.
   };
 
   return (
@@ -40,12 +40,12 @@ const Order = () => {
         <InputDefault
           type="number"
           name="code"
-          placeholder="01234567890123456789"
+          placeholder="0123456789"
           label="Ingresar el codigo de seguimiento"
           state={code}
           manageState={setCode}
           regExpression={expressions.code}
-          errorMessage={'La longitud debe ser entre 10 y 20 digitos.'}
+          errorMessage={'La longitud debe ser de 10 digitos.'}
         />
         <Link to={`/order:${code.value}`}>
           <ButtonDefault

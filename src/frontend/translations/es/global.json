@@ -1,48 +1,136 @@
 {
   "header": {
-    "hello-world": "Hola mundo",
-    "my-menu": "Mi menu",
-    "my-order": "Mis pedidos",
-    "my-cart": "Carrito",
-    "my-favorites": "Mis favoritos",
-    "contact": "Contacto",
-    "menu": "Menu",
-    "login": "Iniciar sesión",
-    "logout": "Cerrar sesión"
-  },
-  "menu": {
-    "sea": "Mar",
-    "steaks": "Carnes",
+    "home": "Inicio",
+    "recipes": "Recetas",
+    "programming": "Programación",
     "favorites": "Favoritos",
-    "vegetarian": "Vegetariano",
-    "more-filters": "Más filtros",
-    "searcher": "¿Qué estás buscando hoy?",
-    "searcher-input": "Buscar",
-    "searcher-loader": "Buscando",
-    "our-recipes": "Nuestra recetas"
+    "cart": "Carrito",
+    "languages": "Lenguaje y Moneda",
+    "language-es": "Español",
+    "language-en": "Inglés",
+    "region": "Región y lñenguaje",
+    "currency": "Divisa",
+    "currency-usd": "Dolar Americano",
+    "currency-cop": "Pesos Colombianos",
+    "currency-mxn": "Pesos Méxicanos",
+    "preferences": "Preferencias",
+    "search": "Buscar ...",
+    "login": "Acceso",
+    "logout": "Cerrar Sesión",
+    "user": "User",
+    "config": "Configuration"
+  },
+  "footer": {
+    "title1": "Más sobre la página",
+    "title2": "Opciones de usuario",
+    "title3": "Redes sociales",
+    "home": "Inicio",
+    "recipes": "Recetas",
+    "programming": "Programación",
+    "favorites": "Favoritos",
+    "order": "Seguir orden",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "cart": "Carrito",
+    "language": "Cambia el lenguaje",
+    "currency": "Cambiar moneda",
+    "privacy": "Privacidad",
+    "terms": "Terminos"
+  },
+  "home": {
+    "subtitle": "¿No estás seguro por dónde empezar? Aquí tenemos algunas sugerencias.",
+    "popular": "Recetas populares",
+    "providers": "Nuestros proveedores"
+  },
+  "login": {
+    "title": "Acceso",
+    "email": "Correo",
+    "email_error": "El formato introducido no pertenece a un correo electrónico.",
+    "password": "Contraseña",
+    "password_error": "La longitud debe ser de 4 a 12 dígitos.",
+    "forgot": "Olvidaste tu contraseña?",
+    "button": "Acceso",
+    "google": "Google",
+    "facebook": "Facebook",
+    "dont_user": "No tienes cuenta?",
+    "register": "Registrate"
+  },
+  "register": {
+    "title": "Registrate",
+    "user": "Usuario",
+    "user_error": "Solo se permiten letras, números, guiones y guiones bajos.",
+    "email": "Correo",
+    "email_example": "Example@correo.com",
+    "email_error": "El formato introducido no pertenece a un correo electrónico.",
+    "phone": "Teléfono",
+    "phone_error": "La longitud debe estar comprendida entre 7 y 14 números.",
+    "password": "Contraseña",
+    "password_error": "La longitud debe ser de 4 a 12 dígitos.",
+    "button": "Registrate",
+    "google": "Google",
+    "facebook": "Facebook",
+    "dont_user": "Tienes cuenta?",
+    "register": "Acceso"
+  },
+  "recipes": {
+    "subtitle": "Recetas",
+    "our-recipes": "Tus Recetas"
+  },
+  "weekly menu": {
+    "title": "Menú Semanal",
+    "login": "Acceso",
+    "weekly-menu-q": "¿Qué es el menú semanal?",
+    "text": "¡Inicie sesión y aproveche al máximo el potencial de Foody!"
+  },
+  "favorites": {
+    "title": "Favoritos"
+  },
+  "cart": {
+    "title": "Carrito",
+    "back": "Regresa",
+    "items": "Artículos",
+    "items-price": "Precio Artículos",
+    "delivery": "Datos de entrega",
+    "coupon": "Aplicar cupón",
+    "continue": "Continuar comprando",
+    "purchase": "Compra",
+    "empty": "El carrito está vacio",
+    "empty-search": "Busca una receta"
+  },
+  "checkout": {
+    "title": "Información del cliente",
+    "name": "Nombre",
+    "lastaname": "Apellido",
+    "phone": "Teléfono",
+    "email": "Correo",
+    "zip": "Código Postal",
+    "button": "Continuar"
+  },
+  "checkout_address": {
+    "title": "Información de envío",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "comment": "Comentarios",
+    "button": "Continuar con el pago"
+  },
+  "checkout_payment": {
+    "title": "Método de pago",
+    "card": "Paga con tarjeta de crédito o débito",
+    "crypto": "Paga con criptomoneda",
+    "paypal": "Paga con Paypal",
+    "button": "Atras"
   },
   "recipe-card": {
-    "per-plate": "por plato",
-    "add-menu": "Agregar al menu de la semana",
-    "preparation-time": "en prepararse",
+    "per-plate": "Por plato",
+    "add-menu": "Agregar al menú semanal",
+    "preparation-time": "En la preparación de",
     "add-cart": "Agregar al carrito"
   },
   "recipe-cart": {
-    "portions": "Porciones",
-    "delete": "Eliminar de carrito",
-    "show": "Ver detalle",
+    "portions": "porciones",
+    "delete": "Eliminar del carrito",
+    "show": "Mostrar más",
     "add": "Agregar porción",
     "remove": "Remover porción"
-  },
-  "cart": {
-    "back": "Atras",
-    "items": "Artículos",
-    "items-price": "Precio de artículos",
-    "delivery": "Cargo de envio",
-    "coupon": "Aplicar cupon",
-    "continue": "Seguir comprando",
-    "purchase": "Comprar",
-    "empty": "El carrito esta vacio",
-    "empty-search": "Buscar una receta"
   }
 }

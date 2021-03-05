@@ -2,13 +2,19 @@
 //Import de librerias.
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de iconos.
-import { HiX, HiOutlineReceiptTax } from 'react-icons/hi';
+import {
+  HiX,
+  HiOutlineLogin,
+  HiOutlineGift,
+  HiOutlineChevronLeft,
+} from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
-const ModalCupons = ({ isOpen, closeModal }) => {
+const ModalLogin = ({ isOpen, closeModal }) => {
   if (!isOpen) {
     return null;
   }
@@ -16,25 +22,34 @@ const ModalCupons = ({ isOpen, closeModal }) => {
   return ReactDOM.createPortal(
     <StyledModal>
       <StyledModalContainer>
-
         <StyledHead>
-          <h3>Mis Cupones</h3>
+          <h3>Necesitas iniciar sesión</h3>
           <StyledCloseButton onClick={closeModal}>
             <HiX size="2rem" />
           </StyledCloseButton>
         </StyledHead>
+
         <StyledContent>
-
           <StyledSeparator top></StyledSeparator>
-          <StyledOptions>
-            {[10, 200, 3000].map((item) => (
-              <ButtonOption key={item}>
-                {`Cupon descuento x $${item}`}
-                <HiOutlineReceiptTax size="2.2rem" />
-              </ButtonOption>
-            ))}
-          </StyledOptions>
 
+          <StyledOptions>
+            <Link to="/login">
+              <ButtonOption primary margin="0">
+                Iniciar sesión
+                <HiOutlineLogin size="2.2rem" />
+              </ButtonOption>
+            </Link>
+            <Link to="/signup">
+              <ButtonOption>
+                Registrarse
+                <HiOutlineGift size="2.2rem" />
+              </ButtonOption>
+            </Link>
+            <ButtonOption onClick={closeModal}>
+              Volver
+              <HiOutlineChevronLeft size="2.2rem" />
+            </ButtonOption>
+          </StyledOptions>
         </StyledContent>
       </StyledModalContainer>
     </StyledModal>,
@@ -63,17 +78,18 @@ const StyledModal = styled.div`
 const StyledModalContainer = styled.div`
   position: relative;
   bottom: 0;
-  top: 40%;
+  top: 50%;
 
   display: grid;
   grid-template-rows: 40px 1fr;
 
   width: 100vw;
-  height: 60vh;
+  height: 50vh;
   border-radius: var(--large-radius) var(--large-radius) 0 0;
   background-color: var(--white-color);
   box-shadow: var(--card-shadow);
   z-index: 100;
+  transition: 0.3s ease all;
 
   ${media.tab} {
     top: 0;
@@ -116,7 +132,7 @@ const StyledSeparator = styled.div`
 const StyledOptions = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 16px 0;
+  margin-bottom: 16px;
 `;
 const ButtonOption = styled.button`
   display: flex;
@@ -125,17 +141,25 @@ const ButtonOption = styled.button`
   height: 52px;
   width: 100%;
   padding: 10px;
-  margin: 14px 0 0;
+  margin: ${(props) => (props.margin ? props.margin : '14px 0 0')};
   font-size: var(--large-font-size);
   font-weight: 600;
   text-align: left;
-  border: 2px solid var(--mid-gray);
+  color: ${(props) =>
+    props.primary ? 'var(--white-color)' : 'var(--black-color)'};
+  border: ${(props) =>
+    props.primary
+      ? '3px solid var(--first-color)'
+      : '3px solid var(--mid-gray)'};
   border-radius: var(--normal-radius);
   outline: none;
-  background: none;
+  background: ${(props) => (props.primary ? 'var(--first-color)' : 'none')};
+
+  ${(props) => (props.primary ? '' : '')}
 
   &:hover {
-    background-color: var(--light-gray);
+    background-color: ${(props) =>
+      props.primary ? 'var(--first-soft-color)' : 'var(--light-gray)'};
   }
 
   span {
@@ -144,4 +168,4 @@ const ButtonOption = styled.button`
   }
 `;
 
-export default ModalCupons;
+export default ModalLogin;

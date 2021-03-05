@@ -4,24 +4,34 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de iconos.
-import { HiOutlineShoppingCart, HiOutlineGlobeAlt } from 'react-icons/hi';
+import {
+  HiOutlineShoppingCart,
+  HiOutlineGlobe,
+  HiOutlineUserCircle,
+} from 'react-icons/hi';
 //Import de componentes.
 import ModalLang from '../../containers/Modal/ModalLang';
+import ModalMore from '../../containers/Modal/ModalMore';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import SearchBar from '../../shared/inputs/SearchBar';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import { useStateValue } from '../../../context';
 import { searchRecipe } from '../../../context/actions';
+import useLanguage from '../../../hooks/useLanguage';
 
 const Navbar = ({ isSearch }) => {
   const { dispatch } = useStateValue();
   const [search, setSearch] = useState({ value: '', success: null });
   const [modalLang, setModalLang] = useState(false);
+  const [modalMore, setModalMore] = useState(false);
+  const { getText } = useLanguage();
 
   const openModalLang = () => setModalLang(true);
   const closeModalLang = () => setModalLang(false);
-  // console.log(search);
+
+  const openModalMore = () => setModalMore(true);
+  const closeModalMore = () => setModalMore(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -36,43 +46,51 @@ const Navbar = ({ isSearch }) => {
       <NavLink to="/home">
         <StyledLogoSection>Foody+</StyledLogoSection>
       </NavLink>
-      <StyledCart>
+      <div>
         {isSearch ? (
-          <SearchBar state={search} manageState={setSearch} id="SearchBar" />
+          <SearchBar state={search} manageState={setSearch} id="SearchBar" placeholder={getText('header.search')} />
         ) : (
           <Link to="/recipes">
-            <SearchBar state={search} />
+            <SearchBar state={search} placeholder={getText('header.search')} />
           </Link>
         )}
-      </StyledCart>
+      </div>
 
-      <StyledButtonsSection>
-        <NavLink to="/home">
-          <ButtonDefault>Inicio</ButtonDefault>
-        </NavLink>
-        <NavLink to="/recipes">
-          <ButtonDefault>Recetas</ButtonDefault>
-        </NavLink>
-        <NavLink to="/week">
-          <ButtonDefault>Calendario</ButtonDefault>
-        </NavLink>
-        <NavLink to="/wishlist">
-          <ButtonDefault>Favoritos</ButtonDefault>
-        </NavLink>
-      </StyledButtonsSection>
+      <StyledCont>
+        <StyledButtonsSection>
+          <NavLink to="/home" title={getText('header.home')}>
+            <ButtonDefault>{getText('header.home')}</ButtonDefault>
+          </NavLink>
+          <NavLink to="/recipes" title={getText('header.recipes')}>
+            <ButtonDefault>{getText('header.recipes')}</ButtonDefault>
+          </NavLink>
+          <NavLink to="/week" title={getText('header.programming')}>
+            <ButtonDefault>{getText('header.programming')}</ButtonDefault>
+          </NavLink>
+          <NavLink to="/wishlist" title={getText('header.favorites')}>
+            <ButtonDefault>{getText('header.favorites')}</ButtonDefault>
+          </NavLink>
+          <div>
+            <ButtonDefault onClick={openModalMore} icon title={getText('header.user')}>
+              <HiOutlineUserCircle size="2.2rem" />
+            </ButtonDefault>
+          </div>
+        </StyledButtonsSection>
 
-      <StyledCart>
-        <ButtonDefault onClick={openModalLang}>
-          <HiOutlineGlobeAlt size="2rem" />
-        </ButtonDefault>
-        <NavLink to="/cart">
-          <ButtonDefault>
-            <HiOutlineShoppingCart size="2rem" />
+        <div>
+          <ButtonDefault onClick={openModalLang} icon title={getText('header.config')}>
+            <HiOutlineGlobe size="2.2rem" />
           </ButtonDefault>
-        </NavLink>
-      </StyledCart>
+          <NavLink to="/cart">
+            <ButtonDefault icon title={getText('header.cart')}>
+              <HiOutlineShoppingCart size="2.2rem" />
+            </ButtonDefault>
+          </NavLink>
+        </div>
+      </StyledCont>
 
       <ModalLang isOpen={modalLang} closeModal={closeModalLang} />
+      <ModalMore isOpen={modalMore} closeModal={closeModalMore} />
     </StyledNavContainer>
   );
 };
@@ -92,7 +110,6 @@ const StyledNavContainer = styled.nav`
   z-index: 90;
 
   ${media.tab} {
-    grid-template-columns: max-content 1fr max-content max-content;
     padding: 0 10%;
   }
 
@@ -109,9 +126,14 @@ const StyledButtonsSection = styled.div`
   display: none;
 
   ${media.tab} {
-    display: block;
+    display: flex;
+    align-items: center;
   }
 `;
-const StyledCart = styled.div``;
+const StyledCont = styled.div`
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+`;
 
 export default Navbar;
