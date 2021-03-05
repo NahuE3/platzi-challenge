@@ -33,10 +33,11 @@ Lo siguiente sera ir al directorio donde se encuentra el proyecto.
 cd platzi-challenge
 ```
 
-Installamos los modulos de **Node**.
+Installamos las**dependencias**necesarias.
 
 ```
 npm install
+npm install --save-dev nodemon
 ```
 
 Ahora haremos el **build**  inicial.
@@ -48,7 +49,7 @@ npm run build
 Ya que tenemos el build montado, podemos iniciar el proyecto
 
 ```
-npm run start
+npm run dev
 ```
 
 ¡Ya tienes todo lo necesario!
