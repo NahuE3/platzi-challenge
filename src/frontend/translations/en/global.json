@@ -1,25 +1,105 @@
 {
   "header": {
-    "hello-world": "Hello World",
-    "my-menu": "My menu",
-    "my-order": "My orders",
-    "my-cart": "My cart",
-    "my-favorites": "My favorites",
-    "contact": "Contact",
-    "menu": "Menu",
+    "home": "Home",
+    "recipes": "Recipes",
+    "calendar": "Calendar",
+    "favorites": "Favorites",
+    "cart": "Cart",
+    "languages": "Languages & Currency",
+    "language-es": "Spanish",
+    "language-en": "English",
+    "region": "Languages & Region",
+    "currency": "Currency",
+    "currency-usd": "American dollar",
+    "currency-cop": "Colombian pesos",
+    "currency-mxn": "Mexican pesos",
+    "preferences": "Preferences",
+    "search": "Search",
     "login": "Login",
     "logout": "Logout"
   },
-  "menu": {
-    "sea": "Sea",
-    "steaks": "Steaks",
-    "favorites": "Favorites",
-    "vegetarian": "Vegetarian",
-    "more-filters": "More filters",
-    "searcher": "What are you looking for today?",
-    "searcher-input": "Search",
-    "searcher-loader": "Searching",
+  "home": {
+    "subtitle": "Not sure where to start? Here we have some suggestions",
+    "popular": "Popular recipes",
+    "providers": "Our providers"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "email_error": "The entered format does not belong to an email.",
+    "password": "Password",
+    "password_error": "The length must be 4 to 12 digits.",
+    "forgot": "Forgot the password?",
+    "button": "Login",
+    "google": "Google",
+    "facebook": "Facebook",
+    "dont_user": "Don't have account?",
+    "register": "Register"
+  },
+  "register": {
+    "title": "Register",
+    "user": "User",
+    "user_error": "Only letters, numbers, hyphen and underscore are allowed.",
+    "email": "Email",
+    "email_example": "Example@email.com",
+    "email_error": "The entered format does not belong to an email.",
+    "phone": "Phone",
+    "phone_error": "The length must be between 7 and 14 numbers.",
+    "password": "Password",
+    "password_error": "The length must be 4 to 12 digits.",
+    "button": "Register",
+    "google": "Google",
+    "facebook": "Facebook",
+    "dont_user": "Do you have account?",
+    "register": "Login"
+  },
+  "recipes": {
+    "subtitle": "Recipes",
     "our-recipes": "Our recipes"
+  },
+  "weekly menu": {
+    "title": "Weekly menu",
+    "login": "Login",
+    "weekly-menu-q": "What is the weekly menu?",
+    "text": "Log in and make the most of Foody's potential!"
+  },
+  "favorites": {
+    "title": "Favorites"
+  },
+  "cart": {
+    "title": "Cart",
+    "back": "Go back",
+    "items": "Items",
+    "items-price": "Items price",
+    "delivery": "Delivery charger",
+    "coupon": "Apply coupon",
+    "continue": "Continue buying",
+    "purchase": "Purchase",
+    "empty": "The cart is empty",
+    "empty-search": "Search a recipe"
+  },
+  "checkout": {
+    "title": "Customer's information",
+    "name": "First name",
+    "lastaname": "Last name",
+    "phone": "Phone",
+    "email": "Email",
+    "zip": "ZIP",
+    "button": "Continue"
+  },
+  "checkout_address": {
+    "title": "Shipping information",
+    "address": "Address",
+    "city": "City",
+    "comment": "Comment",
+    "button": "Continue with payment"
+  },
+  "checkout_payment": {
+    "title": "Payment method",
+    "card": "Pay with a credit or debit card",
+    "crypto": "Pay with cryptocurrency",
+    "paypal": "Pay with Paypal",
+    "button": "Go back"
   },
   "recipe-card": {
     "per-plate": "per plate",
@@ -33,16 +113,5 @@
     "show": "Show more",
     "add": "Add portion",
     "remove": "Remove portion"
-  },
-  "cart": {
-    "back": "Go back",
-    "items": "Items",
-    "items-price": "Items price",
-    "delivery": "Delivery charger",
-    "coupon": "Apply coupon",
-    "continue": "Continue buying",
-    "purchase": "Purchase",
-    "empty": "The cart is empty",
-    "empty-search": "Search a recipe"
   }
 }

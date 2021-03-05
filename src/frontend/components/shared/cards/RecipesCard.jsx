@@ -19,7 +19,7 @@ import usePreparationTime from '../../../hooks/usePreparationTime';
 import useFavorites from '../../../hooks/useFavorites';
 
 const RecipesCard = ({ data, openRecipe }) => {
-  const { image, name, description, total_time } = data;
+  const { picture, name, description, total_time } = data;
   const { formaterValue } = useCurrency();
   const { formatTime } = usePreparationTime();
   const { total } = useRecipePrice({ recipe: data });
@@ -33,8 +33,8 @@ const RecipesCard = ({ data, openRecipe }) => {
   return (
     <StyledCard>
       <StyledImgSection onClick={openRecipe}>
-        {image ? (
-          <StyledImg src={image} alt={`Imagen del plato ${title}`} />
+        {picture ? (
+          <StyledImg src={picture} alt={`Imagen del plato ${name}`} />
         ) : (
           <StyledImgHolder>
             <HiOutlinePhotograph size="4rem" color="white" />

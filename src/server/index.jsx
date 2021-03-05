@@ -8,7 +8,7 @@ import { renderToString } from 'react-dom/server';
 import { ENV, PORT, API_URL } from './config';
 import { Provider } from '../frontend/context';
 import ServerApp from '../frontend/routes/ServerApp';
-// import InitialState from './utils/initialState';
+import InitialState from './utils/initialState';
 import AuthRouter from './routes/auth';
 import RecipesRouter from './routes/recipes';
 import FavoritesRouter from './routes/favorites';
@@ -71,31 +71,31 @@ const getData = async ({ id, token, route }) => {
 
 const renderApp = async (req, res) => {
   const { token, theme, currency, language, id, email, type, username } = req.cookies;
-  const initialState = {
-    user: {},
-    search: '',
-    wishList: [],
-    theme: theme || 'light',
-    currency: currency || 'USD',
-    language: language || 'es',
-    cart: { size: 0, total: 0, delivery: 5, recipes: []},
-    recipes: { count: 0, next: null, previous: null, results: [] },
-    categories: { count: 0, next: null, previous: null, results: [] },
-    coin: [
-      { format: 'en-US', currency: 'USD', value: 1 },
-      { format: 'es-MX', currency: 'MXN', value: 20.86 },
-      { format: 'es-CO', currency: 'COP', value: 3647 },
-    ],
-  }
+  const initialState = InitialState;
+  initialState.theme = theme || 'light';
+  initialState.currency = currency || 'USD';
+  initialState.language = language || 'es';
+
   try {
-    const [recipes, categories] = await Promise.all([getData({ route: 'recipes' }), getData({ route: 'recipe_categories' })]);
-    initialState.recipes = recipes;
-    initialState.categories = categories;
     if (token && id && email && type && username) {
       const user = { id, email, type, username, token };
-      const wishList = await getData({ id, token, route: 'favorites' });
+      const [recipes, categories, wishList] = await Promise.all([
+        getData({ route: 'recipes' }),
+        getData({ route: 'recipe_categories' }),
+        getData({ id, token, route: 'favorites' }),
+      ]);
+      // const wishList = await getData({ id, token, route: 'favorites' });
+      initialState.recipes = recipes;
+      initialState.categories = categories;
       initialState.user = user;
       initialState.wishList = wishList.results || [];
+    } else {
+      const [recipes, categories] = await Promise.all([
+        getData({ route: 'recipes' }),
+        getData({ route: 'recipe_categories' })
+      ]);
+      initialState.recipes = recipes;
+      initialState.categories = categories;
     }
   } catch (error) {
     initialState.user = {};

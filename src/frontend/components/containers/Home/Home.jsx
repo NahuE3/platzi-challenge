@@ -41,7 +41,7 @@ const Home = () => {
         ¿No sabes por donde empezar? Aqui tenemos unas sugerencias
       </StyledSubtitle>
       <StyledCategory>
-        {data?.map((item) => (
+        {data?.slice(0, 4).map((item) => (
           <StyledCatOption
             key={item?.id}
             // redirigir con onClick={}
