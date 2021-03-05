@@ -46,7 +46,7 @@ const App = () => {
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
-  )
+  );
 };
 
 export default App;

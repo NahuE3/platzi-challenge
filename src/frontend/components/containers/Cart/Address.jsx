@@ -1,7 +1,7 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de layout.
 import Layout from '../../layout/Layout';
@@ -13,15 +13,38 @@ import { media } from '../../../const/mediaQuerys';
 import useLanguage from '../../../hooks/useLanguage';
 
 const Address = () => {
+  const history = useHistory();
   //Estado que guarda el valor y validacion del input
   const [address, setAddress] = useState({ success: null, value: '' });
   const [barrio, setBarrio] = useState({ success: null, value: '' });
   const [comment, setComment] = useState({ success: null, value: '' });
   const { getText } = useLanguage();
 
+  useEffect(() => {
+    if (localStorage.getItem('addressData')) {
+      const addressData = JSON.parse(localStorage.getItem('addressData'));
+
+      setAddress(addressData.address);
+      setBarrio(addressData.barrio);
+      setComment(addressData.comment);
+    }
+  }, []);
+
+  const handleSubmit = () => {
+    if (address.success && barrio.success && comment.success) {
+      const addressData = {
+        address,
+        barrio,
+        comment,
+      };
+      localStorage.setItem('addressData', JSON.stringify(addressData));
+      history.push('/checkout/payment');
+    }
+  };
+
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
-    user: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion bajo
+    user: /^[a-zA-Z0-9\s\_\-]{4,16}$/, // Letras, numeros, guion y guion bajo
     name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
     password: /^.{4,12}$/, // 4 a 12 digitos.
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
@@ -70,16 +93,26 @@ const Address = () => {
           regExpression={expressions.postal}
           errorMessage={getText('register.password_error')}
         />
-        <Link to="/checkout/payment">
-          <ButtonDefault
-            primary
-            width="100%"
-            height="48px"
-            margin="20px 0 16px"
-          >
-            {getText('checkout_address.button')}
-          </ButtonDefault>
-        </Link>
+        <ButtonDefault
+          primary
+          width="100%"
+          height="48px"
+          margin="20px 0 16px"
+          onClick={handleSubmit}
+        >
+          {getText('checkout_address.button')}
+        </ButtonDefault>
+        {/* <Link to="/checkout/payment"> */}
+        <ButtonDefault
+          secondary
+          width="100%"
+          height="48px"
+          margin="20px 0 16px"
+          onClick={() => history.goBack()}
+        >
+          {getText('cart.back')}
+        </ButtonDefault>
+        {/* </Link> */}
       </StyledSignUpContainer>
     </Layout>
   );

@@ -1,19 +1,28 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de layout.
 import Layout from '../../layout/Layout';
 //Import de componentes.
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import ButtonLogin from '../../shared/buttons/ButtonLogin';
+import PayPalButton from '../../shared/buttons/ButtonPayPal';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useLanguage from '../../../hooks/useLanguage';
 
 const Address = () => {
   const { getText } = useLanguage();
+  const [totalAmount, setTotalAmount] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    const cartData = JSON.parse(localStorage.getItem('cart'));
+    setTotalAmount(cartData.delivery + cartData.total);
+  }, []);
+
   return (
     <Layout
       title="Pago"
@@ -25,7 +34,7 @@ const Address = () => {
       </StyledCont>
 
       <StyledSignUpContainer>
-        <ButtonLogin icon="Card" width="100%" margin="20px 0 16px">
+        {/* <ButtonLogin icon="Card" width="100%" margin="20px 0 16px">
           {getText('checkout_payment.card')}
         </ButtonLogin>
         <ButtonLogin icon="Paypal" width="100%" margin="20px 0 16px">
@@ -33,17 +42,19 @@ const Address = () => {
         </ButtonLogin>
         <ButtonLogin icon="Bitcoin" width="100%" margin="20px 0 16px">
         {getText('checkout_payment.crypto')}
-        </ButtonLogin>
-        <Link to="/checkout/address">
+        </ButtonLogin> */}
+        <PayPalButton total={totalAmount} />
+        {/* <Link to="/checkout/address"> */}
           <ButtonDefault
-            primary
+            secondary
             width="100%"
             height="48px"
             margin="20px 0 16px"
+            onClick={() => history.goBack()}
           >
             {getText('checkout_payment.button')}
           </ButtonDefault>
-        </Link>
+        {/* </Link> */}
       </StyledSignUpContainer>
     </Layout>
   );

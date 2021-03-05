@@ -17,7 +17,7 @@ const Modal = ({ isOpen, closeModal, children }) => {
     <StyledModal>
       <StyledModalContainer>
         <StyledCloseButton onClick={closeModal}>
-          <HiX size="2rem"/>
+          <HiX size="2rem" />
         </StyledCloseButton>
         {children}
       </StyledModalContainer>

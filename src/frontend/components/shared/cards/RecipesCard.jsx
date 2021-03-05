@@ -40,8 +40,8 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
   const closeModalLogin = () => setModalLogin(false);
 
   return (
-    <StyledCard to={`/recipes/recipe/${name}`} title={name}>
-      <StyledImgSection onClick={openRecipe}>
+    <StyledCard>
+      <StyledImgSection to={`/recipes/recipe/${name}`} title={name} onClick={openRecipe}>
         {picture ? (
           <StyledImg src={picture} alt={`Imagen del plato ${name}`} />
         ) : (
@@ -98,14 +98,14 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
 };
 
 // =================== ESTILOS CSS ===================
-const StyledCard = styled(Link)`
+const StyledCard = styled.div`
   width: 100%;
   min-width: 140px;
   min-height: 240px;
   border-radius: var(--normal-radius);
   box-shadow: var(--card-shadow);
 `;
-const StyledImgSection = styled.div`
+const StyledImgSection = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
