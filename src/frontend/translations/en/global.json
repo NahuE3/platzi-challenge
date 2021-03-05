@@ -18,7 +18,8 @@
     "login": "Login",
     "logout": "Logout",
     "user": "User",
-    "config": "Configuration"
+    "config": "Configuration",
+    "need": "You need login"
   },
   "footer": {
     "title1": "More about the page",
@@ -32,6 +33,7 @@
     "login": "Login",
     "register": "Register",
     "cart": "Cart",
+    "lan": "English",
     "language": "Change language",
     "currency": "Change currency",
     "privacy": "Privacy",
@@ -60,7 +62,7 @@
     "user": "User",
     "user_error": "Only letters, numbers, hyphen and underscore are allowed.",
     "email": "Email",
-    "email_example": "Example@email.com",
+    "email_example": "example@email.com",
     "email_error": "The entered format does not belong to an email.",
     "phone": "Phone",
     "phone_error": "The length must be between 7 and 14 numbers.",
@@ -70,11 +72,44 @@
     "google": "Google",
     "facebook": "Facebook",
     "dont_user": "Do you have account?",
-    "register": "Login"
+    "login": "Login"
   },
   "recipes": {
     "subtitle": "Recipes",
     "our-recipes": "Our recipes"
+  },
+  "modal_user": {
+    "subtitle": "User preferences",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "add": "Add to cart",
+    "order": "Follow order",
+    "theme_light": "Light mode",
+    "theme_dark": "Dark mode"
+  },
+  "modal_preferences": {
+    "subtitle": "Preferences",
+    "login": "Login",
+    "register": "Register",
+    "add": "Add to cart",
+    "order": "Follow order",
+    "theme_light": "Light mode",
+    "theme_dark": "Dark mode"
+  },
+  "modal_cart": {
+    "subtitle1": "What do you want to do with this recipe?",
+    "subtitle2": "What day of the week?",
+    "buy": "Buy now",
+    "add": "Add to cart",
+    "menu": "Add to weekly menu",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   },
   "weekly menu": {
     "title": "Weekly menu",
@@ -83,7 +118,9 @@
     "text": "Log in and make the most of Foody's potential!"
   },
   "favorites": {
-    "title": "Favorites"
+    "title": "Favorites",
+    "subtitle": "Popular recipes",
+    "login": "Login"
   },
   "cart": {
     "title": "Cart",
@@ -91,6 +128,7 @@
     "items": "Items",
     "items-price": "Items price",
     "delivery": "Delivery charger",
+    "discount": "Discount",
     "coupon": "Apply coupon",
     "continue": "Continue buying",
     "purchase": "Purchase",
@@ -100,7 +138,7 @@
   "checkout": {
     "title": "Customer's information",
     "name": "First name",
-    "lastaname": "Last name",
+    "lastname": "Last name",
     "phone": "Phone",
     "email": "Email",
     "zip": "ZIP",
@@ -132,5 +170,27 @@
     "show": "Show more",
     "add": "Add portion",
     "remove": "Remove portion"
+  },
+  "programming": {
+    "title": "Weekly schedule",
+    "title1": "Where are you from?",
+    "title2": "How many people do you usually cook for?",
+    "title3": "How long do you want to cook?",
+    "title4": "Weekly schedule",
+    "subtitle1": "This is the program that we have prepared for you",
+    "subtitle2": "Feel free to add, delete, and sort them however you want!",
+    "people1": "Between 1 and 2 people",
+    "people2": "Between 3 and 4 people",
+    "people3": "More than 5",
+    "time1": "Less than an hour",
+    "time2": "Less than two hour",
+    "time3": "More than two hour",
+    "category1": "Meat",
+    "category2": "Sea",
+    "category3": "Fast food",
+    "category4": "Desserts",
+    "button": "Continue",
+    "button2": "Purchase now",
+    "button3": "Continue buying"
   }
 }

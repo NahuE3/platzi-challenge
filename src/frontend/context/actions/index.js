@@ -117,6 +117,7 @@ export const addToCart = ({ cart, recipe, dispatch }) => {
         } else {
           element.count += 1;
           element.recipe.portions += 1;
+          //webos we
         }
         newCart.total += total;
       } else {
@@ -386,7 +387,7 @@ export const logoutUser = ({ dispatch }) => {
     document.cookie = 'type=';
     document.cookie = 'username=';
     dispatch(logoutRequest());
-    window.location.href = '/';
+    // window.location.href = '/';
   } catch (error) {
     dispatch({ type: 'SET_ERROR', error });
   }

@@ -11,6 +11,7 @@ import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import ButtonLogin from '../../shared/buttons/ButtonLogin';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 const Checkout = () => {
   //Estado que guarda el valor y validacion del input
@@ -19,6 +20,7 @@ const Checkout = () => {
   const [phone, setPhone] = useState({ success: null, value: '' });
   const [email, setEmail] = useState({ success: null, value: '' });
   const [postal, setPostal] = useState({ success: null, value: '' });
+  const { getText } = useLanguage();
 
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
@@ -37,59 +39,59 @@ const Checkout = () => {
       center={true}
     >
       <StyledCont head>
-        <h2>Datos del comprador</h2>
+        <h2>{getText('checkout.title')}</h2>
       </StyledCont>
 
       <StyledSignUpContainer>
         <InputDefault
-          tipo="text"
+          type="text"
           name="firstName"
-          placeholder="Nombre"
-          label="Nombre"
+          placeholder={getText('checkout.name')}
+          label={getText('checkout.name')}
           state={firstName}
           manageState={setFirstName}
           regExpression={expressions.name}
-          errorMessage={'Solo se permiten letras, espacios y acentos.'}
+          errorMessage={getText('register.user_error')}
         />
         <InputDefault
-          tipo="text"
+          type="text"
           name="lastName"
-          placeholder="Apellido"
-          label="Apellido"
+          placeholder={getText('checkout.lastname')}
+          label={getText('checkout.lastname')}
           state={lastName}
           manageState={setLastName}
           regExpression={expressions.name}
-          errorMessage={'Solo se permiten letras, espacios y acentos.'}
+          errorMessage={getText('register.user_error')}
         />
         <InputDefault
-          tipo="number"
+          type="number"
           name="phone"
           placeholder="0123 456789"
-          label="Telefono"
+          label={getText('checkout.phone')}
           state={phone}
           manageState={setPhone}
           regExpression={expressions.phone}
-          errorMessage={'La longitud debe ser entre 7 y 14 numeros.'}
+          errorMessage={getText('register.phone_error')}
         />
         <InputDefault
           tipo="text"
           name="email"
-          placeholder="ejemplo@email.com"
-          label="Email"
+          placeholder={getText('register.email_example')}
+          label={getText('checkout.email')}
           state={email}
           manageState={setEmail}
           regExpression={expressions.email}
-          errorMessage={'El formato ingresado no pertenece a un email.'}
+          errorMessage={getText('register.email_error')}
         />
         <InputDefault
-          type="number"
+          tipe="number"
           name="postal_code"
-          placeholder="0123"
-          label="Codigo postal"
+          placeholder={getText('checkout.zip')}
+          label={getText('checkout.zip')}
           state={postal}
           manageState={setPostal}
           regExpression={expressions.postal}
-          errorMessage={'La longitud debe ser entre 4 y 10 digitos.'}
+          errorMessage={getText('register.password_error')}
         />
         <Link to="/checkout/address">
           <ButtonDefault
@@ -98,7 +100,7 @@ const Checkout = () => {
             height="48px"
             margin="20px 0 16px"
           >
-            Continuar
+            {getText('checkout.button')}
           </ButtonDefault>
         </Link>
       </StyledSignUpContainer>

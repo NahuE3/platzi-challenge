@@ -12,6 +12,7 @@ import { media } from '../../../const/mediaQuerys';
 import useFavorites from '../../../hooks/useFavorites';
 import { useStateValue } from '../../../context';
 import useRecipes from '../../../hooks/useRecipes';
+import useLanguage from '../../../hooks/useLanguage';
 
 // FIXME: Borrar estos datos cuando se conecte a la API
 // const data = [
@@ -36,6 +37,7 @@ import useRecipes from '../../../hooks/useRecipes';
 const Favorites = () => {
   const { user } = useStateValue();
   const { favorites } = useFavorites();
+  const { getText } = useLanguage();
   const { recipeList } = useRecipes({ category: '', search: '', container: null });
   const openRecipe = () => {
     //Funcion de abrir la receta seleccionada
@@ -46,7 +48,7 @@ const Favorites = () => {
       title="Favoritos"
       subtitle="Aqui estan tu lista de recetas favoritas"
     >
-      <h1>Favoritos</h1>
+      <h1>{getText('favorites.title')}</h1>
       {Object.keys(user).length !== 0 && (
         <StyledList>
           {favorites?.map((item) => (
@@ -63,11 +65,11 @@ const Favorites = () => {
       {Object.keys(user).length === 0 &&(
         <>
           <ButtonDefault primary width="100%" height="48px" margin="12px 0 0">
-            Iniciar sesión
+            {getText('favorites.login')}
           </ButtonDefault>
           <StyledSeparator></StyledSeparator>
 
-          <h3>Recetas mas populares</h3>
+          <h3>{getText('favorites.subtitle')}</h3>
           <StyledList>
             {recipeList?.map((item) => (
               <li key={item.id}>

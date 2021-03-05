@@ -7,8 +7,10 @@ import styled from 'styled-components';
 import { HiX, HiOutlineReceiptTax } from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 const ModalCupons = ({ isOpen, closeModal }) => {
+  const { getText } = useLanguage();
   if (!isOpen) {
     return null;
   }

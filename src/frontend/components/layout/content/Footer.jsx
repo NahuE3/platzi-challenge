@@ -11,10 +11,12 @@ import ModalLang from '../../containers/Modal/ModalLang';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useLanguage from '../../../hooks/useLanguage';
+import useCurrency from '../../../hooks/useCurrency';
 
 const Footer = () => {
   const [modalLang, setModalLang] = useState(false);
   const { getText } = useLanguage();
+  const { currency } = useCurrency();
 
   const openModalLang = () => setModalLang(true);
   const closeModalLang = () => setModalLang(false);
@@ -63,9 +65,9 @@ const Footer = () => {
           <StyledPreferences onClick={openModalLang}>
             <StyledPreferences>
               <HiOutlineGlobe size="2rem" />
-              Español
+              {getText('footer.lan')}
             </StyledPreferences>
-            <div>USD - $</div>
+            <div>{`${currency} - $ `}</div>
           </StyledPreferences>
           <StyledSocial>
             <a href="https://www.facebook.com" title='Go to facebook'>

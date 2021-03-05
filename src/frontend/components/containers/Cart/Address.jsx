@@ -10,12 +10,14 @@ import InputDefault from '../../shared/inputs/InputDefault';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 const Address = () => {
   //Estado que guarda el valor y validacion del input
   const [address, setAddress] = useState({ success: null, value: '' });
   const [barrio, setBarrio] = useState({ success: null, value: '' });
   const [comment, setComment] = useState({ success: null, value: '' });
+  const { getText } = useLanguage();
 
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
@@ -34,7 +36,7 @@ const Address = () => {
       center={true}
     >
       <StyledCont head>
-        <h2>Datos de envio</h2>
+        <h2>{getText('checkout_address.title')}</h2>
       </StyledCont>
 
       <StyledSignUpContainer>
@@ -42,31 +44,31 @@ const Address = () => {
           tipo="text"
           name="address"
           placeholder="Avenida Siempre Viva"
-          label="Direccion"
+          label={getText('checkout_address.address')}
           state={address}
           manageState={setAddress}
           regExpression={expressions.user}
-          errorMessage={'Solo se permiten letras, numeros, guion y guion bajo.'}
+          errorMessage={getText('register.user_error')}
         />
         <InputDefault
           tipo="text"
           name="barrio"
-          placeholder="Barrio"
-          label="Barrio"
+          placeholder={getText('checkout_address.city')}
+          label={getText('checkout_address.city')}
           state={barrio}
           manageState={setBarrio}
           regExpression={expressions.user}
-          errorMessage={'Solo se permiten letras, numeros, guion y guion bajo.'}
+          errorMessage={getText('register.user_error')}
         />
         <InputDefault
           type="number"
           name="comment"
-          placeholder="Comentario"
-          label="Comentario"
+          placeholder={getText('checkout_address.comment')}
+          label={getText('checkout_address.comment')}
           state={comment}
           manageState={setComment}
           regExpression={expressions.postal}
-          errorMessage={'La longitud debe ser entre 4 y 10 digitos.'}
+          errorMessage={getText('register.password_error')}
         />
         <Link to="/checkout/payment">
           <ButtonDefault
@@ -75,7 +77,7 @@ const Address = () => {
             height="48px"
             margin="20px 0 16px"
           >
-            Continuar con el pago
+            {getText('checkout_address.button')}
           </ButtonDefault>
         </Link>
       </StyledSignUpContainer>

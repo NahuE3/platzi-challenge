@@ -10,8 +10,10 @@ import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import ButtonLogin from '../../shared/buttons/ButtonLogin';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 const Address = () => {
+  const { getText } = useLanguage();
   return (
     <Layout
       title="Pago"
@@ -19,18 +21,18 @@ const Address = () => {
       center={true}
     >
       <StyledCont head>
-        <h2>Metodo de pago</h2>
+        <h2>{getText('checkout_payment.title')}</h2>
       </StyledCont>
 
       <StyledSignUpContainer>
         <ButtonLogin icon="Card" width="100%" margin="20px 0 16px">
-          Continuar con Tarjeta Credito o Debito
+          {getText('checkout_payment.card')}
         </ButtonLogin>
         <ButtonLogin icon="Paypal" width="100%" margin="20px 0 16px">
-          Continuar con Paypal
+        {getText('checkout_payment.paypal')}
         </ButtonLogin>
         <ButtonLogin icon="Bitcoin" width="100%" margin="20px 0 16px">
-          Continuar con Criptomoneda
+        {getText('checkout_payment.crypto')}
         </ButtonLogin>
         <Link to="/checkout/address">
           <ButtonDefault
@@ -39,7 +41,7 @@ const Address = () => {
             height="48px"
             margin="20px 0 16px"
           >
-            Volver
+            {getText('checkout_payment.button')}
           </ButtonDefault>
         </Link>
       </StyledSignUpContainer>

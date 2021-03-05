@@ -16,11 +16,15 @@ import {
 } from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
+import { useStateValue } from '../../../context';
+import { changeTheme, logoutUser } from '../../../context/actions';
 
-const userLogged = false;
+// const userLogged = false;
 
 const ModalCart = ({ isOpen, closeModal }) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, user, dispatch } = useStateValue();
+  const { getText } = useLanguage();
 
   if (!isOpen) {
     return null;
@@ -30,7 +34,7 @@ const ModalCart = ({ isOpen, closeModal }) => {
     <StyledModal>
       <StyledModalContainer>
         <StyledHead>
-          <h3>Preferencias de usuario</h3>
+          <h3>{getText('modal_user.subtitle')}</h3>
           <StyledCloseButton
             onClick={() => {
               closeModal();
@@ -44,17 +48,17 @@ const ModalCart = ({ isOpen, closeModal }) => {
           <StyledSeparator top></StyledSeparator>
 
           <StyledOptions>
-            {!userLogged ? (
+            {Object.keys(user).length === 0 ? (
               <>
                 <Link to="/login">
                   <ButtonOption primary margin="0">
-                    Iniciar sesión
+                    {getText('modal_user.login')}
                     <HiOutlineLogin size="2.2rem" />
                   </ButtonOption>
                 </Link>
                 <Link to="/signup">
                   <ButtonOption>
-                    Registrarse
+                    {getText('modal_user.register')}
                     <HiOutlineGift size="2.2rem" />
                   </ButtonOption>
                 </Link>
@@ -62,12 +66,9 @@ const ModalCart = ({ isOpen, closeModal }) => {
             ) : (
               <ButtonOption
                 margin="0"
-                onClick={
-                  // LogOut(); Funcion de cerrar sesion
-                  closeModal
-                }
+                onClick={() => logoutUser({ dispatch })}
               >
-                Cerrar sesión
+                {getText('modal_user.logout')}
                 <HiOutlineLogout size="2.2rem" />
               </ButtonOption>
             )}
@@ -76,22 +77,22 @@ const ModalCart = ({ isOpen, closeModal }) => {
 
             <Link to="/order">
               <ButtonOption margin="0">
-                Seguir mi pedido
+                {getText('modal_user.order')}
                 <HiOutlineShoppingCart size="2.2rem" />
               </ButtonOption>
             </Link>
 
             <StyledSeparator></StyledSeparator>
 
-            {!darkMode ? (
+            {theme === 'dark' ? (
               <ButtonOption
                 margin="0"
                 onClick={() => {
                   //Funcion de dark mode
-                  setDarkMode(true);
+                  changeTheme({ theme: 'light' , dispatch });
                 }}
               >
-                Modo oscuro
+                {getText('modal_user.theme_dark')}
                 <HiOutlineMoon size="2.2rem" />
               </ButtonOption>
             ) : (
@@ -99,10 +100,10 @@ const ModalCart = ({ isOpen, closeModal }) => {
                 margin="0"
                 onClick={() => {
                   //Funcion de dark mode
-                  setDarkMode(false);
+                  changeTheme({ theme: 'dark' , dispatch });
                 }}
               >
-                Modo claro
+                {getText('modal_user.theme_light')}
                 <HiOutlineSun size="2.2rem" />
               </ButtonOption>
             )}

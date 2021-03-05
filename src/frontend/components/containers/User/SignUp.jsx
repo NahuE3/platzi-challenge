@@ -12,6 +12,7 @@ import ButtonLogin from '../../shared/buttons/ButtonLogin';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useForm from '../../../hooks/useForm';
+import useLanguage from '../../../hooks/useLanguage';
 
 const SignUp = () => {
   //Estado que guarda el valor y validacion del input
@@ -20,6 +21,7 @@ const SignUp = () => {
   const [email, setEmail] = useState({ success: null, value: '' });
   const [password, setPassword] = useState({ success: null, value: '' });
   const { registerUser } = useForm();
+  const { getText } = useLanguage();
 
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
@@ -37,15 +39,15 @@ const SignUp = () => {
       center={true}
     >
       <StyledCont head>
-        <h2>Registrarse</h2>
+        {getText('modal_user.register')}
       </StyledCont>
 
       <StyledSignUpContainer>
         <InputDefault
           tipo="text"
           name="user"
-          placeholder="Usuario"
-          label="Usuario"
+          placeholder={getText('register.user')}
+          label={getText('register.user')}
           state={user}
           manageState={setUser}
           regExpression={expressions.user}
@@ -54,32 +56,32 @@ const SignUp = () => {
         <InputDefault
           tipo="number"
           name="phone"
-          placeholder="0123 456789"
-          label="Telefono"
+          placeholder="12 345678"
+          label={getText('register.phone')}
           state={phone}
           manageState={setPhone}
           regExpression={expressions.phone}
-          errorMessage={'La longitud debe ser entre 7 y 14 numeros.'}
+          errorMessage={getText('register.phone_error')}
         />
         <InputDefault
           tipo="text"
           name="email"
-          placeholder="ejemplo@email.com"
-          label="Email"
+          placeholder={getText('register.email_example')}
+          label={getText('register.email')}
           state={email}
           manageState={setEmail}
           regExpression={expressions.email}
-          errorMessage={'El formato ingresado no pertenece a un email.'}
+          errorMessage={getText('register.email_error')}
         />
         <InputDefault
           type="password"
           name="password"
-          placeholder="Contraseña"
-          label="Contraseña"
+          placeholder={getText('register.password')}
+          label={getText('register.password')}
           state={password}
           manageState={setPassword}
           regExpression={expressions.password}
-          errorMessage={'La longitud debe ser entre 4 y 12 digitos.'}
+          errorMessage={getText('register.password_error')}
         />
 
         <ButtonDefault
@@ -95,7 +97,7 @@ const SignUp = () => {
             phone: phone.value,
           })}
         >
-          Registrarse
+          {getText('register.button')}
         </ButtonDefault>
       </StyledSignUpContainer>
 
@@ -108,15 +110,17 @@ const SignUp = () => {
       <StyledButtonsContainer>
         <ButtonLogin icon="Facebook" width="100%" margin="16px 0 0">
           {/* {innerWidth < 700 ? 'Continuar con Facebook' : 'Facebook'} */}
+          {getText('register.facebook')}
         </ButtonLogin>
         <ButtonLogin icon="Google" width="100%" margin="16px 0 0">
           {/* {innerWidth < 700 ? 'Continuar con Google' : 'Google'} */}
+          {getText('register.google')}
         </ButtonLogin>
       </StyledButtonsContainer>
 
       <StyledSignUp>
-        <span>¿Ya tienes cuenta?</span>
-        <Link to="/login">Iniciar sesión</Link>
+        {getText('register.dont_user')}
+        <Link to="/login">{getText('register.login')}</Link>
       </StyledSignUp>
     </Layout>
   );

@@ -9,7 +9,7 @@
     "language-es": "Español",
     "language-en": "Inglés",
     "region": "Región y lñenguaje",
-    "currency": "Divisa",
+    "currency": "Moneda",
     "currency-usd": "Dolar Americano",
     "currency-cop": "Pesos Colombianos",
     "currency-mxn": "Pesos Méxicanos",
@@ -18,7 +18,8 @@
     "login": "Acceso",
     "logout": "Cerrar Sesión",
     "user": "User",
-    "config": "Configuration"
+    "config": "Configuration",
+    "need": "Necesitas iniciar sesión"
   },
   "footer": {
     "title1": "Más sobre la página",
@@ -32,6 +33,7 @@
     "login": "Iniciar sesión",
     "register": "Registrarse",
     "cart": "Carrito",
+    "lan": "Español",
     "language": "Cambia el lenguaje",
     "currency": "Cambiar moneda",
     "privacy": "Privacidad",
@@ -60,7 +62,7 @@
     "user": "Usuario",
     "user_error": "Solo se permiten letras, números, guiones y guiones bajos.",
     "email": "Correo",
-    "email_example": "Example@correo.com",
+    "email_example": "ejemplo@correo.com",
     "email_error": "El formato introducido no pertenece a un correo electrónico.",
     "phone": "Teléfono",
     "phone_error": "La longitud debe estar comprendida entre 7 y 14 números.",
@@ -70,11 +72,44 @@
     "google": "Google",
     "facebook": "Facebook",
     "dont_user": "Tienes cuenta?",
-    "register": "Acceso"
+    "login": "Inicia sesión"
   },
   "recipes": {
     "subtitle": "Recetas",
     "our-recipes": "Tus Recetas"
+  },
+  "modal_user": {
+    "subtitle": "Preferencias del usuario",
+    "login": "Iniciar sesión",
+    "register": "Registrate",
+    "logout": "Cerrar sesión",
+    "add": "Agregar al carrito",
+    "order": "Seguir orden",
+    "theme_light": "Modo brillante",
+    "theme_dark": "Modo obscurso"
+  },
+  "modal_preferences": {
+    "subtitle": "Preferencias",
+    "login": "Acceso",
+    "register": "Registrate",
+    "add": "Agregar al carrito",
+    "order": "Seguir orden",
+    "theme_light": "Modo brillante",
+    "theme_dark": "Modo obscuro"
+  },
+  "modal_cart": {
+    "subtitle1": "¿Qué quieres hacer con esta receta?",
+    "subtitle2": "¿Que día de la semana?",
+    "buy": "Compra ahora",
+    "add": "Agregar al carrito",
+    "menu": "Agregar al menú semanal",
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miércoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sábado",
+    "sunday": "Domingo"
   },
   "weekly menu": {
     "title": "Menú Semanal",
@@ -83,7 +118,9 @@
     "text": "¡Inicie sesión y aproveche al máximo el potencial de Foody!"
   },
   "favorites": {
-    "title": "Favoritos"
+    "title": "Favoritos",
+    "subtitle": "Recetas populares",
+    "login": "Iniciar sesión"
   },
   "cart": {
     "title": "Carrito",
@@ -91,6 +128,7 @@
     "items": "Artículos",
     "items-price": "Precio Artículos",
     "delivery": "Datos de entrega",
+    "discount": "Descuento",
     "coupon": "Aplicar cupón",
     "continue": "Continuar comprando",
     "purchase": "Compra",
@@ -100,7 +138,7 @@
   "checkout": {
     "title": "Información del cliente",
     "name": "Nombre",
-    "lastaname": "Apellido",
+    "lastname": "Apellido",
     "phone": "Teléfono",
     "email": "Correo",
     "zip": "Código Postal",
@@ -132,5 +170,27 @@
     "show": "Mostrar más",
     "add": "Agregar porción",
     "remove": "Remover porción"
+  },
+  "programming": {
+    "title": "Programación semanal",
+    "title1": "¿De donde eres?",
+    "title2": "¿Para cuántas personas cocinas habitualmente?",
+    "title3": "¿Cuánto tiempo quieres cocinar?",
+    "title4": "Programación semanal",
+    "subtitle1": "Este es el programa que hemos preparado para ti",
+    "subtitle2": "¡Siéntete libre de agregarlos, eliminarlos y ordenarlos como quieras!",
+    "people1": "Entre 1 y 2 personas",
+    "people2": "Entre 3 y 4 personas",
+    "people3": "Más de 5",
+    "time1": "Menos de una hora",
+    "time2": "Menos de dos horas",
+    "time3": "Más de dos horas",
+    "category1": "Carne",
+    "category2": "Mar",
+    "category3": "Comida rápida",
+    "category4": "Postres",
+    "button": "Continuar",
+    "button2": "Comprar ahora",
+    "button3": "Seguir comprando"
   }
 }
