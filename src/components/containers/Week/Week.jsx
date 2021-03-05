@@ -12,10 +12,10 @@ const userLoged = false;
 const Week = () => {
   return (
     <Layout
-      title="Menú Semanal"
+      title="Programacion"
       subtitle="Crea un plan de comidas a tu gusto para toda la semana!"
     >
-      <h1>Menú Semanal</h1>
+      <h1>Programacion Semanal</h1>
       {userLoged ? (
         <div></div>
       ) : (
@@ -25,7 +25,7 @@ const Week = () => {
           </ButtonDefault>
           <StyledSeparator></StyledSeparator>
 
-          <h3>¿Que es el menú semanal?</h3>
+          <h3>¿Que es la Programacion semanal?</h3>
           <StyledParrafo>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde quas
             aliquam adipisci nisi qui suscipit voluptates ab dolorum

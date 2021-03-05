@@ -1,6 +1,6 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de iconos.
@@ -9,13 +9,19 @@ import {
   HiOutlineBookOpen,
   HiOutlineHeart,
   HiOutlineCalendar,
-  HiOutlineDotsHorizontal,
+  HiOutlineUserCircle,
 } from 'react-icons/hi';
 //Import de componentes.
+import ModalMore from '../../containers/Modal/ModalMore';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
 const Tabbar = () => {
+  const [modalMore, setModalMore] = useState(false);
+
+  const openModalMore = () => setModalMore(true);
+  const closeModalMore = () => setModalMore(false);
+
   return (
     <StyledWrapper>
       <NavLink to="/home">
@@ -33,7 +39,7 @@ const Tabbar = () => {
       <NavLink to="/week">
         <StyledButton>
           <HiOutlineCalendar size="2.4rem" />
-          <span>Menu</span>
+          <span>Programacion</span>
         </StyledButton>
       </NavLink>
       <NavLink to="/wishlist">
@@ -42,12 +48,11 @@ const Tabbar = () => {
           <span>Favoritos</span>
         </StyledButton>
       </NavLink>
-      <NavLink to="/config">
-        <StyledButton>
-          <HiOutlineDotsHorizontal size="2.4rem" />
-          <span>Mas</span>
-        </StyledButton>
-      </NavLink>
+      <StyledButton onClick={openModalMore}>
+        <HiOutlineUserCircle size="2.4rem" />
+        <span>Mas</span>
+      </StyledButton>
+      <ModalMore isOpen={modalMore} closeModal={closeModalMore} />
     </StyledWrapper>
   );
 };

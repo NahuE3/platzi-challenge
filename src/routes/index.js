@@ -8,6 +8,7 @@ import {
   SignUp,
   Home,
   Recipes,
+  Recipe,
   Week,
   Favorites,
   Order,
@@ -25,6 +26,7 @@ const App = () => (
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/recipes" component={Recipes} />
+      <Route exact path="/recipes/recipe" component={Recipe} />
       <Route exact path="/week" component={Week} />
       <Route exact path="/wishlist" component={Favorites} />
       <Route exact path="/order" component={Order} />

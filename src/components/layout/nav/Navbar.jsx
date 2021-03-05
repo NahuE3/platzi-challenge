@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de iconos.
-import { HiOutlineShoppingCart, HiOutlineGlobe } from 'react-icons/hi';
+import { HiOutlineShoppingCart, HiOutlineGlobe, HiOutlineUserCircle } from 'react-icons/hi';
 //Import de componentes.
 import ModalLang from '../../containers/Modal/ModalLang';
+import ModalMore from '../../containers/Modal/ModalMore';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import SearchBar from '../../shared/inputs/SearchBar';
 //Import de media querys.
@@ -15,9 +16,13 @@ import { media } from '../../../const/mediaQuerys';
 const Navbar = ({ isSearch }) => {
   const [search, setSearch] = useState({ value: '', success: null });
   const [modalLang, setModalLang] = useState(false);
+  const [modalMore, setModalMore] = useState(false);
 
   const openModalLang = () => setModalLang(true);
   const closeModalLang = () => setModalLang(false);
+  
+  const openModalMore = () => setModalMore(true);
+  const closeModalMore = () => setModalMore(false);
 
   useEffect(() => {
     if (isSearch) {
@@ -32,7 +37,7 @@ const Navbar = ({ isSearch }) => {
       </NavLink>
       <StyledCart>
         {isSearch ? (
-          <SearchBar state={search} manageState={setSearch} id="SearchBar" />
+          <SearchBar state={search} manageState={setSearch} id="SearchBar"/>
         ) : (
           <Link to="/recipes">
             <SearchBar state={search} />
@@ -48,11 +53,14 @@ const Navbar = ({ isSearch }) => {
           <ButtonDefault>Recetas</ButtonDefault>
         </NavLink>
         <NavLink to="/week">
-          <ButtonDefault>Calendario</ButtonDefault>
+          <ButtonDefault>Programacion</ButtonDefault>
         </NavLink>
         <NavLink to="/wishlist">
           <ButtonDefault>Favoritos</ButtonDefault>
         </NavLink>
+        <ButtonDefault onClick={openModalMore}>
+          <HiOutlineUserCircle size="2rem" />
+        </ButtonDefault>
       </StyledButtonsSection>
 
       <StyledCart>
@@ -67,6 +75,7 @@ const Navbar = ({ isSearch }) => {
       </StyledCart>
 
       <ModalLang isOpen={modalLang} closeModal={closeModalLang} />
+      <ModalMore isOpen={modalMore} closeModal={closeModalMore} />
     </StyledNavContainer>
   );
 };

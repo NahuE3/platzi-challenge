@@ -1,6 +1,6 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState }from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 //Import de iconos.
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
@@ -15,7 +15,7 @@ import ModalCart from '../../containers/Modal/ModalCart';
 import { media } from '../../../const/mediaQuerys';
 
 const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
-  const { image, title, description, price, time } = data;
+  const { id, image, title, description, price, time } = data;
 
   const [modalCart, setModalCart] = useState(false);
 
@@ -40,8 +40,8 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
           <StyledPrice>$ {price} COL por plato</StyledPrice>
           <StyledDescription>{description}</StyledDescription>
 
-          {/* FIXME: Colocar preview de los usuarios que comentaron */}
           <StyledFooter>
+            {/* FIXME: Colocar preview de los usuarios que comentaron */}
             <div>Comentarios</div>
             <StyledAddToCart onClick={openModalCart}>
               <HiOutlineShoppingCart size="1.8rem" />
@@ -66,7 +66,12 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
           </StyledTime>
         </StyledButtonSection>
       </StyledInfoSection>
-      <ModalCart isOpen={modalCart} closeModal={closeModalCart}/>
+
+      <ModalCart
+        isOpen={modalCart}
+        closeModal={closeModalCart}
+        recipe={id}
+      />
     </StyledCard>
   );
 };

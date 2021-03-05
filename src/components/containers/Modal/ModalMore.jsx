@@ -5,23 +5,22 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de iconos.
-import { HiX, HiOutlineShoppingCart, HiOutlineCalendar } from 'react-icons/hi';
-import { FaShippingFast } from 'react-icons/fa';
+import {
+  HiX,
+  HiOutlineLogout,
+  HiOutlineLogin,
+  HiOutlineGift,
+  HiOutlineMoon,
+  HiOutlineSun,
+  HiOutlineShoppingCart,
+} from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
-const weekData = [
-  'Domingo',
-  'Lunes',
-  'Martes',
-  'Miercoles',
-  'Jueves',
-  'Viernes',
-  'Sabado',
-];
+const userLogged = false;
 
-const ModalCart = ({ isOpen, closeModal, recipe }) => {
-  const [week, setWeek] = useState(false);
+const ModalCart = ({ isOpen, closeModal }) => {
+  const [darkMode, setDarkMode] = useState(false);
 
   if (!isOpen) {
     return null;
@@ -29,17 +28,12 @@ const ModalCart = ({ isOpen, closeModal, recipe }) => {
 
   return ReactDOM.createPortal(
     <StyledModal>
-      <StyledModalContainer week={week}>
+      <StyledModalContainer>
         <StyledHead>
-          {!week ? (
-            <h3>¿Que quieres hacer con esta receta?</h3>
-          ) : (
-            <h3>¿Que dia de la semana?</h3>
-          )}
+          <h3>Preferencias de usuario</h3>
           <StyledCloseButton
             onClick={() => {
               closeModal();
-              setWeek(false);
             }}
           >
             <HiX size="2rem" />
@@ -50,49 +44,67 @@ const ModalCart = ({ isOpen, closeModal, recipe }) => {
           <StyledSeparator top></StyledSeparator>
 
           <StyledOptions>
-            {!week ? (
+            {!userLogged ? (
               <>
-                <Link to="/cart">
-                  <ButtonOption
-                    primary
-                    onClick={() => {
-                      //AddToCart
-                    }}
-                  >
-                    Comprar Ahora
-                    <FaShippingFast size="2.2rem" />
+                <Link to="/login">
+                  <ButtonOption primary margin="0">
+                    Iniciar sesión
+                    <HiOutlineLogin size="2.2rem" />
                   </ButtonOption>
                 </Link>
-                <ButtonOption
-                  onClick={() => {
-                    //AddToCart
-                    closeModal();
-                  }}
-                >
-                  Agregar al Carrito
-                  <HiOutlineShoppingCart size="2.2rem" />
-                </ButtonOption>
-                <ButtonOption onClick={() => setWeek(true)}>
-                  Agregar al Menu Semanal
-                  <HiOutlineCalendar size="2.2rem" />
-                </ButtonOption>
+                <Link to="/signup">
+                  <ButtonOption>
+                    Registrarse
+                    <HiOutlineGift size="2.2rem" />
+                  </ButtonOption>
+                </Link>
               </>
             ) : (
-              <>
-                {weekData.map((day) => (
-                  <ButtonOption
-                    key={day}
-                    onClick={() => {
-                      //AddToMenuDay
-                      closeModal();
-                      setWeek(false);
-                    }}
-                  >
-                    {day}
-                    <HiOutlineCalendar size="2.2rem" />
-                  </ButtonOption>
-                ))}
-              </>
+              <ButtonOption
+                margin="0"
+                onClick={
+                  // LogOut(); Funcion de cerrar sesion
+                  closeModal
+                }
+              >
+                Cerrar sesión
+                <HiOutlineLogout size="2.2rem" />
+              </ButtonOption>
+            )}
+
+            <StyledSeparator></StyledSeparator>
+
+            <Link to="/order">
+              <ButtonOption margin="0">
+                Seguir mi pedido
+                <HiOutlineShoppingCart size="2.2rem" />
+              </ButtonOption>
+            </Link>
+
+            <StyledSeparator></StyledSeparator>
+
+            {!darkMode ? (
+              <ButtonOption
+                margin="0"
+                onClick={() => {
+                  //Funcion de dark mode
+                  setDarkMode(true);
+                }}
+              >
+                Modo oscuro
+                <HiOutlineMoon size="2.2rem" />
+              </ButtonOption>
+            ) : (
+              <ButtonOption
+                margin="0"
+                onClick={() => {
+                  //Funcion de dark mode
+                  setDarkMode(false);
+                }}
+              >
+                Modo claro
+                <HiOutlineSun size="2.2rem" />
+              </ButtonOption>
             )}
           </StyledOptions>
         </StyledContent>
@@ -123,13 +135,13 @@ const StyledModal = styled.div`
 const StyledModalContainer = styled.div`
   position: relative;
   bottom: 0;
-  top: ${(props) => (props.week ? '10%' : '50%')};
+  top: 40%;
 
   display: grid;
   grid-template-rows: 40px 1fr;
 
   width: 100vw;
-  height: ${(props) => (props.week ? '90vh' : '50vh')};
+  height: 60vh;
   border-radius: var(--large-radius) var(--large-radius) 0 0;
   background-color: var(--white-color);
   box-shadow: var(--card-shadow);
@@ -172,11 +184,12 @@ const StyledSeparator = styled.div`
   width: 100%;
   height: 2px;
   background-color: var(--light-gray);
+  margin: ${(props) => (props.top ? '0 0 14px' : '14px 0')};  
 `;
 const StyledOptions = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 0 16px;
+  margin-bottom: 16px;
 `;
 const ButtonOption = styled.button`
   display: flex;
@@ -185,7 +198,7 @@ const ButtonOption = styled.button`
   height: 52px;
   width: 100%;
   padding: 10px;
-  margin: 14px 0 0;
+  margin: ${(props) => (props.margin ? props.margin : '14px 0 0')};
   font-size: var(--large-font-size);
   font-weight: 600;
   text-align: left;

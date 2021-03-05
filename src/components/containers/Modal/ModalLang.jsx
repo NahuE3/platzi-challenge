@@ -15,6 +15,7 @@ const ModalLang = ({ isOpen, closeModal }) => {
 
   return ReactDOM.createPortal(
     <StyledModal>
+
       <StyledModalContainer>
         <StyledHead>
           <h3>Preferencias</h3>
@@ -22,34 +23,43 @@ const ModalLang = ({ isOpen, closeModal }) => {
             <HiX size="2rem" />
           </StyledCloseButton>
         </StyledHead>
+
         <StyledContent>
-          <StyledSeparator></StyledSeparator>
+
+          <StyledSeparator top></StyledSeparator>
           <h3>Idioma y region</h3>
           <StyledOptions options="1fr / 1fr 1fr">
             <ButtonOption>
               Español
               <span>Latinoamerica</span>
             </ButtonOption>
+
             <ButtonOption>
               English
               <span>United States</span>
             </ButtonOption>
+
           </StyledOptions>
+
           <StyledSeparator></StyledSeparator>
+
           <h3>Moneda</h3>
           <StyledOptions options="1fr 1fr / 1fr 1fr">
             <ButtonOption>
               Dolar estadounidense
               <span>USD-$</span>
             </ButtonOption>
+
             <ButtonOption>
               Pesos colombianos
               <span>COP-$</span>
             </ButtonOption>
+
             <ButtonOption>
               Pesos argentinos
               <span>ARS-$</span>
             </ButtonOption>
+
           </StyledOptions>
         </StyledContent>
       </StyledModalContainer>
@@ -127,7 +137,7 @@ const StyledSeparator = styled.div`
   width: 100%;
   height: 2px;
   background-color: var(--light-gray);
-  margin: 8px 0 10px;
+  margin: ${(props) => (props.top ? '0 0 14px' : '14px 0')};
 `;
 const StyledOptions = styled.div`
   display: grid;
@@ -140,11 +150,11 @@ const ButtonOption = styled.button`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 52px;
+  height: 56px;
   width: 100%;
   padding: 8px;
   text-align: left;
-  border: 2px solid var(--mid-gray);
+  border: 3px solid var(--mid-gray);
   border-radius: var(--normal-radius);
   outline: none;
   background: none;
