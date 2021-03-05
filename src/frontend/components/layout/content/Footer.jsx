@@ -42,6 +42,7 @@ const Footer = () => {
         </StyledSection>
         <StyledSection>
           <div>{getText('footer.title3')}</div>
+          <Link to="/about">Sobre de nosotros</Link>
           <a href="https://www.facebook.com" title='Go to facebook'>Facebook</a>
           <a href="https://www.instagram.com" title='Go to instagram'>Instagram</a>
           <a href="https://www.twitter.com" title='Go to twitter'>Twitter</a>
