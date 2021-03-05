@@ -15,9 +15,11 @@ import {
 import ModalMore from '../../containers/Modal/ModalMore';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 const Tabbar = () => {
   const [modalMore, setModalMore] = useState(false);
+  const { getText } = useLanguage();
 
   const openModalMore = () => setModalMore(true);
   const closeModalMore = () => setModalMore(false);
@@ -27,25 +29,25 @@ const Tabbar = () => {
       <NavLink to="/home">
         <StyledButton>
           <HiOutlineViewGrid size="2.4rem" />
-          <span>Inicio</span>
+          <span>{getText('header.home')}</span>
         </StyledButton>
       </NavLink>
       <NavLink to="/recipes">
         <StyledButton>
           <HiOutlineBookOpen size="2.4rem" />
-          <span>Recetas</span>
+          <span>{getText('header.recipes')}</span>
         </StyledButton>
       </NavLink>
       <NavLink to="/week">
         <StyledButton>
           <HiOutlineCalendar size="2.4rem" />
-          <span>Programacion</span>
+          <span>{getText('header.programming')}</span>
         </StyledButton>
       </NavLink>
       <NavLink to="/wishlist">
         <StyledButton>
           <HiOutlineHeart size="2.4rem" />
-          <span>Favoritos</span>
+          <span>{getText('header.favorites')}</span>
         </StyledButton>
       </NavLink>
       <StyledButton onClick={openModalMore}>

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 //Import de layout.
 import Layout from '../../layout/Layout';
 //Import de componentes.
+import Spinner from '../../shared/Spinner';
 import RecipesCard from '../../shared/cards/RecipesCard';
 import Slider from './Slider';
 import { SliderData } from './SliderData';
@@ -12,21 +13,23 @@ import { SliderData } from './SliderData';
 import { media } from '../../../const/mediaQuerys';
 import { useStateValue } from '../../../context';
 import useCategory from '../../../hooks/useCategory';
+import useLanguage from '../../../hooks/useLanguage';
 
 // FIXME: Borrar estos datos cuando se conecte a la API
 // const data = ['Pastas', 'De Mar', 'Vegetarianos', 'Facil y Economico'];
-const recipeData = {
-  title: 'Titulo de receta',
-  description:
-    'Descripcion corta de la receta no mayor a cierto numero de caracteres',
-  price: 4000,
-  time: 40,
-};
+// const recipeData = {
+//   title: 'Titulo de receta',
+//   description:
+//     'Descripcion corta de la receta no mayor a cierto numero de caracteres',
+//   price: 4000,
+//   time: 40,
+// };
 
 const Home = () => {
   const { categories } = useStateValue();
   const data = categories.results;
   const { categoryList } = useCategory({ category: 0 });
+  const { getText } = useLanguage();
   const openRecipe = () => {
     //Funcion de abrir la receta seleccionada
   };
@@ -38,7 +41,7 @@ const Home = () => {
     >
       <Slider slides={SliderData} />
       <StyledSubtitle>
-        ¿No sabes por donde empezar? Aqui tenemos unas sugerencias
+        {getText('home.subtitle')}
       </StyledSubtitle>
       <StyledCategory>
         {data?.slice(0, 4).map((item) => (
@@ -58,7 +61,7 @@ const Home = () => {
           </StyledCatOption>
         ))}
       </StyledCategory>
-      <StyledSubtitle>Recetas populares</StyledSubtitle>
+      <StyledSubtitle>{getText('home.popular')}</StyledSubtitle>
       <StyledList>
         {categoryList?.slice(0, 7)?.map((item) => (
           <li key={item.id}>
@@ -70,7 +73,7 @@ const Home = () => {
           </li>
         ))}
       </StyledList>
-      <StyledSubtitle>Nuestros proveedores</StyledSubtitle>
+      <StyledSubtitle>{getText('home.providers')}</StyledSubtitle>
     </Layout>
   );
 };

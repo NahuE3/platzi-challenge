@@ -13,6 +13,7 @@ import useCategory from '../../../hooks/useCategory';
 import useSearcher from '../../../hooks/useSearcher';
 import { useStateValue } from '../../../context';
 import useRecipes from '../../../hooks/useRecipes';
+import useLanguage from '../../../hooks/useLanguage';
 
 // FIXME: Borrar estos datos cuando se conecte a la API
 // const data = ['Pizzas', 'Pastas', 'Carnes', 'Vegetariana', 'De Mar', 'Comida Rapida', 7, 8];
@@ -29,6 +30,7 @@ const Recipes = () => {
   const [category, setCategory] = useState(0);
   const { categories, search } = useStateValue();
   const ref = useRef(null);
+  const { getText } = useLanguage();
   const { recipeList, loading } = useRecipes({ category, search, container: ref });
 
   const data = categories?.results || [];
@@ -46,7 +48,7 @@ const Recipes = () => {
       subtitle="Aqui puedes encontrar las mejores y mas deliciosas recetas"
       search={true}
     >
-      <h1>Recetas</h1>
+      <h1>{getText('recipes.subtitle')}</h1>
 
       <StyledCategoryList>
         {data?.map((item) => (

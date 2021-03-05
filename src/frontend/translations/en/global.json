@@ -2,7 +2,7 @@
   "header": {
     "home": "Home",
     "recipes": "Recipes",
-    "calendar": "Calendar",
+    "programming": "Programming",
     "favorites": "Favorites",
     "cart": "Cart",
     "languages": "Languages & Currency",
@@ -14,9 +14,28 @@
     "currency-cop": "Colombian pesos",
     "currency-mxn": "Mexican pesos",
     "preferences": "Preferences",
-    "search": "Search",
+    "search": "Search...",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "user": "User",
+    "config": "Configuration"
+  },
+  "footer": {
+    "title1": "More about the page",
+    "title2": "User options",
+    "title3": "Social media",
+    "home": "Home",
+    "recipes": "Recipes",
+    "programming": "Programming",
+    "favorites": "Favorites",
+    "order": "Follow order",
+    "login": "Login",
+    "register": "Register",
+    "cart": "Cart",
+    "language": "Change language",
+    "currency": "Change currency",
+    "privacy": "Privacy",
+    "terms": "Terms"
   },
   "home": {
     "subtitle": "Not sure where to start? Here we have some suggestions",
