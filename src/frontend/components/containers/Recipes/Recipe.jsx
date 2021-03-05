@@ -1,8 +1,16 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon
+} from 'react-share';
 //Import de layout.
 import Layout from '../../layout/Layout';
 //Import de icons.
@@ -16,49 +24,23 @@ import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import ModalCart from '../../containers/Modal/ModalCart';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import axios from 'axios';
+import usePreparationTime from '../../../hooks/usePreparationTime';
+import useTimer from '../../../hooks/useTimer';
+import useFavorites from '../../../hooks/useFavorites';
 
 // FIXME: Borrar estos datos cuando se conecte a la API
-const data = [
-  'Pizzas',
-  'Pastas',
-  'Carnes',
-  'Vegetariana',
-  'De Mar',
-  'Comida Rapida',
-  7,
-  8,
-];
-const recipeData = {
-  id: 1,
-  title: 'Titulo de receta',
-  description:
-    'Descripcion corta de la receta no mayor a cierto numero de caracteres',
-  price: 4000,
-  time: 40,
-};
 
-const comments = [
-  {
-    user: 'Antonio',
-    comment:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delenit',
-  },
-  {
-    user: 'Juanda',
-    comment:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delenit',
-  },
-  {
-    user: 'Nahuel',
-    comment:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delenit',
-  },
-];
-
-const favorite = false;
-
-const Recipe = ({ id, name, description, image }) => {
+const Recipe = () => {
   const [modalCart, setModalCart] = useState(false);
+  const { name } = useParams();
+  const [recipe, setRecipe] = useState();
+  const { formatTime } = usePreparationTime();
+  const { setTimer, getTimer, active, setActive } = useTimer();
+  const { isFavorite, addToFavorite, removeToFavorite } = useFavorites();
+  // console.log('====================================');
+  // console.log(params.name);
+  // console.log('====================================');
 
   const openModalCart = () => setModalCart(true);
   const closeModalCart = () => setModalCart(false);
@@ -67,97 +49,120 @@ const Recipe = ({ id, name, description, image }) => {
     //Funcion de agregar a favoritos
   };
 
+  const getRecipe = async () => {
+    const { data } = await axios({
+      url: '/api/recipes',
+      method: 'post',
+      data: { search: name },
+    }).then(({ data }) => {
+      return data;
+    });
+    const [aux] = data.results;
+    setTimer({ time: aux.total_time });
+    setRecipe(aux);
+  }
+
+  useEffect(() => {
+    getRecipe();
+  }, [])
+
   return (
-    <Layout title={name} subtitle={description} center={true}>
-      <StyledImgSection>
-        <StyledImg src={image} alt={`Foto del plato ${name}`} />
-      </StyledImgSection>
-      <StyledButtons>
-        <button onClick={addFavorite}>
-          {favorite ? (
-            <MdFavorite size="2rem" />
-          ) : (
-            <MdFavoriteBorder size="2rem" />
-          )}
-        </button>
-        <button onClick={openModalCart}>
-          <HiOutlineShoppingCart size="2rem" />
-        </button>
-        <button>
-          <HiOutlineShare size="2rem" />
-        </button>
-      </StyledButtons>
-      <h1>Titutlo Comida</h1>
-      <StyledTime>
-        <MdTimer size="2.2rem" />
-        <h2>30 min</h2>
-      </StyledTime>
+    <>
+      {!recipe && (
+        <h1>Loading...</h1>
+      )}
+      {recipe && (
+        <Layout title={recipe.name} subtitle={recipe.description} center={true}>
+          <StyledImgSection>
+            <StyledImg src={recipe.picture} alt={`Foto del plato ${recipe.name}`} />
+          </StyledImgSection>
+          <StyledButtons>
+            <button onClick={addFavorite}>
+              {isFavorite({ recipe }) ? (
+                <MdFavorite size="2rem" onClick={() => removeToFavorite({ recipe })} />
+              ) : (
+                <MdFavoriteBorder size="2rem" onClick={() => addToFavorite({ recipe })} />
+              )}
+            </button>
+            <button onClick={openModalCart}>
+              <HiOutlineShoppingCart size="2rem" />
+            </button>
+            <FacebookShareButton url={`https://foodyplus.co/recipes/recipe/${recipe.name}`}>
+              <FacebookIcon size={32} round={false} />
+            </FacebookShareButton>
+            {/* <TwitterShareButton url={`https://foodyplus.co/recipes/recipe/${recipe.name}`}>
+              <TwitterIcon size={32} round={false} />
+            </TwitterShareButton> */}
+            {/* <button>
+              <HiOutlineShare size="2rem" />
+            </button> */}
+          </StyledButtons>
+          <h1>{recipe.name}</h1>
+          <StyledTime onClick={() => setActive(!active)}>
+            <MdTimer size="2.2rem" />
+            {active && (
+              <h2>{getTimer()}</h2>
+            )}
+            {!active && (
+              <h2>{formatTime({ time: recipe.total_time })}</h2>
+            )}
+          </StyledTime>
 
-      <CollapseList icon="3" title="Ingredientes">
-        <div>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti,
-          et. Amet, debitis totam reprehenderit neque sapiente quas ipsum quae
-          modi suscipit accusamus exercitationem, dicta facere esse explicabo
-          unde placeat aliquam? Ipsum similique impedit aspernatur a suscipit
-          officiis unde, laboriosam natus odio? Dolores perspiciatis, unde iure
-          autem necessitatibus nihil vero nisi odit assumenda repellendus ut non
-          laborum dignissimos delectus praesentium dolor?
-        </div>
-      </CollapseList>
-      <CollapseList icon="3" title="Utencilios">
-        <div>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti,
-          et. Amet, debitis totam reprehenderit neque sapiente quas ipsum quae
-          modi suscipit accusamus exercitationem, dicta facere esse explicabo
-          unde placeat aliquam? Ipsum similique impedit aspernatur a suscipit
-          officiis unde, laboriosam natus odio? Dolores perspiciatis, unde iure
-          autem necessitatibus nihil vero nisi odit assumenda repellendus ut non
-          laborum dignissimos delectus praesentium dolor?
-        </div>
-      </CollapseList>
-      <CollapseList icon="3" title="Instrucciones">
-        <div>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti,
-          et. Amet, debitis totam reprehenderit neque sapiente quas ipsum quae
-          modi suscipit accusamus exercitationem, dicta facere esse explicabo
-          unde placeat aliquam? Ipsum similique impedit aspernatur a suscipit
-          officiis unde, laboriosam natus odio? Dolores perspiciatis, unde iure
-          autem necessitatibus nihil vero nisi odit assumenda repellendus ut non
-          laborum dignissimos delectus praesentium dolor?
-        </div>
-      </CollapseList>
-
-      <ButtonDefault
-        onClick={openModalCart}
-        primary
-        width="100%"
-        height="50px"
-        margin="16px 0 0"
-      >
-        Comprar ingredientes
-      </ButtonDefault>
-      <ButtonDefault secondary width="100%" height="50px" margin="16px 0 0">
-        <Link to="/recipes">Volver a recetas</Link>
-      </ButtonDefault>
-
-      <StyledSeparator></StyledSeparator>
-      <h2>Comentarios</h2>
-
-      {/* Mostrar 5 comentarios, si hay mas cargar al hacer click en "cargar mas" */}
-      {comments.map((item) => (
-        <Comment key={item.user} user={item.user} comment={item.comment} />
-      ))}
-
-      <StyledLoadMore>
-        <div></div>
-        <span>Cargar mas</span>
-        <div></div>
-      </StyledLoadMore>
-
-      <AddComment/>
-
-      <ModalCart isOpen={modalCart} closeModal={closeModalCart} recipe={id} />
-    </Layout>
+          <CollapseList icon="3" title="Ingredientes">
+            {recipe?.detail?.map((product) => {
+              <div key={product?.id}>
+                {product?.name}
+              </div>
+            })}
+          </CollapseList>
+          <CollapseList icon="3" title="Utencilios">
+            {recipe?.utensils?.map((utensils) => {
+              <div key={utensils?.id}>
+                {utensils?.name}
+              </div>
+            })}
+          </CollapseList>
+          <CollapseList icon="3" title="Instrucciones">
+            {recipe?.preparation?.split('&')?.map((preparation) => (
+              <div key={preparation}>
+                {preparation}
+              </div>
+            ))}
+          </CollapseList>
+    
+          <ButtonDefault
+            onClick={openModalCart}
+            primary
+            width="100%"
+            height="50px"
+            margin="16px 0 0"
+          >
+            Comprar ingredientes
+          </ButtonDefault>
+          <ButtonDefault secondary width="100%" height="50px" margin="16px 0 0">
+            <Link to="/recipes">Volver a recetas</Link>
+          </ButtonDefault>
+    
+          <StyledSeparator></StyledSeparator>
+          <h2>Comentarios</h2>
+    
+          {/* Mostrar 5 comentarios, si hay mas cargar al hacer click en "cargar mas" */}
+          {recipe?.comment?.map((item) => (
+            <Comment key={item?.user} user={item?.user} comment={item?.comment} />
+          ))}
+    
+          <StyledLoadMore>
+            <div></div>
+            <span>Cargar mas</span>
+            <div></div>
+          </StyledLoadMore>
+    
+          <AddComment/>
+    
+          <ModalCart isOpen={modalCart} closeModal={closeModalCart} recipe={recipe} />
+        </Layout>
+      )}
+    </>
   );
 };
 
@@ -191,7 +196,7 @@ const StyledTime = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 100px;
+  width: 150px;
   margin: 6px 0 0;
   color: var(--first-color);
 `;

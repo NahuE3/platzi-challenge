@@ -11,11 +11,18 @@ const getTime = ({ time, type }) => {
   return 0;
 }
 
-const useTimer = ({ time }) => {
+const useTimer = () => {
   const [active, setActive] = useState(false);
+  const [time, setTime] = useState('');
   const [hours, setHours] = useState(getTime({ time, type: 'hours' }) || 0);
   const [minutes, setMinutes] = useState(getTime({ time, type: 'minutes' }) || 0);
   const [seconds, setSeconds] = useState(0);
+
+  const setTimer = ({ time }) => {
+    setTime(time);
+    setHours(getTime({ time, type: 'hours' }) || 0);
+    setMinutes(getTime({ time, type: 'minutes' }) || 0);
+  };
 
   useEffect(() => {
     if (!active) return;
@@ -43,7 +50,11 @@ const useTimer = ({ time }) => {
     };
   });
 
-  return { hours, minutes, seconds, setActive };
+  const getTimer = () => {
+    return `${hours}:${minutes}:${seconds}`;
+  };
+
+  return { setTimer, getTimer, hours, minutes, seconds, active, setActive };
 }
 
 export default useTimer;

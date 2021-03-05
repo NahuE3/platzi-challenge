@@ -20,6 +20,7 @@ import useCurrency from '../../../hooks/useCurrency';
 import usePreparationTime from '../../../hooks/usePreparationTime';
 import useFavorites from '../../../hooks/useFavorites';
 import { useStateValue } from '../../../context';
+import { Link } from 'react-router-dom';
 
 const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
   const { picture, name, description, total_time, comment } = data;
@@ -39,7 +40,7 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
   const closeModalLogin = () => setModalLogin(false);
 
   return (
-    <StyledCard>
+    <StyledCard to={`/recipes/recipe/${name}`} title={name}>
       <StyledImgSection onClick={openRecipe}>
         {picture ? (
           <StyledImg src={picture} alt={`Imagen del plato ${name}`} />
@@ -97,7 +98,7 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
 };
 
 // =================== ESTILOS CSS ===================
-const StyledCard = styled.div`
+const StyledCard = styled(Link)`
   width: 100%;
   min-width: 140px;
   min-height: 240px;
