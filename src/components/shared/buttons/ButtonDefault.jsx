@@ -16,6 +16,7 @@ const ButtonDefault = ({
   margin,
   primary,
   secondary,
+  icon,
 }) => {
   return (
     <StyledButton
@@ -27,6 +28,7 @@ const ButtonDefault = ({
       margin={margin}
       primary={primary}
       secondary={secondary}
+      icon={icon}
     >
       {children}
     </StyledButton>
@@ -41,7 +43,8 @@ const StyledButton = styled.button`
   width: ${(props) => props.width || 'max-content'};
   //Se puede agregar margen
   margin: ${(props) => props.margin || ''};
-  padding: 12px;
+  padding: ${(props) =>
+    props.icon ? '9px' : '12px'};
   font-weight: 600;
 
   color: ${(props) =>

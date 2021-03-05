@@ -4,7 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de iconos.
-import { HiOutlineShoppingCart, HiOutlineGlobe, HiOutlineUserCircle } from 'react-icons/hi';
+import {
+  HiOutlineShoppingCart,
+  HiOutlineGlobe,
+  HiOutlineUserCircle,
+} from 'react-icons/hi';
 //Import de componentes.
 import ModalLang from '../../containers/Modal/ModalLang';
 import ModalMore from '../../containers/Modal/ModalMore';
@@ -20,7 +24,7 @@ const Navbar = ({ isSearch }) => {
 
   const openModalLang = () => setModalLang(true);
   const closeModalLang = () => setModalLang(false);
-  
+
   const openModalMore = () => setModalMore(true);
   const closeModalMore = () => setModalMore(false);
 
@@ -35,44 +39,48 @@ const Navbar = ({ isSearch }) => {
       <NavLink to="/home">
         <StyledLogoSection>Foody+</StyledLogoSection>
       </NavLink>
-      <StyledCart>
+      <div>
         {isSearch ? (
-          <SearchBar state={search} manageState={setSearch} id="SearchBar"/>
+          <SearchBar state={search} manageState={setSearch} id="SearchBar" />
         ) : (
           <Link to="/recipes">
             <SearchBar state={search} />
           </Link>
         )}
-      </StyledCart>
+      </div>
 
-      <StyledButtonsSection>
-        <NavLink to="/home">
-          <ButtonDefault>Inicio</ButtonDefault>
-        </NavLink>
-        <NavLink to="/recipes">
-          <ButtonDefault>Recetas</ButtonDefault>
-        </NavLink>
-        <NavLink to="/week">
-          <ButtonDefault>Programacion</ButtonDefault>
-        </NavLink>
-        <NavLink to="/wishlist">
-          <ButtonDefault>Favoritos</ButtonDefault>
-        </NavLink>
-        <ButtonDefault onClick={openModalMore}>
-          <HiOutlineUserCircle size="2rem" />
-        </ButtonDefault>
-      </StyledButtonsSection>
+      <StyledCont>
+        <StyledButtonsSection>
+          <NavLink to="/home">
+            <ButtonDefault>Inicio</ButtonDefault>
+          </NavLink>
+          <NavLink to="/recipes">
+            <ButtonDefault>Recetas</ButtonDefault>
+          </NavLink>
+          <NavLink to="/week">
+            <ButtonDefault>Programacion</ButtonDefault>
+          </NavLink>
+          <NavLink to="/wishlist">
+            <ButtonDefault>Favoritos</ButtonDefault>
+          </NavLink>
+          <div>
+            <ButtonDefault onClick={openModalMore} icon>
+              <HiOutlineUserCircle size="2.2rem" />
+            </ButtonDefault>
+          </div>
+        </StyledButtonsSection>
 
-      <StyledCart>
-        <ButtonDefault onClick={openModalLang}>
-          <HiOutlineGlobe size="2rem" />
-        </ButtonDefault>
-        <NavLink to="/cart">
-          <ButtonDefault>
-            <HiOutlineShoppingCart size="2rem" />
+        <div>
+          <ButtonDefault onClick={openModalLang} icon>
+            <HiOutlineGlobe size="2.2rem" />
           </ButtonDefault>
-        </NavLink>
-      </StyledCart>
+          <NavLink to="/cart">
+            <ButtonDefault icon>
+              <HiOutlineShoppingCart size="2.2rem" />
+            </ButtonDefault>
+          </NavLink>
+        </div>
+      </StyledCont>
 
       <ModalLang isOpen={modalLang} closeModal={closeModalLang} />
       <ModalMore isOpen={modalMore} closeModal={closeModalMore} />
@@ -95,7 +103,6 @@ const StyledNavContainer = styled.nav`
   z-index: 90;
 
   ${media.tab} {
-    grid-template-columns: max-content 1fr max-content max-content;
     padding: 0 10%;
   }
 
@@ -112,9 +119,14 @@ const StyledButtonsSection = styled.div`
   display: none;
 
   ${media.tab} {
-    display: block;
+    display: flex;
+    align-items: center;
   }
 `;
-const StyledCart = styled.div``;
+const StyledCont = styled.div`
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+`;
 
 export default Navbar;
