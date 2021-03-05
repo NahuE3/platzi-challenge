@@ -85,7 +85,7 @@ Cualquier PR que se haga sera revisado por el equipo dev principal.
 Estos son los autores que contribuyeron a lo largo del proyecto.
 
 - **Encinas Nahuel** - _Desarrollo_ - [NahuE3](https://github.com/NahuE3)
-- **Oyarzabal Ivan** - _Desarrollo_ - [strcoder](https://github.com/strcoder)
+- **Antonio Guzmán** - _Desarrollo_ - [strcoder](https://github.com/strcoder)
 - **Juan Daniel Martínez** - _Desarrollo_ - [juandadev](https://github.com/juandadev)
 
 
