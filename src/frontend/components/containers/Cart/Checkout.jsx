@@ -1,7 +1,7 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de layout.
 import Layout from '../../layout/Layout';
@@ -13,12 +13,45 @@ import ButtonLogin from '../../shared/buttons/ButtonLogin';
 import { media } from '../../../const/mediaQuerys';
 
 const Checkout = () => {
+  const history = useHistory();
   //Estado que guarda el valor y validacion del input
   const [firstName, setFirstName] = useState({ success: null, value: '' });
   const [lastName, setLastName] = useState({ success: null, value: '' });
   const [phone, setPhone] = useState({ success: null, value: '' });
   const [email, setEmail] = useState({ success: null, value: '' });
   const [postal, setPostal] = useState({ success: null, value: '' });
+
+  useEffect(() => {
+    if (localStorage.getItem('buyerData')) {
+      const buyerData = JSON.parse(localStorage.getItem('buyerData'));
+
+      setFirstName(buyerData.firstName);
+      setLastName(buyerData.lastName);
+      setPhone(buyerData.phone);
+      setEmail(buyerData.email);
+      setPostal(buyerData.postal);
+    }
+  }, []);
+
+  const handleSubmit = () => {
+    if (
+      firstName.success &&
+      lastName.success &&
+      phone.success &&
+      email.success &&
+      postal.success
+    ) {
+      const buyerData = {
+        firstName,
+        lastName,
+        phone,
+        email,
+        postal,
+      };
+      localStorage.setItem('buyerData', JSON.stringify(buyerData));
+      history.push('/checkout/address');
+    }
+  };
 
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
@@ -91,14 +124,18 @@ const Checkout = () => {
           regExpression={expressions.postal}
           errorMessage={'La longitud debe ser entre 4 y 10 digitos.'}
         />
-        <Link to="/checkout/address">
-          <ButtonDefault
-            primary
-            width="100%"
-            height="48px"
-            margin="20px 0 16px"
-          >
-            Continuar
+        <ButtonDefault
+          primary
+          width="100%"
+          height="48px"
+          margin="20px 0 16px"
+          onClick={handleSubmit}
+        >
+          Continuar
+        </ButtonDefault>
+        <Link to="/cart">
+          <ButtonDefault secondary width="100%" height="48px" margin="0 0 16px">
+            Regresar
           </ButtonDefault>
         </Link>
       </StyledSignUpContainer>

@@ -1,7 +1,7 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de layout.
 import Layout from '../../layout/Layout';
@@ -41,12 +41,24 @@ import useCurrency from '../../../hooks/useCurrency';
 // };
 
 const Cart = () => {
+  const history = useHistory();
   const [modalCupons, setModalCupons] = useState(false);
+  const [cartData, setCartData] = useState({});
   const { cart } = useCart();
   const { formaterValue } = useCurrency();
   const { recipes } = cart;
   const openModalCupons = () => setModalCupons(true);
   const closeModalCupons = () => setModalCupons(false);
+
+  useEffect(() => {
+    setCartData(JSON.parse(localStorage.getItem('cart')));
+  }, []);
+
+  const finishSale = () => {
+    if (cartData.size !== 0) {
+      history.push('/checkout');
+    }
+  };
 
   return (
     <Layout
@@ -65,7 +77,13 @@ const Cart = () => {
         </div>
         <StyledVerticalSep></StyledVerticalSep>
         <div>
-          <ButtonDefault primary width="100%" height="50px" margin="4px 0 0" onClick={openModalCupons}>
+          <ButtonDefault
+            primary
+            width="100%"
+            height="50px"
+            margin="4px 0 0"
+            onClick={openModalCupons}
+          >
             <StyledButton>
               <StyledButtonText>Aplicar Cupon</StyledButtonText>
               <HiOutlineReceiptTax size="20px" />
@@ -78,7 +96,9 @@ const Cart = () => {
           </StyledDetailsCont>
           <StyledDetailsCont>
             <StyledDetailsSpan>Delivery</StyledDetailsSpan>
-            <span>{formaterValue({ mount: cart.total !== 0 ? cart.delivery : 0 })}</span>
+            <span>
+              {formaterValue({ mount: cart.total !== 0 ? cart.delivery : 0 })}
+            </span>
           </StyledDetailsCont>
           {cart?.discount > 0 && (
             <StyledDetailsCont>
@@ -88,14 +108,22 @@ const Cart = () => {
           )}
           <StyledDetailsCont total>
             <span>Total:</span>
-            <span>{formaterValue({ mount: cart.total !== 0 ? (cart.total + cart.delivery ) : 0 })}</span>
+            <span>
+              {formaterValue({
+                mount: cart.total !== 0 ? cart.total + cart.delivery : 0,
+              })}
+            </span>
           </StyledDetailsCont>
 
-          <Link to="/checkout">
-            <ButtonDefault primary width="100%" height="50px" margin="16px 0 0">
-              Finalizar Compra
-            </ButtonDefault>
-          </Link>
+          <ButtonDefault
+            primary
+            width="100%"
+            height="50px"
+            margin="16px 0 0"
+            onClick={finishSale}
+          >
+            Finalizar Compra
+          </ButtonDefault>
           <Link to="/recipes">
             <ButtonDefault
               secondary
@@ -108,7 +136,7 @@ const Cart = () => {
           </Link>
         </div>
       </StyledWrapper>
-      <ModalCupons isOpen={modalCupons} closeModal={closeModalCupons}/>
+      <ModalCupons isOpen={modalCupons} closeModal={closeModalCupons} />
     </Layout>
   );
 };

@@ -1,6 +1,6 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de layout.
@@ -8,10 +8,18 @@ import Layout from '../../layout/Layout';
 //Import de componentes.
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import ButtonLogin from '../../shared/buttons/ButtonLogin';
+import PayPalButton from '../../shared/buttons/ButtonPayPal';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
 const Address = () => {
+  const [totalAmount, setTotalAmount] = useState('');
+
+  useEffect(() => {
+    const cartData = JSON.parse(localStorage.getItem('cart'));
+    setTotalAmount(cartData.delivery + cartData.total);
+  }, []);
+
   return (
     <Layout
       title="Pago"
@@ -23,15 +31,7 @@ const Address = () => {
       </StyledCont>
 
       <StyledSignUpContainer>
-        <ButtonLogin icon="Card" width="100%" margin="20px 0 16px">
-          Continuar con Tarjeta Credito o Debito
-        </ButtonLogin>
-        <ButtonLogin icon="Paypal" width="100%" margin="20px 0 16px">
-          Continuar con Paypal
-        </ButtonLogin>
-        <ButtonLogin icon="Bitcoin" width="100%" margin="20px 0 16px">
-          Continuar con Criptomoneda
-        </ButtonLogin>
+        <PayPalButton total={totalAmount} />
         <Link to="/checkout/address">
           <ButtonDefault
             primary
@@ -39,7 +39,7 @@ const Address = () => {
             height="48px"
             margin="20px 0 16px"
           >
-            Volver
+            Regresar
           </ButtonDefault>
         </Link>
       </StyledSignUpContainer>
