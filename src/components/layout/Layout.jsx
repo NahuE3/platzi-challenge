@@ -15,8 +15,8 @@ const Layout = ({ children, title, subtitle, center, search }) => {
         <title>{title} | Foody+</title>
         <meta name="description" content={subtitle} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@usuarioTW" />
-        <meta name="twitter:creator" content="@usuarioTW" />
+        <meta name="twitter:site" content="@foody_plus" />
+        <meta name="twitter:creator" content="@foody_plus" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={title} />
         <meta
