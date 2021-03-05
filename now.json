@@ -1,0 +1,6 @@
+{
+  "name": "platzi-olimpiadas",
+  "version": 1,
+  "builds": [{ "src": "/src/server/index.jsx", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "/src/server/index.jsx" }]
+}
