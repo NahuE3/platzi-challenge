@@ -40,7 +40,7 @@ const RecipesCard = ({ data, openRecipe }) => {
   const closeModalLogin = () => setModalLogin(false);
 
   return (
-    <div></div>
+    <div>
     {/*<StyledCard>
       <StyledImgSection
         to={`/recipes/recipe/${name}`}
@@ -112,6 +112,7 @@ const RecipesCard = ({ data, openRecipe }) => {
       <ModalCart isOpen={modalCart} closeModal={closeModalCart} recipe={data} />
       <ModalLogin isOpen={modalLogin} closeModal={closeModalLogin} />
     </StyledCard>*/}
+    </div>
   );
 };
 
