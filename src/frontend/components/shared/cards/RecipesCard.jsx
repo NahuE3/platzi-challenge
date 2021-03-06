@@ -190,6 +190,8 @@ const StyledPrice = styled.p`
 `;
 const StyledDescription = styled.p`
   display: none;
+  height: 100px;
+  overflow: hidden;
   font-size: var(--small-font-size);
   color: var(--bold-gray);
 
