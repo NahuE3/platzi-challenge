@@ -8,9 +8,7 @@ import Layout from '../../layout/Layout';
 //Import de componentes.
 import InputDefault from '../../shared/inputs/InputDefault';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
-import ButtonLogin from '../../shared/buttons/ButtonLogin';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import GoogleLogin from 'react-google-login';
+import SocialMediaLogin from './SocialMediaLogin';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useForm from '../../../hooks/useForm';
@@ -24,14 +22,6 @@ const SignUp = () => {
   const [password, setPassword] = useState({ success: null, value: '' });
   const { registerUser } = useForm();
   const { getText } = useLanguage();
-
-  const responseFacebook = (response) => {
-    console.log(response);
-  };
-
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
 
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
@@ -122,40 +112,7 @@ const SignUp = () => {
         <div></div>
       </StyledSeparator>
 
-      <StyledButtonsContainer>
-        <FacebookLogin
-          appId="4057491890942052"
-          autoLoad
-          callback={responseFacebook}
-          render={(renderProps) => (
-            <ButtonLogin
-              icon="Facebook"
-              width="100%"
-              margin="16px 0 0"
-              onClick={renderProps.onClick}
-            >
-              {innerWidth < 700 ? 'Continuar con Facebook' : 'Facebook'}
-            </ButtonLogin>
-          )}
-        />
-        <GoogleLogin
-          clientId="518869662053-h96e4obfvsb27hrb182oo3j1djtbfgc8.apps.googleusercontent.com"
-          buttonText="LOGIN WITH GOOGLE"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          render={(renderProps) => (
-            <ButtonLogin
-              icon="Google"
-              width="100%"
-              margin="16px 0 0"
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-            >
-              {innerWidth < 700 ? 'Continuar con Google' : 'Google'}
-            </ButtonLogin>
-          )}
-        />
-      </StyledButtonsContainer>
+      <SocialMediaLogin />
 
       <StyledSignUp>
         {getText('register.dont_user')}
@@ -173,22 +130,6 @@ const StyledSignUpContainer = styled.div`
   }
   ${media.tab} {
     width: 400px;
-  }
-`;
-const StyledButtonsContainer = styled.div`
-  display: grid;
-  margin-bottom: 2rem;
-
-  ${media.mobile} {
-    max-width: 400px;
-    width: 100%;
-  }
-
-  ${media.tab} {
-    margin-bottom: 8rem;
-    width: 400px;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 16px;
   }
 `;
 const StyledForgot = styled.div`

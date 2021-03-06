@@ -9,8 +9,7 @@ import Layout from '../../layout/Layout';
 import InputDefault from '../../shared/inputs/InputDefault';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import ButtonLogin from '../../shared/buttons/ButtonLogin';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import GoogleLogin from 'react-google-login';
+import SocialMediaLogin from './SocialMediaLogin';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useForm from '../../../hooks/useForm';
@@ -30,14 +29,6 @@ const Login = () => {
     password: /^.{4,12}$/, // 4 a 12 digitos.
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     phone: /^\d{7,14}$/, // 7 a 14 numeros.
-  };
-
-  const responseFacebook = (response) => {
-    console.log(response);
-  };
-
-  const responseGoogle = (response) => {
-    console.log(response);
   };
 
   return (
@@ -97,40 +88,7 @@ const Login = () => {
         <div></div>
       </StyledSeparator>
 
-      <StyledButtonsContainer>
-        <FacebookLogin
-          appId="4057491890942052"
-          autoLoad
-          callback={responseFacebook}
-          render={(renderProps) => (
-            <ButtonLogin
-              icon="Facebook"
-              width="100%"
-              margin="16px 0 0"
-              onClick={renderProps.onClick}
-            >
-              {innerWidth < 700 ? 'Continuar con Facebook' : 'Facebook'}
-            </ButtonLogin>
-          )}
-        />
-        <GoogleLogin
-          clientId="518869662053-h96e4obfvsb27hrb182oo3j1djtbfgc8.apps.googleusercontent.com"
-          buttonText="LOGIN WITH GOOGLE"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          render={(renderProps) => (
-            <ButtonLogin
-              icon="Google"
-              width="100%"
-              margin="16px 0 0"
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-            >
-              {innerWidth < 700 ? 'Continuar con Google' : 'Google'}
-            </ButtonLogin>
-          )}
-        />
-      </StyledButtonsContainer>
+      <SocialMediaLogin />
 
       <StyledSignUp>
         <span>{getText('login.dont_user')}</span>
