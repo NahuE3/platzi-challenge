@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon dist/index",
-    "start": "node dist/index",
+    "dev": "nodemon public/index",
+    "start": "node public/index",
     "build": "node esbuild",
     "format": "prettier --write {*.js,src/**/*.{js,jsx}}",
     "lint": "eslint src/ --fix"
