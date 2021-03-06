@@ -20,6 +20,9 @@ const Home = () => {
   const data = categories.results;
   const { categoryList } = useCategory({ category: 0 });
   const { getText } = useLanguage(); 
+   const openRecipe = () => {
+    //Funcion de abrir la receta seleccionada
+  };
       
   return (
     <Layout
@@ -54,6 +57,7 @@ const Home = () => {
           <li key={item.id}>
             <RecipesCard
               data={item}
+              openRecipe={openRecipe}
               // favorite={favorite}
             />
           </li>
