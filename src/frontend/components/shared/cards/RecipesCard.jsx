@@ -145,9 +145,13 @@ const StyledInfo = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr 50px;
   min-height: 100%;
-  max-height: 210px;
+  max-height: 170px;
   width: 100%; 
   padding: 20px 10px 10px;
+  
+  ${media.tab} {
+    max-height: 210px;
+  }
 `;
 const StyledButtonSection = styled.div`
   position: absolute;
