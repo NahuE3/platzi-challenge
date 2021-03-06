@@ -40,9 +40,9 @@ const Home = () => {
             // redirigir con onClick={}
           >
             <div>
-              {item?.picture && (
+              {item?.icon && (
                 <StyledImg
-                  src={item?.picture}
+                  src={item?.icon}
                   alt={`Foto de comidas pertenecientes a la categoria ${item?.name}`}
                 />
               )}
@@ -131,7 +131,7 @@ const StyledCatOption = styled.div`
     width: 60px;
     margin: 0 0 10px;
     border-radius: var(--normal-radius);
-    background-color: var(--mid-gray);
+    background-color: #ffffff;
     overflow: hidden;
 
     ${media.tab} {
@@ -148,7 +148,7 @@ const StyledCatOption = styled.div`
 const StyledImg = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 `;
 

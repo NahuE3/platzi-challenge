@@ -9,7 +9,15 @@ const Categories = ({ title, icon }) => {
   return (
     <StyledCategory>
       <StyledIcon>
-        <IoFastFoodOutline size="2.6rem" />
+        {icon && (
+          <StyledImg
+            src={icon || ''}
+            alt={`Foto de comidas pertenecientes a la categoria ${title}`}
+          />
+        )}
+        {!icon && (
+          <IoFastFoodOutline size="2.6rem" />
+        )}
       </StyledIcon>
       <span>{title}</span>
     </StyledCategory>
@@ -41,6 +49,13 @@ const StyledIcon = styled.div`
   border-radius: 50%;
   border: 2px solid var(--light-gray);
   background-color: var(--light-gray);
+`;
+
+const StyledImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 `;
 
 export default Categories;

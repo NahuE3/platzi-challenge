@@ -53,7 +53,7 @@ const Recipes = () => {
       <StyledCategoryList>
         {data?.map((item) => (
           <li key={item.id} onClick={() => setCategory(item.id)}>
-            <Categories title={item.name}/>
+            <Categories title={item.name} icon={item.icon} />
           </li>
         ))}
       </StyledCategoryList>
