@@ -84,14 +84,14 @@ const Address = () => {
           errorMessage={getText('register.user_error')}
         />
         <InputDefault
-          type="number"
+          type="text"
           name="comment"
           placeholder={getText('checkout_address.comment')}
           label={getText('checkout_address.comment')}
           state={comment}
           manageState={setComment}
-          regExpression={expressions.postal}
-          errorMessage={getText('register.password_error')}
+          regExpression={expressions.user}
+          errorMessage={getText('register.user_error')}
         />
         <ButtonDefault
           primary
