@@ -52,7 +52,7 @@ const StyledIcon = styled.div`
 `;
 
 const StyledImg = styled.img`
-  width: 80%;
+  width: 70%;
   height: auto;
   object-fit: contain;
   object-position: center;
