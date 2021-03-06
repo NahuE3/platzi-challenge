@@ -46,6 +46,7 @@ const StyledIcon = styled.div`
   align-items: center;
   height: 60px;
   width: 60px;
+  padding: 10px;
   border-radius: 50%;
   border: 3px solid var(--first-color);
   background-color: var(--white-color);
