@@ -138,6 +138,9 @@ const StyledImgHolder = styled.div`
 `;
 const StyledInfoSection = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 const StyledInfo = styled.div`
   width: 100%;
@@ -215,8 +218,6 @@ const StyledAddToCart = styled.button`
   outline: none;
 `;
 const StyledFooter = styled.div`
-  position: absolute;
-  bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
