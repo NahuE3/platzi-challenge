@@ -124,10 +124,9 @@ const StyledCategory = styled.div`
 const StyledCatOption = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
 
   ${media.tab} {
     flex-direction: row;
