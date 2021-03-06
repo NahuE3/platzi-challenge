@@ -18,7 +18,7 @@ import useLanguage from '../../../hooks/useLanguage';
 const Home = () => {
   const { categories } = useStateValue();
   const data = categories.results;
-  const { recipeList } = useRecipes({ category: '' , search: '' });
+  const { categoryList } = useCategory({ category: 0 });
   const { getText } = useLanguage(); 
       
   return (
@@ -50,7 +50,7 @@ const Home = () => {
       </StyledCategory>
       <StyledSubtitle>{getText('home.popular')}</StyledSubtitle>
       <StyledList >
-        {recipeList?.slice(0, 5)?.map((item) => (
+        {categoryList?.slice(0, 5)?.map((item) => (
           <li key={item.id}>
             <RecipesCard
               data={item}
