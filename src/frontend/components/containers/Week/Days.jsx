@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Recipe from './Recipe';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 // FIXME: Borrar estos datos cuando se conecte a la API
 const recipeData = {
@@ -16,17 +17,18 @@ const recipeData = {
   time: 40,
 };
 const data = ['1', '2', '3', '4'];
-const days = [
-  'Domingo',
-  'Lunes',
-  'Martes',
-  'Miercoles',
-  'Jueves',
-  'Viernes',
-  'Sabado',
-];
 
 const Days = () => {
+  const { getText } = useLanguage();
+  const days = [
+    getText('modal_cart.sunday'),
+    getText('modal_cart.monday'),
+    getText('modal_cart.tuesday'),
+    getText('modal_cart.wednesday'),
+    getText('modal_cart.thursday'),
+    getText('modal_cart.friday'),
+    getText('modal_cart.saturday'),
+  ];
   return (
     <>
       {days.map((day) => (

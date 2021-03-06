@@ -16,6 +16,7 @@ import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import { media } from '../../../const/mediaQuerys';
 import useCart from '../../../hooks/useCart';
 import useCurrency from '../../../hooks/useCurrency';
+import useLanguage from '../../../hooks/useLanguage';
 
 // const recipes = [
 //   {
@@ -50,6 +51,7 @@ const Cart = () => {
   const { cart } = useCart();
   const { formaterValue } = useCurrency();
   const { recipes } = cart;
+  const { getText } = useLanguage();
   const [modalLogin, setModalLogin] = useState(false);
 
   const openModalCupons = () => setModalCupons(true);
@@ -74,7 +76,7 @@ const Cart = () => {
       center={true}
     >
       <StyledHead>
-        <h1>Carrito</h1>
+        <h1>{getText('cart.title')}</h1>
       </StyledHead>
       <StyledWrapper>
         <div>
@@ -94,7 +96,7 @@ const Cart = () => {
             }}
           >
             <StyledButton>
-              <StyledButtonText>Aplicar Cupon</StyledButtonText>
+              <StyledButtonText>{getText('cart.coupon')}</StyledButtonText>
               <HiOutlineReceiptTax size="20px" />
             </StyledButton>
           </ButtonDefault>
@@ -104,14 +106,12 @@ const Cart = () => {
             <span>{formaterValue({ mount: cart.total })}</span>
           </StyledDetailsCont>
           <StyledDetailsCont>
-            <StyledDetailsSpan>Delivery</StyledDetailsSpan>
-            <span>
-              {formaterValue({ mount: cart.total !== 0 ? cart.delivery : 0 })}
-            </span>
+            <StyledDetailsSpan>{getText('cart.delivery')}</StyledDetailsSpan>
+            <span>{formaterValue({ mount: cart.total !== 0 ? cart.delivery : 0 })}</span>
           </StyledDetailsCont>
           {cart?.discount > 0 && (
             <StyledDetailsCont>
-              <StyledDetailsSpan>Descuento</StyledDetailsSpan>
+              <StyledDetailsSpan>{getText('cart.discount')}</StyledDetailsSpan>
               <span>{formaterValue({ mount: cart.discount })}</span>
             </StyledDetailsCont>
           )}
@@ -124,6 +124,11 @@ const Cart = () => {
             </span>
           </StyledDetailsCont>
 
+          <Link to="/checkout">
+            <ButtonDefault primary width="100%" height="50px" margin="16px 0 0">
+              {getText('cart.purchase')}
+            </ButtonDefault>
+          </Link>
           <ButtonDefault
             primary
             width="100%"
@@ -140,7 +145,7 @@ const Cart = () => {
               height="50px"
               margin="16px 0 0"
             >
-              Seguir Comprando
+              {getText('cart.continue')}
             </ButtonDefault>
           </Link>
         </div>

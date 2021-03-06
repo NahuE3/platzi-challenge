@@ -20,6 +20,7 @@ import useCurrency from '../../../hooks/useCurrency';
 import usePreparationTime from '../../../hooks/usePreparationTime';
 import useFavorites from '../../../hooks/useFavorites';
 import { useStateValue } from '../../../context';
+import { Link } from 'react-router-dom';
 
 const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
   const { picture, name, description, total_time, comment } = data;
@@ -40,7 +41,7 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
 
   return (
     <StyledCard>
-      <StyledImgSection onClick={openRecipe}>
+      <StyledImgSection to={`/recipes/recipe/${name}`} title={name} onClick={openRecipe}>
         {picture ? (
           <StyledImg src={picture} alt={`Imagen del plato ${name}`} />
         ) : (
@@ -104,7 +105,7 @@ const StyledCard = styled.div`
   border-radius: var(--normal-radius);
   box-shadow: var(--card-shadow);
 `;
-const StyledImgSection = styled.div`
+const StyledImgSection = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;

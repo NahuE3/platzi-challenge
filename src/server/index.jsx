@@ -46,19 +46,6 @@ const setResponse = (html, preloadedState, styles) => (
         window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
       </script>
       <script type="text/javascript" src="app.js"></script>
-      <script>
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function() {
-            navigator.serviceWorker.register('service-worker.js')
-            .then(registration => {
-              console.log('SW registrado')
-            })
-            .catch(registrationError => {
-              console.log('SW error', registrationError)
-            })
-          })
-        }
-      </script>
     </body>
   </html>`
 );

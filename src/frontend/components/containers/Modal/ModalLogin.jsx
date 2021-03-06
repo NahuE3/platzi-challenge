@@ -13,8 +13,10 @@ import {
 } from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 const ModalLogin = ({ isOpen, closeModal }) => {
+  const { getText } = useLanguage();
   if (!isOpen) {
     return null;
   }
@@ -23,7 +25,7 @@ const ModalLogin = ({ isOpen, closeModal }) => {
     <StyledModal>
       <StyledModalContainer>
         <StyledHead>
-          <h3>Necesitas iniciar sesión</h3>
+          <h3>{getText('header.need')}</h3>
           <StyledCloseButton onClick={closeModal}>
             <HiX size="2rem" />
           </StyledCloseButton>
@@ -35,18 +37,18 @@ const ModalLogin = ({ isOpen, closeModal }) => {
           <StyledOptions>
             <Link to="/login">
               <ButtonOption primary margin="0">
-                Iniciar sesión
+                {getText('header.login')}
                 <HiOutlineLogin size="2.2rem" />
               </ButtonOption>
             </Link>
             <Link to="/signup">
               <ButtonOption>
-                Registrarse
+                {getText('footer.register')}
                 <HiOutlineGift size="2.2rem" />
               </ButtonOption>
             </Link>
             <ButtonOption onClick={closeModal}>
-              Volver
+              {getText('cart.back')}
               <HiOutlineChevronLeft size="2.2rem" />
             </ButtonOption>
           </StyledOptions>

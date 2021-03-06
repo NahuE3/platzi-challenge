@@ -14,12 +14,14 @@ import GoogleLogin from 'react-google-login';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useForm from '../../../hooks/useForm';
+import useLanguage from '../../../hooks/useLanguage';
 
 const Login = () => {
   //Estado que guarda el valor y validacion del input
   const [email, setEmail] = useState({ success: null, value: '' });
   const [password, setPassword] = useState({ success: null, value: '' });
   const { loginUser } = useForm();
+  const { getText } = useLanguage();
 
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
@@ -46,33 +48,33 @@ const Login = () => {
       nav="no"
     >
       <StyledCont head>
-        <h2>Iniciar Sesión</h2>
+        <h2>{getText('login.title')}</h2>
       </StyledCont>
 
       <StyledLoginContainer>
         <InputDefault
           tipo="text"
           name="email"
-          placeholder="ejemplo@email.com"
-          label="Email"
+          placeholder={getText('register.email_example')}
+          label={getText('login.email')}
           state={email}
           manageState={setEmail}
           regExpression={expressions.email}
-          errorMessage={'El formato ingresado no pertenece a un email.'}
+          errorMessage={getText('register.email_error')}
         />
 
         <InputDefault
           type="password"
           name="password"
-          placeholder="Contraseña"
-          label="Contraseña"
+          placeholder={getText('login.password')}
+          label={getText('login.password')}
           state={password}
           manageState={setPassword}
           regExpression={expressions.password}
-          errorMessage={'La longitud debe ser de 4 a 12 digitos.'}
+          errorMessage={getText('login.password_error')}
         />
         <StyledForgot>
-          <Link to="/forgot">Olvide mi contraseña</Link>
+          <Link to="/forgot">{getText('login.forgot')}</Link>
         </StyledForgot>
 
         <ButtonDefault
@@ -85,7 +87,7 @@ const Login = () => {
             loginUser({ email: email.value, password: password.value })
           }
         >
-          Iniciar sesión
+          {getText('login.button')}
         </ButtonDefault>
       </StyledLoginContainer>
 
@@ -131,8 +133,8 @@ const Login = () => {
       </StyledButtonsContainer>
 
       <StyledSignUp>
-        <span>¿No tienes cuenta?</span>
-        <Link to="/signup">Registrarse</Link>
+        <span>{getText('login.dont_user')}</span>
+        <Link to="/signup">{getText('login.register')}</Link>
       </StyledSignUp>
     </Layout>
   );

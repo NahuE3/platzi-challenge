@@ -1,7 +1,7 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de layout.
 import Layout from '../../layout/Layout';
@@ -11,9 +11,12 @@ import ButtonLogin from '../../shared/buttons/ButtonLogin';
 import PayPalButton from '../../shared/buttons/ButtonPayPal';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 const Address = () => {
+  const { getText } = useLanguage();
   const [totalAmount, setTotalAmount] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     const cartData = JSON.parse(localStorage.getItem('cart'));
@@ -27,21 +30,31 @@ const Address = () => {
       center={true}
     >
       <StyledCont head>
-        <h2>Metodo de pago</h2>
+        <h2>{getText('checkout_payment.title')}</h2>
       </StyledCont>
 
       <StyledSignUpContainer>
+        {/* <ButtonLogin icon="Card" width="100%" margin="20px 0 16px">
+          {getText('checkout_payment.card')}
+        </ButtonLogin>
+        <ButtonLogin icon="Paypal" width="100%" margin="20px 0 16px">
+        {getText('checkout_payment.paypal')}
+        </ButtonLogin>
+        <ButtonLogin icon="Bitcoin" width="100%" margin="20px 0 16px">
+        {getText('checkout_payment.crypto')}
+        </ButtonLogin> */}
         <PayPalButton total={totalAmount} />
-        <Link to="/checkout/address">
+        {/* <Link to="/checkout/address"> */}
           <ButtonDefault
             secondary
             width="100%"
             height="48px"
             margin="20px 0 16px"
+            onClick={() => history.goBack()}
           >
-            Regresar
+            {getText('checkout_payment.button')}
           </ButtonDefault>
-        </Link>
+        {/* </Link> */}
       </StyledSignUpContainer>
     </Layout>
   );

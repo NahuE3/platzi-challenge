@@ -11,20 +11,27 @@ import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import CheckboxDefault from '../../shared/inputs/CheckboxDefault';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import useLanguage from '../../../hooks/useLanguage';
 
 // FIXME: Borrar estos datos cuando se conecte a la API
 const userLoged = true;
 
-const countries = ['Argentina', 'Colombia', 'Mexico', 'Estados Unidos'];
-const categories = ['Carnes', 'De mar', 'Comida Rapida', 'Postres'];
 
 const Steps = ({ step, setStep }) => {
+  const { getText } = useLanguage();
+  const categories = [
+    getText('programming.category1'),
+    getText('programming.category2'),
+    getText('programming.category3'),
+    getText('programming.category4'),
+  ];
+  const countries = ['Argentina', 'Colombia', 'Mexico', 'Estados Unidos'];
   return (
     <>
       {step === 1 && (
         <StyledWrapper>
           <StyledCont>
-            <h3>¿De donde eres?</h3>
+            <h3>{getText('programming.title1')}</h3>
             {countries.map((item) => (
               <ButtonDefault
                 secondary
@@ -43,11 +50,11 @@ const Steps = ({ step, setStep }) => {
       {step === 2 && (
         <StyledWrapper>
           <StyledCont>
-            <h3>¿Para cuantas personas sueles cocinar?</h3>
+            <h3>{getText('programming.title2')}</h3>
             {[
-              'Entre 1 y 2 personas',
-              'Entre 3 y 4 personas',
-              'Mas de 5 personas',
+              getText('programming.people1'),
+              getText('programming.people2'),
+              getText('programming.people3'),
             ].map((item, index) => (
               <CheckboxDefault
                 key={index}
@@ -64,7 +71,7 @@ const Steps = ({ step, setStep }) => {
               margin="16px 0 0"
               onClick={() => setStep(3)}
             >
-              Continuar
+              {getText('programming.button')}
             </ButtonDefault>
           </StyledCont>
         </StyledWrapper>
@@ -72,11 +79,11 @@ const Steps = ({ step, setStep }) => {
       {step === 3 && (
         <StyledWrapper>
           <StyledCont>
-            <h3>¿Cuanto tiempo quieres cocinar?</h3>
+            <h3>{getText('programming.title3')}</h3>
             {[
-              'Menos de una hora',
-              'Menos de dos horas',
-              'Mas de dos horas',
+              getText('programming.time1'),
+              getText('programming.time2'),
+              getText('programming.time3'),
             ].map((item, index) => (
               <CheckboxDefault
                 key={index}
@@ -93,7 +100,7 @@ const Steps = ({ step, setStep }) => {
               margin="16px 0 0"
               onClick={() => setStep(4)}
             >
-              Continuar
+              {getText('programming.button')}
             </ButtonDefault>
           </StyledCont>
         </StyledWrapper>
@@ -101,7 +108,7 @@ const Steps = ({ step, setStep }) => {
       {step === 4 && (
         <StyledWrapper>
           <StyledCont>
-            <h3>Selecciona las categorias que mas te gustan</h3>
+            <h3>{getText('programming.title4')}</h3>
             {categories.map((item) => (
               <CheckboxDefault
                 key={item}
@@ -118,7 +125,7 @@ const Steps = ({ step, setStep }) => {
               margin="16px 0 0"
               onClick={() => setStep(5)}
             >
-              Continuar
+              {getText('programming.button')}
             </ButtonDefault>
           </StyledCont>
         </StyledWrapper>
@@ -128,6 +135,7 @@ const Steps = ({ step, setStep }) => {
 };
 
 const Week = () => {
+  const { getText } = useLanguage();
   const [step, setStep] = useState(1);
 
   return (
@@ -135,16 +143,14 @@ const Week = () => {
       title="Programacion"
       subtitle="Crea un plan de comidas a tu gusto para toda la semana!"
     >
-      {step < 5 && <h1>Programacion Semanal</h1>}
+      {step < 5 && <h1>{getText('programming.title')}</h1>}
       {userLoged ? (
         <>
           {step === 5 ? (
             <StyledContDays>
-              <h1>Programacion Semanal</h1>
-              <h3>Esta es la programacion que hemos preparado para ti</h3>
-              <h3>
-                ¡Sientete libre de agregar, borrar y ordenarlos como quieras!
-              </h3>
+              <h1>{getText('programming.title')}</h1>
+              <h3>{getText('programming.subtitle1')}</h3>
+              <h3>{getText('programming.subtitle2')}</h3>
               <Days />
               <StyledButtons>
                 <Link to="/recipes">
@@ -155,7 +161,7 @@ const Week = () => {
                     margin="16px 0 0"
                     //onClick={redirect}
                   >
-                    Seguir comprando
+                    {getText('programming.button3')}
                   </ButtonDefault>
                 </Link>
                 <ButtonDefault
@@ -165,7 +171,7 @@ const Week = () => {
                   margin="16px 0 0"
                   //onClick={redirect}
                 >
-                  Comprar ahora
+                  {getText('programming.button2')}
                 </ButtonDefault>
               </StyledButtons>
             </StyledContDays>

@@ -13,6 +13,7 @@ import useCurrency from '../../../hooks/useCurrency';
 const ModalLang = ({ isOpen, closeModal }) => {
   const { changeLanguage } = useLanguage();
   const { changeCurrency } = useCurrency();
+  const { getText } = useLanguage();
   if (!isOpen) {
     return null;
   }
@@ -22,7 +23,7 @@ const ModalLang = ({ isOpen, closeModal }) => {
 
       <StyledModalContainer>
         <StyledHead>
-          <h3>Preferencias</h3>
+          <h3>{getText('modal_preferences.subtitle')}</h3>
           <StyledCloseButton onClick={closeModal}>
             <HiX size="2rem" />
           </StyledCloseButton>
@@ -31,14 +32,14 @@ const ModalLang = ({ isOpen, closeModal }) => {
         <StyledContent>
 
           <StyledSeparator top></StyledSeparator>
-          <h3>Idioma y region</h3>
+          <h3>{getText('header.languages')}</h3>
           <StyledOptions options="1fr / 1fr 1fr">
             <ButtonOption onClick={() => changeLanguage({ language: 'es' })}>
-              Español
+              {getText('header.language-es')}
               <span>Latinoamerica</span>
             </ButtonOption>
             <ButtonOption onClick={() => changeLanguage({ language: 'en' })}>
-              English
+              {getText('header.language-en')}
               <span>United States</span>
             </ButtonOption>
 
@@ -46,18 +47,18 @@ const ModalLang = ({ isOpen, closeModal }) => {
 
           <StyledSeparator></StyledSeparator>
 
-          <h3>Moneda</h3>
+          <h3>{getText('header.currency')}</h3>
           <StyledOptions options="1fr 1fr / 1fr 1fr">
             <ButtonOption onClick={() => changeCurrency({ currency: 'USD' })}>
-              Dolar estadounidense
+              {getText('header.currency-usd')}
               <span>USD-$</span>
             </ButtonOption>
             <ButtonOption onClick={() => changeCurrency({ currency: 'COP' })}>
-              Pesos colombianos
+              {getText('header.currency-cop')}
               <span>COP-$</span>
             </ButtonOption>
             <ButtonOption onClick={() => changeCurrency({ currency: 'MXN' })}>
-              Pesos mexicanos
+              {getText('header.currency-mxn')}
               <span>MXN-$</span>
             </ButtonOption>
 

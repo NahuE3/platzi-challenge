@@ -10,20 +10,21 @@ import { FaShippingFast } from 'react-icons/fa';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useCart from '../../../hooks/useCart';
-
-const weekData = [
-  'Domingo',
-  'Lunes',
-  'Martes',
-  'Miercoles',
-  'Jueves',
-  'Viernes',
-  'Sabado',
-];
+import useLanguage from '../../../hooks/useLanguage';
 
 const ModalCart = ({ isOpen, closeModal, recipe }) => {
   const [week, setWeek] = useState(false);
   const { addToCart } = useCart();
+  const { getText } = useLanguage();
+  const weekData = [
+    getText('modal_cart.monday'),
+    getText('modal_cart.tuesday'),
+    getText('modal_cart.wednesday'),
+    getText('modal_cart.thursday'),
+    getText('modal_cart.friday'),
+    getText('modal_cart.saturday'),
+    getText('modal_cart.sunday'),
+  ];
 
   if (!isOpen) {
     return null;
@@ -34,9 +35,9 @@ const ModalCart = ({ isOpen, closeModal, recipe }) => {
       <StyledModalContainer week={week}>
         <StyledHead>
           {!week ? (
-            <h3>¿Que quieres hacer con esta receta?</h3>
+            <h3>{getText('modal_cart.subtitle1')}</h3>
           ) : (
-            <h3>¿Que dia de la semana?</h3>
+            <h3>{getText('modal_cart.subtitle2')}</h3>
           )}
           <StyledCloseButton
             onClick={() => {
@@ -61,7 +62,7 @@ const ModalCart = ({ isOpen, closeModal, recipe }) => {
                       //AddToCart
                     }}
                   >
-                    Comprar Ahora
+                    {getText('modal_cart.buy')}
                     <FaShippingFast size="2.2rem" />
                   </ButtonOption>
                 </Link>
@@ -72,11 +73,11 @@ const ModalCart = ({ isOpen, closeModal, recipe }) => {
                     closeModal();
                   }}
                 >
-                  Agregar al Carrito
+                  {getText('modal_cart.add')}
                   <HiOutlineShoppingCart size="2.2rem" />
                 </ButtonOption>
                 <ButtonOption onClick={() => setWeek(true)}>
-                  Agregar al Menu Semanal
+                {getText('modal_cart.menu')}
                   <HiOutlineCalendar size="2.2rem" />
                 </ButtonOption>
               </>
