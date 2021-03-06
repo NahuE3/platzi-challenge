@@ -75,19 +75,19 @@ const CartItem = ({ recipe, count }) => {
             // Llamado a la funcion eliminar
             // onClick={() => removeFromCart(product)}
             >
-              {recipe.porcions === 1 ? (
-                <HiOutlineTrash size="18px" />
+              {recipe?.portions === 1 ? (
+                <HiOutlineTrash size="18px" onClick={() => deleteToCart({ recipe })} />
               ) : (
-                <HiOutlineMinusSm size="20px" />
+                <HiOutlineMinusSm size="20px" onClick={() => removeToCart({ recipe })} />
               )}
             </StyledCounterButton>
 
-            <StyledCounterLabel>{recipe.porcions}</StyledCounterLabel>
+            <StyledCounterLabel>{recipe?.portions || 1}</StyledCounterLabel>
             <StyledCounterButton
             // Llamado a la funcion sumar al amount
             // onClick={() => addToCart(product)}
             >
-              <HiOutlinePlus size="20px" />
+              <HiOutlinePlus size="20px" onClick={() => addToCart({ recipe })} />
             </StyledCounterButton>
           </StyledCounter>
         </StyledCounterWrapper>

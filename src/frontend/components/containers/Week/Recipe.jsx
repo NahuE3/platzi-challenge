@@ -13,9 +13,12 @@ import {
 import ModalCart from '../Modal/ModalCart';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
+import { Link } from 'react-router-dom';
+import usePreparationTime from '../../../hooks/usePreparationTime';
 
 const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
-  const { id, image, title, description, price, time } = data;
+  const { id, picture, title, description, price, total_time , name } = data;
+  const { formatTime } = usePreparationTime();
 
   const [modalCart, setModalCart] = useState(false);
 
@@ -24,9 +27,9 @@ const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
 
   return (
     <StyledCard>
-      <StyledImgSection onClick={openRecipe}>
-        {image ? (
-          <StyledImg src={image} alt={`Imagen del plato ${title}`} />
+      <StyledImgSection onClick={openRecipe} to={`/recipes/recipe/${name}`}>
+        {picture ? (
+          <StyledImg src={picture} alt={`Imagenn del plato ${title}`} />
         ) : (
           <StyledImgHolder>
             <HiOutlinePhotograph size="4rem" color="white" />
@@ -58,7 +61,7 @@ const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
           <StyledTime>
             <HiOutlineClock size="1.6rem" />
             <StyledTimeText>
-              {time} {innerWidth < 700 ? 'minutos' : 'm. de preparacion'}
+              {formatTime({ time: total_time })}
             </StyledTimeText>
           </StyledTime>
         </StyledButtonSection>
@@ -80,7 +83,7 @@ const StyledCard = styled.div`
   border-radius: var(--normal-radius);
   box-shadow: var(--card-shadow);
 `;
-const StyledImgSection = styled.div`
+const StyledImgSection = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;

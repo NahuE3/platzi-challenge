@@ -12,19 +12,23 @@ import CheckboxDefault from '../../shared/inputs/CheckboxDefault';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useLanguage from '../../../hooks/useLanguage';
+import { useStateValue } from '../../../context';
+// import useRecipes from '../../../hooks/useRecipes';
 
 // FIXME: Borrar estos datos cuando se conecte a la API
 const userLoged = true;
 
 
 const Steps = ({ step, setStep }) => {
+  const { categories } = useStateValue();
+  // const { recipeList } = useRecipes({ search, category });
   const { getText } = useLanguage();
-  const categories = [
-    getText('programming.category1'),
-    getText('programming.category2'),
-    getText('programming.category3'),
-    getText('programming.category4'),
-  ];
+  // const categories = [
+  //   getText('programming.category1'),
+  //   getText('programming.category2'),
+  //   getText('programming.category3'),
+  //   getText('programming.category4'),
+  // ];
   const countries = ['Argentina', 'Colombia', 'Mexico', 'Estados Unidos'];
   return (
     <>
@@ -32,7 +36,7 @@ const Steps = ({ step, setStep }) => {
         <StyledWrapper>
           <StyledCont>
             <h3>{getText('programming.title1')}</h3>
-            {countries.map((item) => (
+            {countries?.map((item) => (
               <ButtonDefault
                 secondary
                 width="100%"
@@ -109,11 +113,11 @@ const Steps = ({ step, setStep }) => {
         <StyledWrapper>
           <StyledCont>
             <h3>{getText('programming.title4')}</h3>
-            {categories.map((item) => (
+            {categories?.results?.map((item) => (
               <CheckboxDefault
-                key={item}
-                title={item}
-                name={item}
+                key={item.id}
+                title={item.name}
+                name={item.name}
                 //checked={}
                 //manageChecked={}
               />

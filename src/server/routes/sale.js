@@ -55,8 +55,8 @@ const Recipes = (app) => {
               method: 'post',
               data: {
                 product: p.id,
-                amount: 250, // cantidad vendida
-                sub_total: 50.23, // amount * precio
+                amount: cart.size, // cantidad vendida
+                sub_total: p.price / cart.size, // amount * precio
               }
             });
           } else {

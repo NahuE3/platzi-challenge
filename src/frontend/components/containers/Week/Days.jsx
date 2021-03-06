@@ -7,6 +7,8 @@ import Recipe from './Recipe';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useLanguage from '../../../hooks/useLanguage';
+import useRecipes from '../../../hooks/useRecipes';
+import useCategory from '../../../hooks/useCategory';
 
 // FIXME: Borrar estos datos cuando se conecte a la API
 const recipeData = {
@@ -16,10 +18,11 @@ const recipeData = {
   price: 4000,
   time: 40,
 };
-const data = ['1', '2', '3', '4'];
+const data = [1, 2, 3, 4];
 
 const Days = () => {
   const { getText } = useLanguage();
+  const { recipeList } = useRecipes({ search: '', category: '' });
   const days = [
     getText('modal_cart.sunday'),
     getText('modal_cart.monday'),
@@ -31,14 +34,14 @@ const Days = () => {
   ];
   return (
     <>
-      {days.map((day) => (
+      {days.map((day, index) => (
         <StyledDay key={day}>
           <h2>{day}</h2>
           <StyledList>
-            {data.map((item) => (
-              <li key={item}>
+            {recipeList?.slice(index, index + 4).map((item) => (
+              <li key={item.id}>
                 <Recipe
-                  data={recipeData}
+                  data={item}
                   //openRecipe={openRecipe}
                 />
               </li>

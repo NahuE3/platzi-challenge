@@ -109,11 +109,11 @@ const Recipe = () => {
           </StyledTime>
 
           <CollapseList icon="3" title="Ingredientes">
-            {recipe?.detail?.map((product) => {
+            {recipe?.detail?.map((product) => (
               <div key={product?.id}>
                 {product?.name}
               </div>
-            })}
+            ))}
           </CollapseList>
           <CollapseList icon="3" title="Utencilios">
             {recipe?.utensils?.map((utensils) => {
