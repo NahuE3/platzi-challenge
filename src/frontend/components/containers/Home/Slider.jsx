@@ -23,8 +23,7 @@ const ImageSlider = ({ slides }) => {
     return null;
   }
 
-  console.log(slides);
-  return (
+   return (
     <>
       <StyledButtonCont>
         <Button onClick={prevSlide} side="left">
