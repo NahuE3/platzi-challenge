@@ -129,15 +129,6 @@ const Cart = () => {
               {getText('cart.purchase')}
             </ButtonDefault>
           </Link>
-          <ButtonDefault
-            primary
-            width="100%"
-            height="50px"
-            margin="16px 0 0"
-            onClick={finishSale}
-          >
-            Finalizar Compra
-          </ButtonDefault>
           <Link to="/recipes">
             <ButtonDefault
               secondary
