@@ -25,7 +25,7 @@ const ImageSlider = ({ slides }) => {
 
    return (
     <>
-      <StyledButtonCont>
+      {/*<StyledButtonCont>
         <Button onClick={prevSlide} side="left">
           <HiChevronLeft size="3rem" onClick={prevSlide} />
         </Button>
@@ -52,8 +52,8 @@ const ImageSlider = ({ slides }) => {
               </StyledImgSection>
             );
           })}
-        </Slider>*/}
-      </StyledWrapper>
+        </Slider>
+      </StyledWrapper>*/}
     </>
   );
 };
