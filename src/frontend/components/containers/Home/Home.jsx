@@ -8,12 +8,19 @@ import Layout from '../../layout/Layout';
 import Spinner from '../../shared/Spinner';
 import RecipesCard from '../../shared/cards/RecipesCard';
 import Slider from './Slider';
-import { SlidesMobile, SlidesTab, SlidesDesktop } from './SliderData';
+//import { SlidesMobile, SlidesTab, SlidesDesktop } from './SliderData';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import { useStateValue } from '../../../context';
 import useCategory from '../../../hooks/useCategory';
 import useLanguage from '../../../hooks/useLanguage';
+
+const SlidesMobile = [
+      {
+        image:
+          'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
+      }
+    ];
 
 const Home = () => {
   const { categories } = useStateValue();
