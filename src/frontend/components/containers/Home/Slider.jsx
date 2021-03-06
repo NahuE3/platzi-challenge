@@ -7,7 +7,18 @@ import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
-const ImageSlider = ({ slides }) => {
+const slides = [
+  {
+    image:
+      'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
+  },
+  {
+    image:
+      'https://dl.dropboxusercontent.com/s/asbb5ofggd7zxig/Banner_smartphone_2.png?dl=0',
+  },
+];
+
+const ImageSlider = () => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
 
