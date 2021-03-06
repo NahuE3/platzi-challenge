@@ -7,7 +7,7 @@ import Layout from '../../layout/Layout';
 //Import de componentes.
 import Spinner from '../../shared/Spinner';
 import RecipesCard from '../../shared/cards/RecipesCard';
-//import Slider from './Slider';
+import Slider from './Slider';
 //import { SlidesMobile, SlidesTab, SlidesDesktop } from './SliderData';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
