@@ -40,7 +40,7 @@ const AddComment = () => {
       <StyledSubmit>
         <ButtonDefault
           primary
-          onClick={() => {!userLogged ? openModalLogin(); : ''}}
+          onClick={{!userLogged && openModalLogin();}}
         >
           <StyledButton>
             <span>Enviar</span>
