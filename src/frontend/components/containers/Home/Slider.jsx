@@ -47,7 +47,7 @@ const ImageSlider = () => {
       <StyledWrapper>
       <Slider>
          <StyledImgSection>
-             <StyledImgSection>{SlidesData(current)}</StyledImgSection>
+             <StyledImgSection><SlidesData value={current}></StyledImgSection>
          </StyledImgSection>
         </Slider>
       </StyledWrapper>
