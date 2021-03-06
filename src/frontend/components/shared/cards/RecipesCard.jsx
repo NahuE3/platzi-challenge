@@ -22,8 +22,8 @@ import useFavorites from '../../../hooks/useFavorites';
 import { useStateValue } from '../../../context';
 import { Link } from 'react-router-dom';
 
-const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
-  const { picture, name, description, total_time, comment } = data;
+const RecipesCard = ({ data, openRecipe }) => {
+  const { picture, name, title, description, total_time, comment } = data;
   const { formaterValue } = useCurrency();
   const { formatTime } = usePreparationTime();
   const { total } = useRecipePrice({ recipe: data });
@@ -41,7 +41,11 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
 
   return (
     <StyledCard>
-      <StyledImgSection to={`/recipes/recipe/${name}`} title={name} onClick={openRecipe}>
+      <StyledImgSection
+        to={`/recipes/recipe/${name}`}
+        title={name}
+        onClick={openRecipe}
+      >
         {picture ? (
           <StyledImg src={picture} alt={`Imagen del plato ${name}`} />
         ) : (
@@ -73,20 +77,31 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
         <StyledButtonSection>
           <StyledFavorite>
             {isFavorite({ recipe: data }) ? (
-              <MdFavorite size="1.6rem" color="white" onClick={() => {
-                Object.keys(user).length !== 0 ? removeToFavorite({ recipe: data }) : openModalLogin();
-              }} />
+              <MdFavorite
+                size="1.6rem"
+                color="white"
+                onClick={() => {
+                  Object.keys(user).length !== 0
+                    ? removeToFavorite({ recipe: data })
+                    : openModalLogin();
+                }}
+              />
             ) : (
-              <MdFavoriteBorder size="1.6rem" color="white" onClick={() => {
-                Object.keys(user).length !== 0 ? addToFavorite({ recipe: data }) : openModalLogin();
-              }} />
+              <MdFavoriteBorder
+                size="1.6rem"
+                color="white"
+                onClick={() => {
+                  Object.keys(user).length !== 0
+                    ? addToFavorite({ recipe: data })
+                    : openModalLogin();
+                }}
+              />
             )}
           </StyledFavorite>
 
           <StyledTime>
             <HiOutlineClock size="1.6rem" />
             <StyledTimeText>
-              {/* {time} {innerWidth < 700 ? 'minutos' : 'm. de preparacion'} */}
               {formatTime({ time: total_time })}
             </StyledTimeText>
           </StyledTime>
@@ -106,7 +121,6 @@ const StyledCard = styled.div`
   height: 300px;
   border-radius: var(--normal-radius);
   box-shadow: var(--card-shadow);
-
   ${media.tab} {
     height: 400px;
   }
@@ -119,7 +133,6 @@ const StyledImgSection = styled(Link)`
   height: 140px;
   overflow: hidden;
   border-radius: var(--normal-radius) var(--normal-radius) 0 0;
-
   ${media.tab} {
     height: 180px;
   }
@@ -139,16 +152,16 @@ const StyledImgHolder = styled.div`
   background-color: var(--mid-gray);
 `;
 const StyledInfoSection = styled.div`
-  position: relative; 
+  position: relative;
 `;
 const StyledInfo = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr 50px;
   height: 160px;
   max-height: 160px;
-  width: 100%; 
+  width: 100%;
   padding: 20px 10px 10px;
-  
+
   ${media.tab} {
     height: 220px;
     max-height: 220px;
@@ -209,7 +222,6 @@ const StyledDescription = styled.p`
   overflow: hidden;
   font-size: var(--small-font-size);
   color: var(--bold-gray);
-
   ${media.tab} {
     display: block;
   }
@@ -232,7 +244,6 @@ const StyledFooter = styled.div`
   height: 40px;
   width: 100%;
   margin-top: 10px;
-
   div {
     display: flex;
     align-items: center;
