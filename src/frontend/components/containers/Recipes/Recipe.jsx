@@ -17,6 +17,7 @@ import Layout from '../../layout/Layout';
 import { HiOutlineShoppingCart, HiOutlineShare } from 'react-icons/hi';
 import { MdTimer, MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 //Import de components.
+import Spinner from '../../shared/Spinner';
 import CollapseList from '../../shared/cards/CollapseList';
 import AddComment from '../../shared/cards/AddComment';
 import Comment from '../../shared/cards/Comment';
@@ -67,7 +68,7 @@ const Recipe = () => {
   return (
     <>
       {!recipe && (
-        <h1>Loading...</h1>
+        <Spinner/>
       )}
       {recipe && (
         <Layout title={recipe.name} subtitle={recipe.description} center={true}>
