@@ -35,7 +35,7 @@ const ImageSlider = ({ slides }) => {
         </Button>
       </StyledButtonCont>
       <StyledWrapper>
-    {/*<Slider>
+    <Slider>
           {slides.map((slide, index) => {
             return (
               <StyledImgSection
@@ -51,7 +51,7 @@ const ImageSlider = ({ slides }) => {
                 )}
               </StyledImgSection>
             );
-          })}*/}
+          })}
         </Slider>
       </StyledWrapper>
     </>
