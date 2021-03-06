@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { HiOutlineUserCircle, HiReply } from 'react-icons/hi';
 import { BiMailSend } from 'react-icons/bi';
 //Import de componentes.
+import ModalLogin from '../../containers/Modal/ModalLogin';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 
 const userLogged = false;
