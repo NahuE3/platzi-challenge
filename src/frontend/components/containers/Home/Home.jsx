@@ -16,8 +16,6 @@ import useCategory from '../../../hooks/useCategory';
 import useLanguage from '../../../hooks/useLanguage';
 
 const slides = () => {
-    if (innerWidth < 400) return SlidesMobile;
-    if (innerWidth < 1100) return SlidesTab;
     if (innerWidth > 1100) return SlidesDesktop;
   } 
 
