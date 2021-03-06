@@ -137,6 +137,9 @@ const StyledCatOption = styled.div`
   }
 
   div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 60px;
     width: 60px;
     margin: 0 0 10px;
