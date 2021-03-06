@@ -89,16 +89,6 @@ const Slider = styled.section`
     }
   }
 
-  .image {
-    max-width: 100vw;
-    min-width: 100vw;
-    height: 456px;
-
-    ${media.tab} {
-      height: 556px;
-    }
-  }
-
   .slide {
     opacity: 0.2;
     transition-duration: 1s ease;
