@@ -9,6 +9,8 @@ import Layout from '../../layout/Layout';
 import InputDefault from '../../shared/inputs/InputDefault';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import ButtonLogin from '../../shared/buttons/ButtonLogin';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import GoogleLogin from 'react-google-login';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useForm from '../../../hooks/useForm';
@@ -20,6 +22,14 @@ const SignUp = () => {
   const [email, setEmail] = useState({ success: null, value: '' });
   const [password, setPassword] = useState({ success: null, value: '' });
   const { registerUser } = useForm();
+
+  const responseFacebook = (response) => {
+    console.log(response);
+  };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
 
   //Expresiones regulares usadas para validar los caracteres ingresados en el input
   const expressions = {
@@ -87,13 +97,20 @@ const SignUp = () => {
           width="100%"
           height="48px"
           margin="20px 0 16px"
-          disabled={ !email.success || !user.success || !password.success || !phone.success }
-          onClick={() => registerUser({
-            email: email.value,
-            username: user.value,
-            password: password.value,
-            phone: phone.value,
-          })}
+          disabled={
+            !email.success ||
+            !user.success ||
+            !password.success ||
+            !phone.success
+          }
+          onClick={() =>
+            registerUser({
+              email: email.value,
+              username: user.value,
+              password: password.value,
+              phone: phone.value,
+            })
+          }
         >
           Registrarse
         </ButtonDefault>
@@ -106,12 +123,38 @@ const SignUp = () => {
       </StyledSeparator>
 
       <StyledButtonsContainer>
-        <ButtonLogin icon="Facebook" width="100%" margin="16px 0 0">
-          {/* {innerWidth < 700 ? 'Continuar con Facebook' : 'Facebook'} */}
-        </ButtonLogin>
-        <ButtonLogin icon="Google" width="100%" margin="16px 0 0">
-          {/* {innerWidth < 700 ? 'Continuar con Google' : 'Google'} */}
-        </ButtonLogin>
+        <FacebookLogin
+          appId="4057491890942052"
+          autoLoad
+          callback={responseFacebook}
+          render={(renderProps) => (
+            <ButtonLogin
+              icon="Facebook"
+              width="100%"
+              margin="16px 0 0"
+              onClick={renderProps.onClick}
+            >
+              {innerWidth < 700 ? 'Continuar con Facebook' : 'Facebook'}
+            </ButtonLogin>
+          )}
+        />
+        <GoogleLogin
+          clientId="518869662053-h96e4obfvsb27hrb182oo3j1djtbfgc8.apps.googleusercontent.com"
+          buttonText="LOGIN WITH GOOGLE"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          render={(renderProps) => (
+            <ButtonLogin
+              icon="Google"
+              width="100%"
+              margin="16px 0 0"
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+            >
+              {innerWidth < 700 ? 'Continuar con Google' : 'Google'}
+            </ButtonLogin>
+          )}
+        />
       </StyledButtonsContainer>
 
       <StyledSignUp>
