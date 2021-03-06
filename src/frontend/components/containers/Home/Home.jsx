@@ -29,7 +29,7 @@ const Home = () => {
       title="Inicio"
       subtitle="Todo lo que nececitas para cocinar en un solo lugar"
     >
-    {/*<Slider slides={innerWidth < 400 ? SlidesMobile : innerWidth < 1100 ? SlidesTab : SlidesDesktop} />*/}
+    <Slider slides={innerWidth < 400 ? SlidesMobile : innerWidth < 1100 ? SlidesTab : SlidesDesktop} />
       <StyledSubtitle>
         {getText('home.subtitle')}
       </StyledSubtitle>
