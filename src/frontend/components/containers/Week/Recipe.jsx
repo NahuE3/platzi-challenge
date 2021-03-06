@@ -1,6 +1,6 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 //Import de iconos.
 import {
@@ -9,21 +9,14 @@ import {
   HiOutlineTrash,
   HiOutlineShoppingCart,
 } from 'react-icons/hi';
-//Import de componentes.
-import ModalCart from '../Modal/ModalCart';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import { Link } from 'react-router-dom';
 import usePreparationTime from '../../../hooks/usePreparationTime';
 
-const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
-  const { id, picture, description, price, total_time , name } = data;
+const Recipe = ({ data, openRecipe }) => {
+  const { id, picture, description, price, total_time, name } = data;
   const { formatTime } = usePreparationTime();
-
-  const [modalCart, setModalCart] = useState(false);
-
-  const openModalCart = () => setModalCart(true);
-  const closeModalCart = () => setModalCart(false);
 
   return (
     <StyledCard>
@@ -42,13 +35,13 @@ const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
           <StyledTitle>{name}</StyledTitle>
           <StyledPrice>$ {price} COL por plato</StyledPrice>
           <StyledFooter>
-            <StyledAddToCart 
+            <StyledAddToCart
             //funcion de mover
             //onClick={}
             >
               Mover
             </StyledAddToCart>
-            <StyledAddToCart 
+            <StyledAddToCart
             //funcion de eliminar
             //onClick={}
             >
@@ -60,17 +53,10 @@ const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
         <StyledButtonSection>
           <StyledTime>
             <HiOutlineClock size="1.6rem" />
-            <StyledTimeText>
-              {formatTime({ time: total_time })}
-            </StyledTimeText>
+            <StyledTimeText>{formatTime({ time: total_time })}</StyledTimeText>
           </StyledTime>
         </StyledButtonSection>
       </StyledInfoSection>
-
-      <ModalCart
-        isOpen={modalCart}
-        closeModal={closeModalCart}
-      />
     </StyledCard>
   );
 };
@@ -91,7 +77,6 @@ const StyledImgSection = styled(Link)`
   height: 140px;
   overflow: hidden;
   border-radius: var(--normal-radius) var(--normal-radius) 0 0;
-
   ${media.tab} {
     height: 180px;
   }
