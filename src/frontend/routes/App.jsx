@@ -1,7 +1,7 @@
 //Import de librerias.
-//import React from 'react';
-//import { BrowserRouter, Switch, Route } from 'react-router-dom';
-//import { useStateValue } from '../context';
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useStateValue } from '../context';
 //Import de vistas.
 import {
   NotFound,
