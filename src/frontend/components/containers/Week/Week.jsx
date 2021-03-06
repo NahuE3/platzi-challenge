@@ -35,30 +35,40 @@ const Steps = ({ step, setStep }) => {
       {step === 1 && (
         <StyledWrapper>
           <StyledCont>
-            <h3>{getText('programming.title1')}</h3>
-            {countries?.map((item) => (
-              <ButtonDefault
-                secondary
-                width="100%"
-                height="48px"
-                margin="16px 0 0"
-                key={item}
-                onClick={() => setStep(2)}
-              >
-                {item}
-              </ButtonDefault>
+            <h3>{getText('programming.title2')}</h3>
+            {[
+              getText('programming.people1'),
+              getText('programming.people2'),
+              getText('programming.people3'),
+            ].map((item, index) => (
+              <CheckboxDefault
+                key={index}
+                title={item}
+                name="amount"
+                //checked={}
+                //manageChecked={}
+              />
             ))}
+            <ButtonDefault
+              primary
+              width="100%"
+              height="48px"
+              margin="16px 0 0"
+              onClick={() => setStep(2)}
+            >
+              {getText('programming.button')}
+            </ButtonDefault>
           </StyledCont>
         </StyledWrapper>
       )}
       {step === 2 && (
         <StyledWrapper>
           <StyledCont>
-            <h3>{getText('programming.title2')}</h3>
+            <h3>{getText('programming.title3')}</h3>
             {[
-              getText('programming.people1'),
-              getText('programming.people2'),
-              getText('programming.people3'),
+              getText('programming.time1'),
+              getText('programming.time2'),
+              getText('programming.time3'),
             ].map((item, index) => (
               <CheckboxDefault
                 key={index}
@@ -83,35 +93,6 @@ const Steps = ({ step, setStep }) => {
       {step === 3 && (
         <StyledWrapper>
           <StyledCont>
-            <h3>{getText('programming.title3')}</h3>
-            {[
-              getText('programming.time1'),
-              getText('programming.time2'),
-              getText('programming.time3'),
-            ].map((item, index) => (
-              <CheckboxDefault
-                key={index}
-                title={item}
-                name="amount"
-                //checked={}
-                //manageChecked={}
-              />
-            ))}
-            <ButtonDefault
-              primary
-              width="100%"
-              height="48px"
-              margin="16px 0 0"
-              onClick={() => setStep(4)}
-            >
-              {getText('programming.button')}
-            </ButtonDefault>
-          </StyledCont>
-        </StyledWrapper>
-      )}
-      {step === 4 && (
-        <StyledWrapper>
-          <StyledCont>
             <h3>{getText('programming.title4')}</h3>
             {categories?.results?.map((item) => (
               <CheckboxDefault
@@ -127,7 +108,7 @@ const Steps = ({ step, setStep }) => {
               width="100%"
               height="48px"
               margin="16px 0 0"
-              onClick={() => setStep(5)}
+              onClick={() => setStep(4)}
             >
               {getText('programming.button')}
             </ButtonDefault>
@@ -147,10 +128,10 @@ const Week = () => {
       title="Programacion"
       subtitle="Crea un plan de comidas a tu gusto para toda la semana!"
     >
-      {step < 5 && <h1>{getText('programming.title')}</h1>}
+      {step < 4 && <h1>{getText('programming.title')}</h1>}
       {userLoged ? (
         <>
-          {step === 5 ? (
+          {step === 4 ? (
             <StyledContDays>
               <h1>{getText('programming.title')}</h1>
               <h3>{getText('programming.subtitle1')}</h3>
