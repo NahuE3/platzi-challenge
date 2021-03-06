@@ -148,6 +148,7 @@ const StyledInfo = styled.div`
   display: grid;
   grid-template-rows: max-content 1fr 40px;
   width: 100%;
+  height: 100%;
   padding: 20px 10px 10px;
 `;
 const StyledButtonSection = styled.div`
@@ -221,6 +222,7 @@ const StyledAddToCart = styled.button`
   outline: none;
 `;
 const StyledFooter = styled.div`
+  grid-row: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
