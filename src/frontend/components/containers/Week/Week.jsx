@@ -136,7 +136,7 @@ const Week = () => {
               <h1>{getText('programming.title')}</h1>
               <h3>{getText('programming.subtitle1')}</h3>
               <h3>{getText('programming.subtitle2')}</h3>
-              [/*<Days />*/}
+              <Days />
               <StyledButtons>
                 <Link to="/recipes">
                   <ButtonDefault
