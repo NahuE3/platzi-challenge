@@ -215,6 +215,8 @@ const StyledAddToCart = styled.button`
   outline: none;
 `;
 const StyledFooter = styled.div`
+  position: absolute;
+  bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
