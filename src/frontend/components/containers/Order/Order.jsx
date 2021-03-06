@@ -89,6 +89,7 @@ const StyledImgSection = styled.div`
   align-items: center;
   width: 350px;
   height: 200px;
+  margin-bottom: 16px;
   overflow: hidden;
   border-radius: var(--normal-radius) var(--normal-radius) 0 0;
 
