@@ -63,7 +63,7 @@ const Home = () => {
           </li>
         ))}
       </StyledList>
-      <StyledSubtitle>{getText('home.providers')}</StyledSubtitle>
+      {/*<StyledSubtitle>{getText('home.providers')}</StyledSubtitle>*/}
     </Layout>
   );
 };
@@ -115,6 +115,9 @@ const StyledCategory = styled.div`
   }
 `;
 const StyledCatOption = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
   align-items: center;
