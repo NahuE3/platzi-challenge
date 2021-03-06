@@ -47,13 +47,13 @@ const StyledIcon = styled.div`
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  border: 2px solid var(--light-gray);
-  background-color: var(--light-gray);
+  border: 3px solid var(--first-color);
+  background-color: var(--white-color);
 `;
 
 const StyledImg = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: auto;
   object-fit: contain;
   object-position: center;
 `;
