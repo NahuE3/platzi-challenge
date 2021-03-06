@@ -7,51 +7,48 @@ import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
-const ImageSlider = ({ slides }) => {
-  const [current, setCurrent] = useState(0);
-  const length = slides.length;
-
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
+  const SlidesData = ({ value }) => {
+    if (value) {
+      return (
+        <StyledImg
+          srcset="https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0 320w,
+        https://dl.dropboxusercontent.com/s/kuxcs934gk4aur2/Banner_tablet_1.png?dl=0 600w,
+        https://dl.dropboxusercontent.com/s/w9eupyevsq43ocv/Banner_desktop_1.png?dl=0 1100w"
+          alt="Imagen promocional"
+          className="image"
+        />
+      );
+    }
+    return (
+      <StyledImg
+        srcset="https://dl.dropboxusercontent.com/s/asbb5ofggd7zxig/Banner_smartphone_2.png?dl=0 320w,
+      https://dl.dropboxusercontent.com/s/x5n9v1xgqf4h98z/Banner_tablet_2.png?dl=0 600w,
+      https://dl.dropboxusercontent.com/s/xqojzprggr1bpts/Banner_desktop_2.png?dl=0 1100w"
+        alt="Imagen promocional"
+        className="image"
+      />
+    );
   };
 
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
-
-  if (!Array.isArray(slides) || slides.length <= 0) {
-    return null;
-  }
+const ImageSlider = () => {
+  const [current, setCurrent] = useState(false);
 
    return (
     <>
       <StyledButtonCont>
-        <Button onClick={prevSlide} side="left">
-          <HiChevronLeft size="3rem" onClick={prevSlide} />
+        <Button onClick={() => setCurrent(!current)} side="left">
+          <HiChevronLeft size="3rem" onClick={() => setCurrent(!current)} />
         </Button>
         <div></div>
-        <Button onClick={nextSlide} side="right">
-          <HiChevronRight size="3rem" onClick={nextSlide} />
+        <Button onClick={() => setCurrent(!current)} side="right">
+          <HiChevronRight size="3rem" onClick={() => setCurrent(!current)} />
         </Button>
       </StyledButtonCont>
       <StyledWrapper>
       <Slider>
-          {slides.map((slide, index) => {
-            return (
-              <StyledImgSection
-                className={index === current ? 'slide active' : 'slide'}
-                key={index}
-              >
-                {index === current && (
-                  <StyledImg
-                    src={slide.image}
-                    alt="Imagen promocional"
-                    className="image"
-                  />
-                )}
-              </StyledImgSection>
-            );
-          })}
+         <StyledImgSection>
+             <StyledImgSection>{SlidesData(current)}</StyledImgSection>
+         </StyledImgSection>
         </Slider>
       </StyledWrapper>
     </>
