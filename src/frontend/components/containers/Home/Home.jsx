@@ -49,7 +49,7 @@ const Home = () => {
         ))}
       </StyledCategory>
       <StyledSubtitle>{getText('home.popular')}</StyledSubtitle>
-{/*<StyledList>
+<StyledList>
         {categoryList?.slice(0, 7)?.map((item) => (
           <li key={item.id}>
             <RecipesCard
@@ -59,7 +59,7 @@ const Home = () => {
             />
           </li>
         ))}
-      </StyledList>*/}
+      </StyledList>
       {/*<StyledSubtitle>{getText('home.providers')}</StyledSubtitle>*/}
     </Layout>
   );
