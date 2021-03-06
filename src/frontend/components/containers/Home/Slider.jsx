@@ -68,14 +68,25 @@ const StyledWrapper = styled.div`
 `;
 const Slider = styled.section`
   position: relative;
-  height: 456px;
+  height: 400px;
   max-width: 100vw;
+  margin-top:56px;
   display: flex;
   justify-content: center;
   align-items: center;
 
   ${media.tab} {
-    height: 556px;
+    height: 500px;
+  }
+
+  .image {
+    max-width: 100vw;
+    min-width: 100vw;
+    height: 400px;
+
+    ${media.tab} {
+      height: 500px;
+    }
   }
 
   .image {
