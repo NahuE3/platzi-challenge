@@ -23,7 +23,7 @@ import { useStateValue } from '../../../context';
 import { Link } from 'react-router-dom';
 
 const RecipesCard = ({ data, openRecipe }) => {
-  const { picture, name, title, description, total_time, comment } = data;
+  const { picture, name, description, total_time, comment } = data;
   const { formaterValue } = useCurrency();
   const { formatTime } = usePreparationTime();
   const { total } = useRecipePrice({ recipe: data });
