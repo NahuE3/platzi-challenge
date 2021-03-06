@@ -29,7 +29,7 @@ const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
     <StyledCard>
       <StyledImgSection onClick={openRecipe} to={`/recipes/recipe/${name}`}>
         {picture ? (
-          <StyledImg src={picture} alt={`Imagenn del plato ${title}`} />
+          <StyledImg src={picture} alt={`Imagenn del plato ${name}`} />
         ) : (
           <StyledImgHolder>
             <HiOutlinePhotograph size="4rem" color="white" />
