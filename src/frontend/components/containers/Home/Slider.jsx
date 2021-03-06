@@ -10,11 +10,11 @@ import { media } from '../../../const/mediaQuerys';
 const slides = [
   {
     image:
-      'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
+      'https://dl.dropboxusercontent.com/s/asbb5ofggd7zxig/Banner_smartphone_2.png?dl=0',
   },
   {
     image:
-      'https://dl.dropboxusercontent.com/s/asbb5ofggd7zxig/Banner_smartphone_2.png?dl=0',
+      'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
   },
 ];
 
