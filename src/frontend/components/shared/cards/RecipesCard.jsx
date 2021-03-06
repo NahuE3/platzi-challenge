@@ -139,16 +139,14 @@ const StyledImgHolder = styled.div`
   background-color: var(--mid-gray);
 `;
 const StyledInfoSection = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  position: relative; 
 `;
 const StyledInfo = styled.div`
   display: grid;
-  grid-template-rows: max-content 1fr 40px;
-  width: 100%;
-  height: 100%;
+  grid-template-rows: 1fr 1fr 50px;
+  min-height: 100%;
+  max-height: 210px;
+  width: 100%; 
   padding: 20px 10px 10px;
 `;
 const StyledButtonSection = styled.div`
