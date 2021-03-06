@@ -20,6 +20,10 @@ const slides = [
         image:
           'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
       },
+       {
+        image:
+          'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
+      }
 ]
 
 const Home = () => {
