@@ -15,6 +15,13 @@ import { useStateValue } from '../../../context';
 import useCategory from '../../../hooks/useCategory';
 import useLanguage from '../../../hooks/useLanguage';
 
+const slides = [
+      {
+        image:
+          'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
+      },
+]
+
 const Home = () => {
   const { categories } = useStateValue();
   const data = categories.results;
@@ -29,7 +36,7 @@ const Home = () => {
       title="Inicio"
       subtitle="Todo lo que nececitas para cocinar en un solo lugar"
     >
-    <Slider slides={innerWidth < 400 ? SlidesMobile : innerWidth < 1100 ? SlidesTab : SlidesDesktop} />
+    <Slider slides={slides} />
       <StyledSubtitle>
         {getText('home.subtitle')}
       </StyledSubtitle>
