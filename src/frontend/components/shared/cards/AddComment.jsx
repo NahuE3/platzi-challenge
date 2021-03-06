@@ -1,16 +1,21 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 //Import de iconos.
 import { HiOutlineUserCircle, HiReply } from 'react-icons/hi';
 import { BiMailSend } from 'react-icons/bi';
 //Import de componentes.
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
-//Import de media querys.
-import { media } from '../../../const/mediaQuerys';
+
+const userLogged = false;
 
 const AddComment = () => {
+  const [modalLogin, setModalLogin] = useState(false);
+
+  const openModalLogin = () => setModalLogin(true);
+  const closeModalLogin = () => setModalLogin(false);
+
   return (
     <StyledWrapper>
       <StyledHead onClick={() => setOpen(!open)}>
@@ -32,13 +37,17 @@ const AddComment = () => {
         ></StyledTextArea>
       </StyledComment>
       <StyledSubmit>
-        <ButtonDefault primary>
+        <ButtonDefault
+          primary
+          onClick={() => {!userLogged && openModalLogin;}}
+        >
           <StyledButton>
             <span>Enviar</span>
             <BiMailSend size="2rem" />
           </StyledButton>
         </ButtonDefault>
       </StyledSubmit>
+      <ModalLogin isOpen={modalLogin} closeModal={closeModalLogin} />
     </StyledWrapper>
   );
 };
@@ -110,3 +119,4 @@ const StyledButton = styled.div`
 `;
 
 export default AddComment;
+
