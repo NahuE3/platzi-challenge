@@ -1,6 +1,7 @@
 //Encinas Nahuel - Olimpia Challenge
 //Import de librerias.
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 //Import de layout.
 import Layout from '../../layout/Layout';
@@ -64,9 +65,11 @@ const Favorites = () => {
       )}
       {Object.keys(user).length === 0 &&(
         <>
-          <ButtonDefault primary width="100%" height="48px" margin="12px 0 0">
-            {getText('favorites.login')}
-          </ButtonDefault>
+          <Link to="/login">
+            <ButtonDefault primary width="100%" height="48px" margin="12px 0 0">
+              {getText('favorites.login')}
+            </ButtonDefault>
+          </Link>
           <StyledSeparator></StyledSeparator>
 
           <h3>{getText('favorites.subtitle')}</h3>
