@@ -15,12 +15,6 @@ import { useStateValue } from '../../../context';
 import useCategory from '../../../hooks/useCategory';
 import useLanguage from '../../../hooks/useLanguage';
 
-  const slides = () => {
-    if (window.innerWidth < 400) return SlidesMobile;
-    if (window.innerWidth < 1100) return SlidesTab;
-    if (window.innerWidth > 1100) return SlidesDesktop;
-  } 
-
 const Home = () => {
   const { categories } = useStateValue();
   const data = categories.results;
@@ -32,7 +26,7 @@ const Home = () => {
       title="Inicio"
       subtitle="Todo lo que nececitas para cocinar en un solo lugar"
     >
-    <Slider slides={slides} />
+    <Slider slides={SlidesMobile} />
       <StyledSubtitle>
         {getText('home.subtitle')}
       </StyledSubtitle>
