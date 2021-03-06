@@ -15,25 +15,13 @@ import { useStateValue } from '../../../context';
 import useCategory from '../../../hooks/useCategory';
 import useLanguage from '../../../hooks/useLanguage';
 
-const slides = [
-      {
-        image:
-          'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
-      },
-       {
-        image:
-          'https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0',
-      }
-]
+const slides = innerWidth < 400 ? SlidesMobile : innerWidth < 1100 ? SlidesTab : SlidesDesktop
 
 const Home = () => {
   const { categories } = useStateValue();
   const data = categories.results;
   const { categoryList } = useCategory({ category: 0 });
-  const { getText } = useLanguage();
-  const openRecipe = () => {
-    //Funcion de abrir la receta seleccionada
-  };
+  const { getText } = useLanguage(); 
 
   return (
     <Layout
@@ -48,7 +36,7 @@ const Home = () => {
         {data?.slice(0, 4).map((item) => (
           <StyledCatOption
             key={item?.id}
-            // redirigir con onClick={}
+            // redirigir 
           >
             <div>
               {item?.icon && (
