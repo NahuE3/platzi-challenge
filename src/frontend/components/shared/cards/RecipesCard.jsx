@@ -53,8 +53,10 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
 
       <StyledInfoSection>
         <StyledInfo onClick={openRecipe}>
-          <StyledTitle>{name}</StyledTitle>
-          <StyledPrice>{formaterValue({ mount: total })}</StyledPrice>
+          <div>
+            <StyledTitle>{name}</StyledTitle>
+            <StyledPrice>{formaterValue({ mount: total })}</StyledPrice>
+          </div>
           <StyledDescription>{description}</StyledDescription>
 
           <StyledFooter>
@@ -143,6 +145,8 @@ const StyledInfoSection = styled.div`
   justify-content: space-between;
 `;
 const StyledInfo = styled.div`
+  display: grid;
+  grid-template-rows: max-content 1fr 40px;
   width: 100%;
   padding: 20px 10px 10px;
 `;
@@ -198,7 +202,6 @@ const StyledPrice = styled.p`
 const StyledDescription = styled.p`
   display: none;
   height: 100%;
-  max-height: 82px;
   overflow: hidden;
   font-size: var(--small-font-size);
   color: var(--bold-gray);
