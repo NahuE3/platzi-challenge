@@ -7,20 +7,51 @@ import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
-const ImageSlider = () => {
-   return (
+const ImageSlider = ({ slides }) => {
+  const [current, setCurrent] = useState(0);
+  const length = slides.length;
+
+  const nextSlide = () => {
+    setCurrent(current === length - 1 ? 0 : current + 1);
+  };
+
+  const prevSlide = () => {
+    setCurrent(current === 0 ? length - 1 : current - 1);
+  };
+
+  if (!Array.isArray(slides) || slides.length <= 0) {
+    return null;
+  }
+
+  return (
     <>
-      <StyledButtonCont></StyledButtonCont>
+      <StyledButtonCont>
+        <Button onClick={prevSlide} side="left">
+          <HiChevronLeft size="3rem" onClick={prevSlide} />
+        </Button>
+        <div></div>
+        <Button onClick={nextSlide} side="right">
+          <HiChevronRight size="3rem" onClick={nextSlide} />
+        </Button>
+      </StyledButtonCont>
       <StyledWrapper>
         <Slider>
-          <StyledImgSection>
-            <StyledImg
-              srcset="https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0 320w,
-        https://dl.dropboxusercontent.com/s/kuxcs934gk4aur2/Banner_tablet_1.png?dl=0 600w,
-        https://dl.dropboxusercontent.com/s/w9eupyevsq43ocv/Banner_desktop_1.png?dl=0 1100w"
-              alt="Imagen promocional"
-            />
-          </StyledImgSection>
+          {slides.map((slide, index) => {
+            return (
+              <StyledImgSection
+                className={index === current ? 'slide active' : 'slide'}
+                key={index}
+              >
+                {index === current && (
+                  <StyledImg
+                    src={slide.image}
+                    alt="Imagen promocional"
+                    className="image"
+                  />
+                )}
+              </StyledImgSection>
+            );
+          })}
         </Slider>
       </StyledWrapper>
     </>
