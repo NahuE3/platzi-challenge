@@ -124,14 +124,12 @@ const StyledCatOption = styled.div`
   }
 
   div {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     height: 60px;
     width: 60px;
     margin: 0 0 10px;
     border-radius: var(--normal-radius);
     background-color: #ffffff;
+    border: 3px solid var(--first-color);
     overflow: hidden;
 
     ${media.tab} {
@@ -146,8 +144,8 @@ const StyledCatOption = styled.div`
   }
 `;
 const StyledImg = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: auto;
   object-fit: contain;
   object-position: center;
 `;
