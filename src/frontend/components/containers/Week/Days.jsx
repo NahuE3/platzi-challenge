@@ -28,7 +28,7 @@ const Days = () => {
         <StyledDay key={day}>
           <h2>{day}</h2>
           <StyledList>
-            {recipeList?.slice(index, index + 3).map((item) => (
+            {recipeList?.slice(index, index + 4).map((item) => (
               <li key={item.id}>
                 <Recipe
                   data={item}
