@@ -59,7 +59,7 @@ const ModalCart = ({ isOpen, closeModal, recipe }) => {
                   <ButtonOption
                     primary
                     onClick={() => {
-                      //AddToCart
+                      addToCart({ recipe });
                     }}
                   >
                     {getText('modal_cart.buy')}
