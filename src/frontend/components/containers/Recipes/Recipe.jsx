@@ -29,8 +29,6 @@ import usePreparationTime from '../../../hooks/usePreparationTime';
 import useTimer from '../../../hooks/useTimer';
 import useFavorites from '../../../hooks/useFavorites';
 
-// FIXME: Borrar estos datos cuando se conecte a la API
-
 const Recipe = () => {
   const [modalCart, setModalCart] = useState(false);
   const { name } = useParams();
