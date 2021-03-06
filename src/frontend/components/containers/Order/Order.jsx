@@ -33,8 +33,7 @@ const Order = () => {
 
       <StyledSignUpContainer>
         <StyledImgSection>
-          {/* <Image/> */}
-          <StyledImg src="../../../assets/images/ui/follow-order.png" alt="" />
+           <StyledImg src="https://dl.dropboxusercontent.com/s/jwvd3t5h27fuqrw/6447%201.png?dl=0" alt="" />
         </StyledImgSection>
 
         <InputDefault
