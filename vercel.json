@@ -5,5 +5,8 @@
     { "src": "/esbuild.js", "use": "@vercel/node" },
     { "src": "/public/index.js", "use": "@vercel/node" }
   ],
-  "routes": [{ "src": "/(.*)", "dest": "/public/index.js" }]
+  "routes": [
+    { "src": "/(.*)", "dest": "/esbuild.js" },
+    { "src": "/(.*)", "dest": "/public/index.js" }
+  ]
 }
