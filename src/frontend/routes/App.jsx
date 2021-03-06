@@ -18,6 +18,9 @@ import {
   Checkout,
   Address,
   Payment,
+  About,
+  Terms,
+  Privacy
 } from '../components/containers';
 
 const App = () => {
@@ -43,6 +46,9 @@ const App = () => {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/checkout/address" component={Address} />
         <Route exact path="/checkout/payment" component={Payment} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/terms" component={Terms} />
+        <Route exact path="/privacy" component={Privacy} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
