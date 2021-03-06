@@ -8,7 +8,7 @@ import Layout from '../../layout/Layout';
 import Spinner from '../../shared/Spinner';
 import RecipesCard from '../../shared/cards/RecipesCard';
 import Slider from './Slider';
-import { SliderData } from './SliderData';
+import { SlidesMobile, SlidesTab, SlidesDesktop } from './SliderData';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import { useStateValue } from '../../../context';
@@ -29,7 +29,7 @@ const Home = () => {
       title="Inicio"
       subtitle="Todo lo que nececitas para cocinar en un solo lugar"
     >
-      <Slider slides={SliderData} />
+      <Slider slides={innerWidth < 360 ? SlidesMobile : innerWidth < 1200 ? SlidesTab : SlidesDesktop} />
       <StyledSubtitle>
         {getText('home.subtitle')}
       </StyledSubtitle>
