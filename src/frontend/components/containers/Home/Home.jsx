@@ -15,7 +15,11 @@ import { useStateValue } from '../../../context';
 import useCategory from '../../../hooks/useCategory';
 import useLanguage from '../../../hooks/useLanguage';
 
-const slides = innerWidth < 400 ? SlidesMobile : innerWidth < 1100 ? SlidesTab : SlidesDesktop
+const slides = () => {
+    if (innerWidth < 400) return SlidesMobile;
+    if (innerWidth < 1100) return SlidesTab;
+    if (innerWidth > 1100) return SlidesDesktop;
+  } 
 
 const Home = () => {
   const { categories } = useStateValue();
