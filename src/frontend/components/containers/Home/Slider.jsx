@@ -7,48 +7,20 @@ import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 
-  const SlidesData = ({ value }) => {
-    if (value) {
-      return (
-        <StyledImg
-          srcset="https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0 320w,
-        https://dl.dropboxusercontent.com/s/kuxcs934gk4aur2/Banner_tablet_1.png?dl=0 600w,
-        https://dl.dropboxusercontent.com/s/w9eupyevsq43ocv/Banner_desktop_1.png?dl=0 1100w"
-          alt="Imagen promocional"
-          className="image"
-        />
-      );
-    }
-    return (
-      <StyledImg
-        srcset="https://dl.dropboxusercontent.com/s/asbb5ofggd7zxig/Banner_smartphone_2.png?dl=0 320w,
-      https://dl.dropboxusercontent.com/s/x5n9v1xgqf4h98z/Banner_tablet_2.png?dl=0 600w,
-      https://dl.dropboxusercontent.com/s/xqojzprggr1bpts/Banner_desktop_2.png?dl=0 1100w"
-        alt="Imagen promocional"
-        className="image"
-      />
-    );
-  };
-
 const ImageSlider = () => {
-  const [current, setCurrent] = useState(false);
-
    return (
     <>
-      <StyledButtonCont>
-        <Button onClick={() => setCurrent(!current)} side="left">
-          <HiChevronLeft size="3rem" onClick={() => setCurrent(!current)} />
-        </Button>
-        <div></div>
-        <Button onClick={() => setCurrent(!current)} side="right">
-          <HiChevronRight size="3rem" onClick={() => setCurrent(!current)} />
-        </Button>
-      </StyledButtonCont>
+      <StyledButtonCont></StyledButtonCont>
       <StyledWrapper>
-      <Slider>
-         <StyledImgSection>
-             <StyledImgSection><SlidesData value={current}></StyledImgSection>
-         </StyledImgSection>
+        <Slider>
+          <StyledImgSection>
+            <StyledImg
+              srcset="https://dl.dropboxusercontent.com/s/kir8ssl4ylsgpep/Banner_smartphone_1.png?dl=0 320w,
+        https://dl.dropboxusercontent.com/s/kuxcs934gk4aur2/Banner_tablet_1.png?dl=0 600w,
+        https://dl.dropboxusercontent.com/s/w9eupyevsq43ocv/Banner_desktop_1.png?dl=0 1100w"
+              alt="Imagen promocional"
+            />
+          </StyledImgSection>
         </Slider>
       </StyledWrapper>
     </>
@@ -145,3 +117,4 @@ const StyledImg = styled.img`
 `;
 
 export default ImageSlider;
+
