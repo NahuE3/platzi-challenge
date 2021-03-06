@@ -44,7 +44,12 @@ const Navbar = ({ isSearch }) => {
   return (
     <StyledNavContainer>
       <NavLink to="/home">
-        <StyledLogoSection>Foody+</StyledLogoSection>
+        <StyledLogoSection>
+          <img
+            src="https://dl.dropboxusercontent.com/s/dve9gvzusgbcp7r/Recurso_23.png?dl=0"
+            alt=""
+          />
+        </StyledLogoSection>
       </NavLink>
       <div>
         {isSearch ? (
@@ -118,9 +123,13 @@ const StyledNavContainer = styled.nav`
   }
 `;
 const StyledLogoSection = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--black-color) !important;
+  height: 30px;
+  margin-right: -8px;
+
+  img {
+    height: 100%;
+    width: auto;
+  }
 `;
 const StyledButtonsSection = styled.div`
   display: none;
