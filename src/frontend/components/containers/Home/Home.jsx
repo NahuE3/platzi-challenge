@@ -7,7 +7,7 @@ import Layout from '../../layout/Layout';
 //Import de componentes.
 import Spinner from '../../shared/Spinner';
 import RecipesCard from '../../shared/cards/RecipesCard';
-import Slider from './Slider';
+//import Slider from './Slider';
 //import { SlidesMobile, SlidesTab, SlidesDesktop } from './SliderData';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
@@ -26,7 +26,7 @@ const Home = () => {
       title="Inicio"
       subtitle="Todo lo que nececitas para cocinar en un solo lugar"
     >
-        <Slider />
+    {/*<Slider />*/}
       <StyledSubtitle>
         {getText('home.subtitle')}
       </StyledSubtitle>
@@ -49,7 +49,7 @@ const Home = () => {
         ))}
       </StyledCategory>
       <StyledSubtitle>{getText('home.popular')}</StyledSubtitle>
-      <StyledList>
+{/*<StyledList>
         {categoryList?.slice(0, 7)?.map((item) => (
           <li key={item.id}>
             <RecipesCard
@@ -59,7 +59,7 @@ const Home = () => {
             />
           </li>
         ))}
-      </StyledList>
+      </StyledList>*/}
       {/*<StyledSubtitle>{getText('home.providers')}</StyledSubtitle>*/}
     </Layout>
   );
