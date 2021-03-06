@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import usePreparationTime from '../../../hooks/usePreparationTime';
 
 const Recipe = ({ data, openRecipe, addFavorite, favorite }) => {
-  const { id, picture, name, description, price, total_time , name } = data;
+  const { id, picture, description, price, total_time , name } = data;
   const { formatTime } = usePreparationTime();
 
   const [modalCart, setModalCart] = useState(false);
