@@ -15,16 +15,6 @@ import { useStateValue } from '../../../context';
 import useCategory from '../../../hooks/useCategory';
 import useLanguage from '../../../hooks/useLanguage';
 
-// FIXME: Borrar estos datos cuando se conecte a la API
-// const data = ['Pastas', 'De Mar', 'Vegetarianos', 'Facil y Economico'];
-// const recipeData = {
-//   title: 'Titulo de receta',
-//   description:
-//     'Descripcion corta de la receta no mayor a cierto numero de caracteres',
-//   price: 4000,
-//   time: 40,
-// };
-
 const Home = () => {
   const { categories } = useStateValue();
   const data = categories.results;

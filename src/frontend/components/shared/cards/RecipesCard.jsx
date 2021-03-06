@@ -101,9 +101,13 @@ const RecipesCard = ({ data, openRecipe, addFavorite, favorite }) => {
 const StyledCard = styled.div`
   width: 100%;
   min-width: 140px;
-  min-height: 240px;
+  height: 300px;
   border-radius: var(--normal-radius);
   box-shadow: var(--card-shadow);
+
+  ${media.tab} {
+    height: 400px;
+  }
 `;
 const StyledImgSection = styled(Link)`
   display: flex;
@@ -190,6 +194,9 @@ const StyledPrice = styled.p`
 `;
 const StyledDescription = styled.p`
   display: none;
+  height: 100%;
+  max-height: 82px;
+  overflow: hidden;
   font-size: var(--small-font-size);
   color: var(--bold-gray);
 
