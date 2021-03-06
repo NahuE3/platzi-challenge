@@ -10,16 +10,6 @@ import useLanguage from '../../../hooks/useLanguage';
 import useRecipes from '../../../hooks/useRecipes';
 import useCategory from '../../../hooks/useCategory';
 
-// FIXME: Borrar estos datos cuando se conecte a la API
-const recipeData = {
-  title: 'Titulo de receta',
-  description:
-    'Descripcion corta de la receta no mayor a cierto numero de caracteres',
-  price: 4000,
-  time: 40,
-};
-const data = [1, 2, 3, 4];
-
 const Days = () => {
   const { getText } = useLanguage();
   const { recipeList } = useRecipes({ search: '', category: '' });
@@ -38,7 +28,7 @@ const Days = () => {
         <StyledDay key={day}>
           <h2>{day}</h2>
           <StyledList>
-            {recipeList?.slice(index, index + 2).map((item) => (
+            {recipeList?.slice(index, index + 3).map((item) => (
               <li key={item.id}>
                 <Recipe
                   data={item}
