@@ -49,7 +49,7 @@ const Home = () => {
         ))}
       </StyledCategory>
       <StyledSubtitle>{getText('home.popular')}</StyledSubtitle>
-<StyledList>
+<StyledList ref={ref}>
         {recipeList?.slice(0, 5)?.map((item) => (
           <li key={item.id}>
             <RecipesCard
