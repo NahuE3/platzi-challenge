@@ -8,7 +8,7 @@ import Layout from '../../layout/Layout';
 //Import de componentes.
 import InputDefault from '../../shared/inputs/InputDefault';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
-import ButtonLogin from '../../shared/buttons/ButtonLogin';
+import SocialMediaLogin from './SocialMediaLogin';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useForm from '../../../hooks/useForm';
@@ -38,9 +38,7 @@ const SignUp = () => {
       subtitle="Registrate y aumenta tu experiencia en la cocina con Foody+"
       center={true}
     >
-      <StyledCont head>
-        {getText('modal_user.register')}
-      </StyledCont>
+      <StyledCont head>{getText('modal_user.register')}</StyledCont>
 
       <StyledSignUpContainer>
         <InputDefault
@@ -89,13 +87,20 @@ const SignUp = () => {
           width="100%"
           height="48px"
           margin="20px 0 16px"
-          disabled={ !email.success || !user.success || !password.success || !phone.success }
-          onClick={() => registerUser({
-            email: email.value,
-            username: user.value,
-            password: password.value,
-            phone: phone.value,
-          })}
+          disabled={
+            !email.success ||
+            !user.success ||
+            !password.success ||
+            !phone.success
+          }
+          onClick={() =>
+            registerUser({
+              email: email.value,
+              username: user.value,
+              password: password.value,
+              phone: phone.value,
+            })
+          }
         >
           {getText('register.button')}
         </ButtonDefault>
@@ -107,16 +112,7 @@ const SignUp = () => {
         <div></div>
       </StyledSeparator>
 
-      <StyledButtonsContainer>
-        <ButtonLogin icon="Facebook" width="100%" margin="16px 0 0">
-          {/* {innerWidth < 700 ? 'Continuar con Facebook' : 'Facebook'} */}
-          {getText('register.facebook')}
-        </ButtonLogin>
-        <ButtonLogin icon="Google" width="100%" margin="16px 0 0">
-          {/* {innerWidth < 700 ? 'Continuar con Google' : 'Google'} */}
-          {getText('register.google')}
-        </ButtonLogin>
-      </StyledButtonsContainer>
+      <SocialMediaLogin />
 
       <StyledSignUp>
         {getText('register.dont_user')}
@@ -134,22 +130,6 @@ const StyledSignUpContainer = styled.div`
   }
   ${media.tab} {
     width: 400px;
-  }
-`;
-const StyledButtonsContainer = styled.div`
-  display: grid;
-  margin-bottom: 2rem;
-
-  ${media.mobile} {
-    max-width: 400px;
-    width: 100%;
-  }
-
-  ${media.tab} {
-    margin-bottom: 8rem;
-    width: 400px;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 16px;
   }
 `;
 const StyledForgot = styled.div`

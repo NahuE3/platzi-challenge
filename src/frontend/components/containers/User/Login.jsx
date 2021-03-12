@@ -9,6 +9,7 @@ import Layout from '../../layout/Layout';
 import InputDefault from '../../shared/inputs/InputDefault';
 import ButtonDefault from '../../shared/buttons/ButtonDefault';
 import ButtonLogin from '../../shared/buttons/ButtonLogin';
+import SocialMediaLogin from './SocialMediaLogin';
 //Import de media querys.
 import { media } from '../../../const/mediaQuerys';
 import useForm from '../../../hooks/useForm';
@@ -87,16 +88,7 @@ const Login = () => {
         <div></div>
       </StyledSeparator>
 
-      <StyledButtonsContainer>
-        <ButtonLogin icon="Facebook" width="100%" margin="16px 0 0">
-          {/* {innerWidth < 700 ? 'Continuar con Facebook' : 'Facebook'} */}
-          {getText('login.facebook')}
-        </ButtonLogin>
-        <ButtonLogin icon="Google" width="100%" margin="16px 0 0">
-          {/* {innerWidth < 700 ? 'Continuar con Google' : 'Google'} */}
-          {getText('login.google')}
-        </ButtonLogin>
-      </StyledButtonsContainer>
+      <SocialMediaLogin />
 
       <StyledSignUp>
         <span>{getText('login.dont_user')}</span>
